@@ -1,0 +1,26 @@
+Options -MultiViews
+RewriteEngine On
+
+ErrorDocument 404 /ErrorPage.php
+RewriteRule ^home?$ index.php
+
+RewriteRule ^logout(.*)?$ bamboo/sign_out.php
+
+RewriteRule ^dashboard?$ apps/dashboard/view/index.php
+
+###auth
+RewriteRule ^add-new-users(.*)?$ apps/auth/view/do.add-new-users.php
+
+RewriteRule ^manage-users(.*)?$ apps/auth/view/do.manage-users.php
+
+
+###contacts
+RewriteRule ^manage-contacts(.*)?$ apps/contacts/view/do.manage-contacts.php
+
+###crm
+RewriteRule ^setup-customers(.*)?$ apps/crm/view/do.setup-customers.php
+RewriteRule ^manage-customers(.*)?$ apps/crm/view/do.manage-customers.php
+RewriteRule ^sales-lead(.*)?$ apps/crm/view/do.new-lead.php
+RewriteRule ^manage-leads(.*)?$ apps/crm/view/do.manage-leads.php
+
+
