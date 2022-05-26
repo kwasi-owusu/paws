@@ -1,23 +1,16 @@
 <?php
 require_once '../../template/index.php';
 
-require_once 'DoCustomerCors.php';
-$page_name         = "add_new_customer";
-$token             = DoCustomerCors::addCustomer($page_name);
-
-$_SESSION['addCustomerTkn']  = $token;
-
-require_once('../controller/GetAllCustomers.php');
-$getCustomers = GetAllCustomers::allCustomerListController();
+require_once('../controller/GetAllSalesLead.php');
+$getSalesLeads = GetAllSalesLead::callAllSalesLeads();
 
 ?>
 
 <div id="content" class="main-content">
-    <div class="layout-px-spacing">
+    <div class="layout-px-spsling">
 
-        <div class="row layout-top-spacing">
-
-            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+        <div class="row layout-top-spsling">
+            <div class="col-xl-12 col-lg-12 col-sm-12  layout-spsling">
                 <div class="widget-content widget-content-area br-6">
                     <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                         <thead>
@@ -28,10 +21,11 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                 <th>Phone</th>
                                 <th>Lead Type</th>
                                 <th>Potential Opportunity</th>
-                                <th>Chance of Sales</th>
-                                <th>Forecast Close/th>
+                                <th>Chance of Sales(%)</th>
+                                <th>Forecast Close</th>
                                 <th>Weighted Forecast</th>
-                                <th class="dt-no-sorting">Action</th>
+                                <th>Lead Status</th>
+                                <th class="dt-no-sorting">Actions</th>
                             </tr>
                         </thead>
                         <tfoot>
@@ -42,39 +36,44 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                 <th>Phone</th>
                                 <th>Lead Type</th>
                                 <th>Potential Opportunity</th>
-                                <th>Chance of Sales</th>
-                                <th>Forecast Close/th>
+                                <th>Chance of Sales(%)</th>
+                                <th>Forecast Close</th>
                                 <th>Weighted Forecast</th>
-                                <th class="dt-no-sorting">Action</th>
+                                <th>Lead Status</th>
+                                <th class="dt-no-sorting">Actions</th>
                             </tr>
                         </tfoot>
                         <tbody>
 
                             <?php
-                            foreach ($getCustomers as $ac) {
-                                $_status    = $ac['customerStatus'];
+                            foreach ($getSalesLeads as $sl) {
                                 $thisStatus = '';
-                                switch ($_status) {
+                                $leadStatus = $sl['lead_status'];
+
+                                switch ($leadStatus) {
+                                    case 0:
+                                        $thisStatus .= 'Deactivated';
+                                        break;
+
                                     case 1:
                                         $thisStatus .= 'Active';
                                         break;
-                                    case 2:
-                                        $thisStatus .= 'Deactivated';
-                                        break;
+
                                     default:
-                                        $thisStatus .= '';
+                                        $thisStatus .= 'Active';
                                 }
                             ?>
                                 <tr>
-                                    <td><?php echo $ac['cat_name']; ?></td>
-                                    <td><?php echo $ac['CCCode']; ?></td>
-                                    <td><?php echo $ac['customa_name']; ?></td>
-                                    <td><?php echo $ac['customa_email']; ?></td>
-                                    <td><?php echo $ac['customa_phone']; ?></td>
-                                    <td><?php echo $ac['customa_address1']; ?></td>
+                                    <td><?php echo $sl['lead_name']; ?></td>
+                                    <td><?php echo $sl['lead_source']; ?></td>
+                                    <td><?php echo $sl['lead_email']; ?></td>
+                                    <td><?php echo $sl['lead_phone']; ?></td>
+                                    <td><?php echo $sl['lead_type']; ?></td>
+                                    <td><?php echo number_format($sl['potential_opportunity'], 2); ?></td>
+                                    <td><?php echo $sl['chance_of_sales']; ?></td>
+                                    <td><?php echo $sl['forecast_close']; ?></td>
+                                    <td><?php echo $sl['weighted_forecast']; ?></td>
                                     <td><?php echo $thisStatus; ?></td>
-                                    <td><?php echo $ac['contact_person']; ?></td>
-                                    <td><?php echo $ac['contact_person_phone']; ?></td>
                                     <td>
                                         <div class="btn-group">
                                             <!-- <button type="button" class="btn btn-dark btn-sm">Open</button> -->
@@ -85,16 +84,12 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuReference28">
 
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="editThisUser(this)" data-toggle="modal" data-target="#manageUserModalLG">
-                                                    Edit Customer
+                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $sl['lead_ID']; ?>" onclick="editThisUser(this)" data-toggle="modal" data-target="#manageUserModalLG">
+                                                    Edit Lead
                                                 </a>
 
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="changePassword(this)" data-toggle="modal" data-target="#manageUserModalSM">
-                                                    Delete Customer
-                                                </a>
-
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deactivateUser(this)" data-toggle="modal" data-target="#manageUserModalSM">
-                                                    Change Status
+                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $sl['lead_ID']; ?>" onclick="changePassword(this)" data-toggle="modal" data-target="#manageUserModalSM">
+                                                    Delete Lead
                                                 </a>
 
                                             </div>
@@ -157,8 +152,8 @@ $getCustomers = GetAllCustomers::allCustomerListController();
 require_once '../../template/footer.php';
 ?>
 
-<script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
-<script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
+<script src="template/statics/assets/plugins/notification/snslkbar/snslkbar.min.js"></script>
+<script src="template/statics/assets/js/components/notification/custom-snslkbar.js"></script>
 <script src="auth/js/extra.js"></script>
 
 </body>
