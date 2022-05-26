@@ -22,5 +22,6 @@ RewriteRule ^setup-customers(.*)?$ apps/crm/view/do.setup-customers.php
 RewriteRule ^manage-customers(.*)?$ apps/crm/view/do.manage-customers.php
 RewriteRule ^sales-lead(.*)?$ apps/crm/view/do.new-lead.php
 RewriteRule ^manage-leads(.*)?$ apps/crm/view/do.manage-leads.php
+RewriteRule ^sales-pipeline(.*)?$ apps/crm/view/do.sales-pipeline.php
 
 
