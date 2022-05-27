@@ -1,6 +1,13 @@
 <?php
 require_once '../../template/index.php';
 
+require_once 'DoCustomerCors.php';
+$page_name         = "sales_pipeline";
+$getToken          = DoCustomerCors::salesPipeline($page_name);
+
+$_SESSION['addSalesLeadTkn']  = $getToken;
+
+
 require_once('../controller/GetAllSalesLead.php');
 $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
 
@@ -133,24 +140,25 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
             </div>
         </div>
 
-        <div class="row scrumboard" id="cancel-row">
-            <div class="col-lg-12 layout-spacing" style="overflow-y: scroll; height: 800px;">
+        <div class="row scrumboard" id="cancel-row" style="overflow-y: scroll; height: 600px;">
+            <div class="col-lg-12 layout-spacing">
 
                 <div class="task-list-section">
 
                     <div data-section="s-new" class="task-list-container" data-connect="sorting">
+
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="New Lead">Prospecting</h6>
                             </div>
 
-                            <div class="connect-sorting-content" data-sortable="true">
+                            <div class="connect-sorting-content" data-sortable="true" id="1">
 
                                 <div data-draggable="true" class="card img-task" style="">
                                     <div class="card-body">
 
                                         <div class="task-content">
-                                            <img src="assets/img/taskboard.jpg" class="img-fluid" alt="scrumboard">
+                                            <img src="template/statics/assets/img/taskboard.jpg" class="img-fluid" alt="scrumboard">
                                         </div>
 
                                         <div class="task-header">
@@ -230,8 +238,8 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                                 <h6 class="s-heading" data-listTitle="Qualifying">Qualifying</h6>
                             </div>
 
-                            <div class="connect-sorting-content" data-sortable="true">
-                                <div data-draggable="true" class="card simple-title-task ui-sortable-handle" style="">
+                            <div class="connect-sorting-content" data-sortable="true" id="2">
+                                <div data-draggable="true" class="card simple-title-task ui-sortable-handle" style="" id="Dinner">
                                     <div class="card-body">
 
                                         <div class="task-header">
@@ -254,7 +262,7 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                                     </div>
                                 </div>
 
-                                <div data-draggable="true" class="card task-text-progress" style="">
+                                <div data-draggable="true" class="card task-text-progress" style="" id="Launch">
                                     <div class="card-body">
 
                                         <div class="task-header">
@@ -328,11 +336,11 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Contacting">Contacting</h6>
-                                
+
                             </div>
 
 
-                            <div class="connect-sorting-content" data-sortable="true">
+                            <div class="connect-sorting-content" data-sortable="true" id="3">
 
                             </div>
 
@@ -352,11 +360,11 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Negotiation">Negotiation</h6>
-                                
+
                             </div>
 
 
-                            <div class="connect-sorting-content" data-sortable="true">
+                            <div class="connect-sorting-content" data-sortable="true" id="4">
 
                             </div>
 
@@ -376,14 +384,14 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Closed Won">Closed Won</h6>
-                                
-                            </div>
-
-
-                            <div class="connect-sorting-content" data-sortable="true">
 
                             </div>
-                            
+
+
+                            <div class="connect-sorting-content" data-sortable="true" id="5">
+
+                            </div>
+
                         </div>
                     </div>
 
@@ -392,11 +400,11 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Closed Lost">Closed Lost</h6>
-                                
+
                             </div>
 
 
-                            <div class="connect-sorting-content" data-sortable="true">
+                            <div class="connect-sorting-content" data-sortable="true" id="6">
 
                             </div>
                         </div>
@@ -405,47 +413,15 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                 </div>
             </div>
         </div>
-
-    </div>
-</div>
-</div>
-
-<div class="modal fade bd-example-modal-lg" tabindex="-1" id="manageUserModalLG" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Manage User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body" id="userModalContentLG">
-
-            </div>
+        <div class="col-12">
+            <div class="loader multi-loader mx-auto" style="display: none;" id="loader"></div>
+            <p style="display: none" id="pipeCors"><?php echo $getToken; ?></p>
+            <h4 id="srcResponse"></h4>
+            <h4 id="targetResponse"></h4>
         </div>
+
     </div>
 </div>
-
-<div class="modal fade bd-example-modal-sm" tabindex="-1" id="manageUserModalSM" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Manage User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body" id="userModalContentSM">
-
-            </div>
-        </div>
-    </div>
 </div>
 
 <?php
