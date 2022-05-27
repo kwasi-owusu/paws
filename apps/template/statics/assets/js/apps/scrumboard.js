@@ -28,12 +28,48 @@ $(function() {
             placeholder: "ui-state-highlight",
             refreshPosition: true,
             stop: function( event, ui ) {
-                var parent_ui = ui.item.parent().attr('data-section');
+                
+                let targetId = ui.item.parent().attr('id');
+                
+                let sourceId = ui.item.attr('id');
+
+                let pipeCors = $('#pipeCors').html();
+                
+                //let sourceId = ui.item.parent().attr('data-section');
+
+                $("#loader").show(); 
+
+                $('#targetResponse').html(targetId);
+                $('#srcResponse').html(sourceId);
+
+                $.ajax({
+                    url: "crm/controller/UpdateCustomerPipeline.php",
+                    method: "POST",
+                    data: {
+                        sourceId: sourceId,
+                        targetId: targetId,
+                        pipeCors: pipeCors
+                       // pipeId: pipeId
+                    },
+                    success: function (data) {
+                        $('#submit_output').fadeOut('slow', function(){
+                            // Snackbar.show({
+                            //     text: data,
+                            //     actionTextColor: '#fff',
+                            //     backgroundColor: '#2196f3'
+                            // });
+                            
+                            $("#loader").hide();
+                            //setInterval('location.reload()', 3000);
+                        });
+                    }
+                });
 
             },
             update: function( event, ui ) {
                 console.log(ui);
                 console.log(ui.item);
+               
             }
         });
     }
