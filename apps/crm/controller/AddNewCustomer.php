@@ -3,18 +3,17 @@
 session_start();
 class AddNewCustomer
 {
-    static public function addNewCustomerController(){
-        require_once ('../../model/crm/CustomerModel.php');
+    public static function addNewCustomerController(){
+        require_once ('../model/CustomerModel.php');
         $tkn = trim($_POST['tkn']);
         $error = false;
-        if (isset($_SESSION['customer_ors']) && $_SESSION['customer_ors'] == $tkn){
-            $cust_cat           = trim($_POST['cust_cat']);
-            $customa_name       = trim($_POST['customa_name']);
-            $CCCode             = trim($_POST['CCCode']);
-            $customa_email      = trim($_POST['customa_email']);
-            $customa_phone      = trim($_POST['customa_phone']);
-            $contact_person     = trim($_POST['contact_person']);
-            $contact_person_phone     = trim($_POST['contact_person_phone']);
+        if (isset($_SESSION['addCustomerTkn']) && $_SESSION['addCustomerTkn'] == $tkn){
+            $customa_name       = strip_tags(trim($_POST['customa_name']));
+            $CCCode             = strip_tags(trim($_POST['CCCode']));
+            $customa_email      = strip_tags(trim($_POST['customa_email']));
+            $customa_phone      = strip_tags(trim($_POST['customa_phone']));
+            $contact_person     = strip_tags(trim($_POST['contact_person']));
+            $contact_person_phone     = strip_tags(trim($_POST['contact_person_phone']));
 
             ############## customer address ############
             $customer_address       = strip_tags(trim($_POST['customer_address']));
@@ -68,7 +67,7 @@ class AddNewCustomer
                 $customerKey = hash_hmac('sha512', $customa_name, $CCCode);
 
                 $added_by   = $_SESSION['uid'];
-                $tblName    = 'customers';
+                $tbl        = 'customers';
                 $data       = array(
                     'cc'=>$cust_cat,
                     'cn'=>$customa_name,
@@ -101,5 +100,4 @@ class AddNewCustomer
     }
 }
 
-$callMethod     = new AddNewCustomer();
-$thisMethod     = $callMethod->addNewCustomerController();
+AddNewCustomer::addNewCustomerController();

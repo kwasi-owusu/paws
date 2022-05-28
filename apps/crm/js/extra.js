@@ -56,3 +56,34 @@ $('#sales_leads_form').on('submit', function(e){
         }
     });
 });
+
+
+$('#customer_add_frm').on('submit', function(e){
+
+    $('#saveBtn').prop('disabled', true);
+    $("#loader").show(); 
+    e.preventDefault();
+    $.ajax({
+        url: "crm/controller/AddNewCustomer.php",
+        method: "POST",
+        data: new FormData(this),
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(data){
+            $('#responseHere').fadeOut('slow', function(){
+                Snackbar.show({
+                    text: data,
+                    actionTextColor: '#fff',
+                    backgroundColor: '#2196f3'
+                });
+
+                $("#loader").hide(); 
+
+                setInterval('location.reload()', 3000);
+            });
+
+            $('#saveBtn').prop('disabled', false);
+        }
+    });
+});

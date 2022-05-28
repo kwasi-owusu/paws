@@ -1,5 +1,7 @@
 <?php
 require_once '../../template/index.php';
+require_once '../../settings/controller/CountriesCtrl.php';
+$allCountries = CountriesCtrl::getAllCountries();
 
 require_once 'DoCustomerCors.php';
 $page_name         = "add_new_customer";
@@ -19,7 +21,7 @@ $_SESSION['addCustomerTkn']  = $token;
 
 
                         <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                            <form id="user_add_frm" class="section work-experience" action="" method="post" autocomplete="off">
+                            <form id="customer_add_frm" class="section work-experience" action="" method="post" autocomplete="off">
                                 <div class="info">
                                     <h5 class="">Add a new Customer</h5>
                                     <div class="row">
@@ -88,8 +90,8 @@ $_SESSION['addCustomerTkn']  = $token;
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label for="lastName" class="bmd-label-floating"> Select Customer Country*</label>
-                                                                <select class="form-control mb-4" id="wes-from1" id="rle" name="rle">
-                                                                    <option value="000">No Role Available</option>
+                                                                <select class="form-control mb-4" id="wes-from1" id="country" name="country">
+                                                                    <option value="000">No Country Available</option>
                                                                 </select>
                                                             </div>
                                                         </div>
@@ -110,7 +112,28 @@ $_SESSION['addCustomerTkn']  = $token;
 
                                                     </div>
                                                 </div>
+                                               
+                                                <h5>Contact Person- <small>If customer is an Institution.</small></h5>
+                                                <small>This details is added to your contacts automatically.</small>
+                                                                                                
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lastName" class="bmd-label-floating"> Contact Person Name. </label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="contact_person" name="contact_person" required>
+                                                            </div>
+                                                        </div>
 
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lastName" class="bmd-label-floating"> Contact Person Phone</label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="contact_person_phone" name="contact_person_phone">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
                                                 <div class="col-12">
                                                     <div class="loader multi-loader mx-auto" style="display: none;" id="loader"></div>
                                                 </div>
