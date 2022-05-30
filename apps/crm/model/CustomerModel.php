@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class CustomerModel
 {
     static public function addCustomerCategory($tblName, $data)
@@ -37,39 +37,62 @@ class CustomerModel
     }
 
 
-    static public function addNewCustomer($tblName, $data)
+    static public function addNewCustomer($tbl, $data)
     {
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
 
         if ($thisPDO->beginTransaction()) {
 
+            // $data       = array(
+            //     'cn' => $customa_name,
+            //     'ccd' => $CCCode,
+            //     'ce' => $customa_email,
+            //     'cp' => $customa_phone,
+            //     'cad' => $customer_address,
+            //     'cfn' => $contact_person_fname,
+            //     'cln' => $contact_person_lname,
+            //     'cph' => $contact_person_phone,
+            //     'adb' => $added_by,
+            //     'cpe' => $contact_person_email,
+            //     'ck' => $customerKey,
+            //     'cad_b' => $customer_address_b,
+            //     'tc' => $town_city,
+            //     'st' => $state,
+            //     'cty' => $country
+            // );
+
             try {
 
-                $stmt = $thisPDO->prepare("INSERT INTO $tblName(CCCode, cust_cat, customa_name, customa_email, customa_phone, customa_address1, 
-            customer_key, customa_address2, town_city, state, country, contact_person, contact_person_phone, addeddBy) 
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute(array($data['ccd'], $data['cc'], $data['cn'], $data['ce'], $data['cp'], $data['cad'], $data['ck'], $data['cad_b'], $data['tc'],
-                    $data['st'], $data['cty'], $data['cps'], $data['cpsp'], $data['adb']));
+                $stmt = $thisPDO->prepare("INSERT INTO $tbl(CCCode, customer_key, customa_name, customa_email, customa_phone, customa_address1, 
+                town_city, state, country, addedBy, merchant_ID) 
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute(array(
+                    $data['ccd'], $data['ck'], $data['cn'], $data['ce'], $data['cp'], $data['cad'], $data['tc'],
+                    $data['st'], $data['cty'], $data['adb'], $data['md']
+                ));
 
                 $lastInserted_ID = $thisPDO->lastInsertId();
 
                 $activity_type = "New Customer Added";
                 $activity = "New Customer added with id " . $lastInserted_ID;
+                
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
 
                 $contact_type = "Customer";
 
-                $cnt = $thisPDO->prepare("INSERT INTO contact_tbl(contact_name, contact_phone, company_name, contact_type, addedBy) VALUES (?, ?, ?, ?, ?)");
-                $cnt->execute(array($data['cps'], $data['cpsp'], $data['cn'], $contact_type, $data['adb'],));
+                $cnt = $thisPDO->prepare("INSERT INTO contacts(contact_key, firstName, lastName, contact_email, contact_phone, addedBy) 
+                VALUES (?, ?, ?, ?, ?, ?)");
+                $cnt->execute(array($data['ck'], $data['cfn'], $data['cln'], $data['cpe'], $data['cph'], $data['adb'],));
 
                 $thisPDO->commit();
 
                 return $stmt;
             } catch (PDOException $e) {
                 $thisPDO->rollBack();
+                echo $e->getMessage();
             }
         }
     }
@@ -138,7 +161,7 @@ class CustomerModel
                 $stmt->bindParam('ccid', $data['cd'], PDO::PARAM_STR);
                 $stmt->execute();
 
-                $lastInserted_ID =$thisPDO->lastInsertId();
+                $lastInserted_ID = $thisPDO->lastInsertId();
 
                 $activity_type = "Customer Credit Limit Updated";
                 $activity = "Customer Credit Limit with id " . $lastInserted_ID;
@@ -155,7 +178,7 @@ class CustomerModel
         }
     }
 
-    
+
 
     static public function editContact($tbl, $data)
     {
@@ -197,8 +220,4 @@ class CustomerModel
             }
         }
     }
-
-
 }
-
-

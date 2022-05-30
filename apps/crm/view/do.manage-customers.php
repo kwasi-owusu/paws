@@ -22,29 +22,29 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                     <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                         <thead>
                             <tr>
-                                <th>Customer Category</th>
                                 <th>Customer Code</th>
                                 <th>Customer Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
+                                <th>City</th>
+                                <th>State/Region</th>
+                                <th>Country</th>
                                 <th>Status</th>
-                                <th>Contact Person/th>
-                                <th>Contact Person Phone</th>
                                 <th class="dt-no-sorting">Action</th>
                             </tr>
                         </thead>
                         <tfoot>
                             <tr>
-                                <th>Customer Category</th>
                                 <th>Customer Code</th>
                                 <th>Customer Name</th>
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
                                 <th>Status</th>
-                                <th>Contact Person/th>
-                                <th>Contact Person Phone</th>
+                                <th>City</th>
+                                <th>State/Region</th>
+                                <th>Country</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -66,15 +66,15 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                 }
                             ?>
                                 <tr>
-                                    <td><?php echo $ac['cat_name']; ?></td>
                                     <td><?php echo $ac['CCCode']; ?></td>
                                     <td><?php echo $ac['customa_name']; ?></td>
                                     <td><?php echo $ac['customa_email']; ?></td>
                                     <td><?php echo $ac['customa_phone']; ?></td>
                                     <td><?php echo $ac['customa_address1']; ?></td>
+                                    <td><?php echo $ac['town_city']; ?></td>
+                                    <td><?php echo $ac['name']; ?></td>
+                                    <td><?php echo $ac['country_name']; ?></td>
                                     <td><?php echo $thisStatus; ?></td>
-                                    <td><?php echo $ac['contact_person']; ?></td>
-                                    <td><?php echo $ac['contact_person_phone']; ?></td>
                                     <td>
                                         <div class="btn-group">
                                             <!-- <button type="button" class="btn btn-dark btn-sm">Open</button> -->
@@ -85,15 +85,15 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuReference28">
 
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="editThisUser(this)" data-toggle="modal" data-target="#manageUserModalLG">
+                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="editThisCustomer(this)" data-toggle="modal" data-target="#manageCustomerModalLG">
                                                     Edit Customer
                                                 </a>
 
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="changePassword(this)" data-toggle="modal" data-target="#manageUserModalSM">
+                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deleteCustomer(this)" data-toggle="modal" data-target="#deleteConformation">
                                                     Delete Customer
                                                 </a>
 
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deactivateUser(this)" data-toggle="modal" data-target="#manageUserModalSM">
+                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deactivateCustomer(this)" data-toggle="modal" data-target="#deactivateCustomer">
                                                     Change Status
                                                 </a>
 
@@ -115,11 +115,10 @@ $getCustomers = GetAllCustomers::allCustomerListController();
 </div>
 </div>
 
-<div class="modal fade bd-example-modal-lg" tabindex="-1" id="manageUserModalLG" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="manageCustomerModalLG" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Manage User</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
                         <line x1="18" y1="6" x2="6" y2="18"></line>
@@ -127,28 +126,47 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                     </svg>
                 </button>
             </div>
-            <div class="modal-body" id="userModalContentLG">
+            <div class="modal-body" id="customerModalContentLG">
 
             </div>
         </div>
     </div>
 </div>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" id="manageUserModalSM" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
+
+
+<div class="modal fade" id="deleteConformation" tabindex="-1" role="dialog" aria-labelledby="deleteConformationLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="deleteConformationLabel">
             <div class="modal-header">
-                <h5 class="modal-title" id="myLargeModalLabel">Manage User</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                <div class="icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
+                        <polyline points="3 6 5 6 21 6"></polyline>
+                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        <line x1="10" y1="11" x2="10" y2="17"></line>
+                        <line x1="14" y1="11" x2="14" y2="17"></line>
                     </svg>
+                </div>
+                <h5 class="modal-title" id="exampleModalLabel">Delete this Customer?</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="userModalContentSM">
+            <form id="customer_delete_frm" class="section work-experience" action="" method="post" autocomplete="off">
+                <div class="modal-body">
+                    <p class="">If you delete this customer it will be gone forever. Are you sure you want to proceed?</p>
 
-            </div>
+                    <input type="hidden" class="form-control input-lg m-bot15" id="customer_ID" name="customer_ID" value="<?php echo $ac['customa_ID']; ?>" readonly>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-danger" id="saveBtn">Delete</button>
+                    <!-- <button type="button" class="btn btn-danger" data-remove="task">Delete</button> -->
+                </div>
+
+                <p id="responseHere"></p>
+            </form>
         </div>
     </div>
 </div>
@@ -159,7 +177,38 @@ require_once '../../template/footer.php';
 
 <script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
 <script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
-<script src="auth/js/extra.js"></script>
+<script src="crm/js/extra.js"></script>
+
+<script>
+    $("#customer_delete_frm").on("submit", function(e) {
+        $("#saveBtn").prop("disabled", true);
+        $("#loader").show();
+        e.preventDefault();
+        $.ajax({
+            url: "crm/controller/UpdateCustomerDetailsController.php",
+            method: "POST",
+            data: new FormData(this),
+            contentType: false,
+            cache: false,
+            processData: false,
+            success: function(data) {
+                $("#responseHere").fadeOut("slow", function() {
+                    Snackbar.show({
+                        text: data,
+                        actionTextColor: "#fff",
+                        backgroundColor: "#2196f3",
+                    });
+
+                    $("#loader").hide();
+
+                    setInterval("location.reload()", 3000);
+                });
+
+                $("#saveBtn").prop("disabled", false);
+            },
+        });
+    });
+</script>
 
 </body>
 

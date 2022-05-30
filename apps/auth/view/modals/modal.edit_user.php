@@ -49,7 +49,7 @@ $callUser       = $getUser->fetch(PDO::FETCH_ASSOC);
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label for="degree3">Email</label>
-                                            <input type="email" class="form-control mb-4" id="email" name="user_email" placeholder="User Email" value="<?php echo $callUser['userEmail'] ?>" required>
+                                            <input type="email" class="form-control mb-4" id="email" name="user_email" placeholder="User Email" value="<?php echo $callUser['userEmail'] ?>" required readonly>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
@@ -114,7 +114,7 @@ $callUser       = $getUser->fetch(PDO::FETCH_ASSOC);
             </div>
         </div>
         <div class="col-md-12 text-right mb-5">
-            <button type="submit" class="btn btn-secondary" id="saveBtn">Submit</button>
+            <button type="submit" class="btn btn-secondary" id="saveBtnModal">Submit</button>
         </div>
     </form>
 </div>
@@ -123,7 +123,7 @@ $callUser       = $getUser->fetch(PDO::FETCH_ASSOC);
     //submit change user role form
     $('#edit_user_frm').on('submit', function(e) {
         $("#loader").show();
-        $("#saveBtn").prop('disabled',true);
+        $("#saveBtnModal").prop('disabled',true);
         e.preventDefault();
         $.ajax({
             url: "auth/controller/UpdateUserController.php",

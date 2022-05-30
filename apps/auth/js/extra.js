@@ -190,3 +190,29 @@ function IsNumeric(e) {
     let ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
     return ret;
 }
+
+
+$(document).on("change keyup blur", "#user_email", function () {
+    let email = $(this).val();
+    let check_where = "users";
+  
+    $.ajax({
+      url: "settings/controller/CheckEmails.php",
+      type: "POST",
+      //dataType:"json",
+      data: { email: email, check_where: check_where },
+      success: function (data) {
+        
+        if(data =="Email Exists"){
+          $("#saveBtn").prop("disabled", true);
+  
+          $("#responseHere").html(data);
+      }
+      else{
+        $("#saveBtn").prop("disabled", false);
+  
+          $("#responseHere").text("");
+      }
+      },
+    });
+  })

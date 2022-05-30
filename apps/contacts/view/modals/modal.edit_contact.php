@@ -94,7 +94,7 @@ $cst    = GetThisContact::thisContact($contact_ID);
         <hr />
         <div class="row">
             <div class="col-md-12 text-right mb-5">
-                <button type="submit" class="btn btn-secondary" id="saveBtn">Add</button>
+                <button type="submit" class="btn btn-secondary" id="saveBtnModal">Update</button>
             </div>
         </div>
     </form>
@@ -108,7 +108,7 @@ $cst    = GetThisContact::thisContact($contact_ID);
 <script>
     $('#edit_contact_frm').on('submit', function(e) {
         $("#loader").show();
-        $('#saveBtn').prop('disabled', true);
+        $('#saveBtnModal').prop('disabled', true);
         e.preventDefault();
         $.ajax({
             url: "contacts/controller/UpdateContactDetailsController.php",

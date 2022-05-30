@@ -7,12 +7,10 @@ $(document).on(
 
     let wtf = chance_of_sales * potential_opportunity;
 
-    if (potential_opportunity !== '' || chance_of_sales !== '') {
+    if (potential_opportunity !== "" || chance_of_sales !== "") {
       $("#weighted_forecast").val(wtf).toFixed(2);
-    }
-
-    else{
-        $("#weighted_forecast").val("000");
+    } else {
+      $("#weighted_forecast").val("000");
     }
   }
 );
@@ -27,63 +25,147 @@ function IsNumeric(e) {
   return ret;
 }
 
-$('#sales_leads_form').on('submit', function(e){
+$("#sales_leads_form").on("submit", function (e) {
+  $("#saveBtn").prop("disabled", true);
+  $("#loader").show();
+  e.preventDefault();
+  $.ajax({
+    url: "crm/controller/NewSalesLeads.php",
+    method: "POST",
+    data: new FormData(this),
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function (data) {
+      $("#responseHere").fadeOut("slow", function () {
+        Snackbar.show({
+          text: data,
+          actionTextColor: "#fff",
+          backgroundColor: "#2196f3",
+        });
 
-    $('#saveBtn').prop('disabled', true);
-    $("#loader").show(); 
-    e.preventDefault();
-    $.ajax({
-        url: "crm/controller/NewSalesLeads.php",
-        method: "POST",
-        data: new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(data){
-            $('#responseHere').fadeOut('slow', function(){
-                Snackbar.show({
-                    text: data,
-                    actionTextColor: '#fff',
-                    backgroundColor: '#2196f3'
-                });
+        $("#loader").hide();
 
-                $("#loader").hide(); 
+        setInterval("location.reload()", 3000);
+      });
 
-                setInterval('location.reload()', 3000);
-            });
+      $("#saveBtn").prop("disabled", false);
+    },
+  });
+});
 
-            $('#saveBtn').prop('disabled', false);
-        }
-    });
+$("#customer_add_frm").on("submit", function (e) {
+  $("#saveBtn").prop("disabled", true);
+  $("#loader").show();
+  e.preventDefault();
+  $.ajax({
+    url: "crm/controller/AddNewCustomer.php",
+    method: "POST",
+    data: new FormData(this),
+    contentType: false,
+    cache: false,
+    processData: false,
+    success: function (data) {
+      $("#responseHere").fadeOut("slow", function () {
+        Snackbar.show({
+          text: data,
+          actionTextColor: "#fff",
+          backgroundColor: "#2196f3",
+        });
+
+        $("#loader").hide();
+
+        setInterval("location.reload()", 3000);
+      });
+
+      $("#saveBtn").prop("disabled", false);
+    },
+  });
+});
+
+//get all states_regions from selected country
+$(document).on("change", "#thisCountry", function () {
+  let cty = $(this).val();
+
+  $.ajax({
+    url: "settings/controller/States.php",
+    type: "POST",
+    //dataType:"json",
+    data: { country: cty },
+    success: function (data) {
+      $("#states_here").html(data);
+    },
+  });
+});
+
+//get all cities
+$(document).on("change", "#state_region", function () {
+  let stt = $(this).val();
+
+  $.ajax({
+    url: "settings/controller/Cities.php",
+    type: "POST",
+    //dataType:"json",
+    data: { region: stt },
+    success: function (data) {
+      $("#cities_here").html(data);
+    },
+  });
 });
 
 
-$('#customer_add_frm').on('submit', function(e){
+//check if customer email exists
+$(document).on("change keyup blur", "#customa_email", function () {
+  let email = $(this).val();
+  let check_where = "customers";
 
-    $('#saveBtn').prop('disabled', true);
-    $("#loader").show(); 
-    e.preventDefault();
-    $.ajax({
-        url: "crm/controller/AddNewCustomer.php",
-        method: "POST",
-        data: new FormData(this),
-        contentType: false,
-        cache: false,
-        processData: false,
-        success: function(data){
-            $('#responseHere').fadeOut('slow', function(){
-                Snackbar.show({
-                    text: data,
-                    actionTextColor: '#fff',
-                    backgroundColor: '#2196f3'
-                });
+  $.ajax({
+    url: "settings/controller/CheckEmails.php",
+    type: "POST",
+    //dataType:"json",
+    data: { email: email, check_where: check_where },
+    success: function (data) {
+      
+      if(data =="Email Exists"){
+        $("#saveBtn").prop("disabled", true);
 
-                $("#loader").hide(); 
+        $("#responseHere").html(data);
+    }
+    else{
+      $("#saveBtn").prop("disabled", false);
 
-                setInterval('location.reload()', 3000);
-            });
+        $("#responseHere").text("");
+    }
+    },
+  });
+})
 
-            $('#saveBtn').prop('disabled', false);
-        }
-    });
-});
+//fill contact person
+$(document).on("change keyup blur", "#customa_name", function () {
+  let customer_name = $(this).val();
+
+  $("#contact_person").val(customer_name)
+})
+
+
+//generate customer code
+let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+let code_length = 6;
+let customer_code = "";
+for (var i = 0; i < code_length; i++) {
+  
+  let gen_code = Math.floor(Math.random() * chars.length);
+  
+  customer_code += chars.substring(gen_code, gen_code + 1);
+}
+$("#CCCode").val(customer_code);
+
+
+//edit customer modal
+function editThisCustomer(itm) {
+  let id = $(itm).attr("data-id");
+  $('<div>').load('crm/view/modals/modal.edit_customer.php?id=' + id, function(data) {
+      $("#customerModalContentLG").html(data);
+  });
+
+}

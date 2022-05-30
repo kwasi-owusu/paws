@@ -1,0 +1,4 @@
+Error 1:
+When clicking on a menu item takes me to the root folder:
+
+Solution: a div, a property or an element is not properly closed

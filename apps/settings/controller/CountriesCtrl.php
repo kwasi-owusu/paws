@@ -2,7 +2,7 @@
 class CountriesCtrl{
     public static function getAllCountries(){
         
-        require_once '../model/Countries.php';
+        require_once '../../settings/model/Countries.php';
                 
         $getRst     = Countries::allCountries();
 

@@ -122,8 +122,8 @@ $loadRoles = GetAllUsers::doAllUsers();
     </div>
 </div>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" id="manageUserModalSM" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-sm" role="document">
+<div class="modal fade bd-example-modal-lg" tabindex="-1" id="manageUserModalSM" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="myLargeModalLabel">Manage User</h5>

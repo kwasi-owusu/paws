@@ -75,7 +75,7 @@ $cntAllContacts = $loadContacts->rowCount();
                                                             <div class="col-md-6">
                                                                 <div class="contact-location">
                                                                     <i class="flaticon-telephone"></i>
-                                                                    <input type="email" id="emails" name="contact_email" class="form-control" placeholder="Email" required>
+                                                                    <input type="email" id="contact_email" name="contact_email" class="form-control" placeholder="Email" required>
                                                                     <span class="validation-text"></span>
                                                                 </div>
                                                             </div>
@@ -115,20 +115,18 @@ $cntAllContacts = $loadContacts->rowCount();
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <hr />
-                                                        <div class="row">
-                                                            <div class="col-md-12 text-right mb-5">
-                                                                <button type="submit" class="btn btn-secondary" id="saveBtn">Add</button>
-                                                            </div>
+                                                        <p></p>
+                                                        <div class="col-md-12 text-right mb-5">
+                                                            <button type="submit" class="btn btn-secondary" id="saveBtn">Add</button>
                                                         </div>
+                                                        <p id="responseHere"></p>
+                                                        <small id="errorResponseHere" style="color:red;"></small>
                                                     </form>
 
                                                     <div class="col-12">
                                                         <div class="loader multi-loader mx-auto" style="display: none;" id="loader"></div>
                                                     </div>
                                                 </div>
-                                                <p id="responseHere"></p>
                                             </div>
                                         </div>
                                     </div>
@@ -207,26 +205,16 @@ $cntAllContacts = $loadContacts->rowCount();
                                             <p class="usr-ph-no" data-phone=""><?php echo $cnt['contact_notes']; ?></p>
                                         </div>
                                         <div class="action-btn">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-                                            class="feather feather-edit-2 edit" onclick="editContact(this)" data-toggle="modal" data-target="#manageContactModalSM"  
-                                            data-id="<?php echo $cnt['contact_ID']; ?>">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 edit" onclick="editContact(this)" data-toggle="modal" data-target="#manageContactModalSM" data-id="<?php echo $cnt['contact_ID']; ?>">
                                                 <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
                                             </svg>
 
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" 
-                                            class="feather feather-user-minus delete warning cancel" data-id="<?php echo $cnt['contact_ID']; ?>" 
-                                            data-toggle="modal" data-target="#manageContactModalSM" onclick="deleteContact(this)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user-minus delete warning cancel" data-id="<?php echo $cnt['contact_ID']; ?>" data-toggle="modal" data-target="#manageContactModalSM" onclick="deleteContact(this)">
                                                 <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
                                                 <circle cx="8.5" cy="7" r="4"></circle>
                                                 <line x1="23" y1="11" x2="17" y2="11"></line>
                                             </svg>
-
-                                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" onclick="viewThisContact(this)" data-toggle="modal" data-target="#manageContactModalSM"  
-                                            data-id="<?php echo $cnt['contact_ID']; ?>" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" 
-                                            stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye edit">
-                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-                                                <circle cx="12" cy="12" r="3"></circle>
-                                            </svg> -->
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -246,23 +234,42 @@ $cntAllContacts = $loadContacts->rowCount();
 
 </div>
 
-<div class="modal fade bd-example-modal-sm" tabindex="-1" id="manageContactModalSM" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+<!-- <div class="modal fade bd-example-modal-sm" tabindex="-1" id="manageContactModalSM" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
-                </button>
-            </div>
-            <div class="modal-body" id="contactModalContentSM">
-                
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x">
+                            <line x1="18" y1="6" x2="6" y2="18"></line>
+                            <line x1="6" y1="6" x2="18" y2="18"></line>
+                        </svg>
+                    </button>
+                </div>
+                <div class="modal-body" id="contactModalContentSM">
+
+                </div>
             </div>
         </div>
     </div>
-</div>
+</div> -->
+
+<div class="modal fade" id="manageContactModalSM" tabindex="-1" role="dialog" aria-labelledby="deleteConformationLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content" id="deleteConformationLabel">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="contactModalContentSM">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 
 
 
@@ -295,6 +302,35 @@ require_once '../../template/footer.php';
             }
         });
     });
+</script>
+
+<script>
+    $(document).on("change keyup blur", "#contact_email", function() {
+        let email = $(this).val();
+        let check_where = "contacts";
+
+        $.ajax({
+            url: "settings/controller/CheckEmails.php",
+            type: "POST",
+            //dataType:"json",
+            data: {
+                email: email,
+                check_where: check_where
+            },
+            success: function(data) {
+
+                if (data == "Email Exists") {
+                    $("#saveBtn").prop("disabled", true);
+
+                    $("#errorResponseHere").html(data);
+                } else {
+                    $("#saveBtn").prop("disabled", false);
+
+                    $("#errorResponseHere").text("");
+                }
+            },
+        });
+    })
 </script>
 <script src="contacts/js/extra.js"></script>
 
