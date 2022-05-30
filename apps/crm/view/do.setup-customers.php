@@ -1,5 +1,7 @@
 <?php
 require_once '../../template/index.php';
+require_once '../../settings/controller/CountriesCtrl.php';
+$allCountries = CountriesCtrl::getAllCountries();
 
 require_once 'DoCustomerCors.php';
 $page_name         = "add_new_customer";
@@ -19,7 +21,7 @@ $_SESSION['addCustomerTkn']  = $token;
 
 
                         <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
-                            <form id="user_add_frm" class="section work-experience" action="" method="post" autocomplete="off">
+                            <form id="customer_add_frm" class="section work-experience" action="" method="post" autocomplete="off">
                                 <div class="info">
                                     <h5 class="">Add a new Customer</h5>
                                     <div class="row">
@@ -32,8 +34,10 @@ $_SESSION['addCustomerTkn']  = $token;
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="firstName" class="bmd-label-floating"> Customer Code *</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="CCCode" name="CCCode" required value="<?php echo rand(1, date('Y')) * rand(1, date('Y')); ?>">
-                                                                <input type="hidden" class="form-control input-lg m-bot15" id="tkn" name="tkn" value="<?php echo $getToken; ?>" readonly>
+                                                                <!-- <input type="text" class="form-control input-lg m-bot15" id="CCCode" name="CCCode" required value="<?php //echo rand(1, date('Y')) * rand(1, date('Y')); 
+                                                                                                                                                                        ?>"> -->
+                                                                <input type="text" class="form-control input-lg m-bot15" id="CCCode" name="CCCode" required>
+                                                                <input type="hidden" class="form-control input-lg m-bot15" id="tkn" name="tkn" value="<?php echo $token; ?>" readonly>
                                                             </div>
                                                         </div>
 
@@ -51,7 +55,7 @@ $_SESSION['addCustomerTkn']  = $token;
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lastName" class="bmd-label-floating"> Customer Email *</label>
+                                                                <label for="lastName" class="bmd-label-floating"> Customer Email * <small id="responseHere" style="color:red"></small></label>
                                                                 <input type="email" class="form-control input-lg m-bot15" id="customa_email" name="customa_email">
                                                             </div>
                                                         </div>
@@ -69,15 +73,23 @@ $_SESSION['addCustomerTkn']  = $token;
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lastName" class="bmd-label-floating"> Customer Address Line 1*</label>
+                                                                <label for="lastName" class="bmd-label-floating"> Customer Address (Street/GeoCode)</label>
                                                                 <input type="text" class="form-control input-lg m-bot15" id="customer_address" name="customer_address" required>
                                                             </div>
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lastName" class="bmd-label-floating"> Customer Address Line 2</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="customer_address_b" name="customer_address_b">
+                                                                <label for="lastName" class="bmd-label-floating"> Select Customer Country*</label>
+                                                                <select class="form-control mb-4" id="thisCountry" name="country">
+                                                                    <?php
+                                                                    foreach ($allCountries as $cty) {
+                                                                    ?>
+                                                                        <option value="<?php echo $cty['id']; ?>"><?php echo $cty['country_name']; ?></option>
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+                                                                </select>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -85,26 +97,66 @@ $_SESSION['addCustomerTkn']  = $token;
 
                                                 <div class="col-md-12">
                                                     <div class="row">
-                                                        <div class="col-md-4">
+
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lastName" class="bmd-label-floating"> Select Customer Country*</label>
-                                                                <select class="form-control mb-4" id="wes-from1" id="rle" name="rle">
-                                                                    <option value="000">No Role Available</option>
+                                                                <label for="lastName" class="bmd-label-floating"> State/Region *</label>
+                                                                <select class="form-control mb-4" id="state_region" name="state">
+                                                                    <option value="000">Select State/Region</option>
+                                                                    <optgroup id="states_here">
+
+                                                                    </optgroup>
                                                                 </select>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-4">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lastName" class="bmd-label-floating"> State/Region *</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="state" name="state" required>
+                                                                <label for="lastName" class="bmd-label-floating"> City/Town*</label>
+                                                                <input type="text" class="form-control input-lg m-bot15" name="town_city" list="cities_here">
+                                                                <datalist id="cities_here">
+
+                                                                </datalist>
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-4">
+                                                    </div>
+                                                </div>
+
+                                                <h5>Contact Person- <small>If customer is an Institution.</small></h5>
+                                                <small>This details is added to your contacts automatically.</small>
+
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lastName" class="bmd-label-floating"> City/Town*</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="town_city" name="town_city" required>
+                                                                <label for="lastName" class="bmd-label-floating"> Contact Person First Name. </label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="contact_person_fname" name="contact_person_fname" required>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lastName" class="bmd-label-floating"> Contact Person Last Name</label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="contact_person_lname" name="contact_person_lname">
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <div class="row">
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lastName" class="bmd-label-floating"> Contact Person Phone</label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="contact_person_phone" name="contact_person_phone">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="lastName" class="bmd-label-floating"> Contact Person Email</label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="contact_person_email" name="contact_person_email">
                                                             </div>
                                                         </div>
 
@@ -116,7 +168,6 @@ $_SESSION['addCustomerTkn']  = $token;
                                                 </div>
                                             </div>
                                         </div>
-                                        <p id="responseHere"></p>
                                     </div>
                                 </div>
                                 <div class="col-md-12 text-right mb-5">
@@ -140,7 +191,7 @@ require_once '../../template/footer.php';
 
 <script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
 <script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
-<script src="auth/js/extra.js"></script>
+<script src="crm/js/extra.js"></script>
 
 </body>
 

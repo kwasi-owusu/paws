@@ -3,10 +3,14 @@
 class GetAllCustomers
 {
 static public function allCustomerListController(){
+    
     $tbl_a = 'customers';
-    $tbl_b = 'customercategories';
+    $tbl_b = 'countries';
+    $tbl_c = 'states';
+    
     require_once('../model/AllCustomerList.php');
-    $allCustomers    = AllCustomerList::fetchAllCustomerList($tbl_a, $tbl_b);
+    
+    $allCustomers    = AllCustomerList::fetchAllCustomerList($tbl_a, $tbl_b, $tbl_c);
 
     return $allCustomers;
 }

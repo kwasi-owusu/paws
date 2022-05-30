@@ -51,8 +51,8 @@ $_SESSION['addUserTkn']  = $token;
                                                         <div class="row">
                                                             <div class="col-md-6">
                                                                 <div class="form-group">
-                                                                    <label for="degree3">Email</label>
-                                                                    <input type="email" class="form-control mb-4" id="email" name="user_email" placeholder="User Email" required>
+                                                                    <label for="degree3">Email <small id="responseHere" style="color:red"></small></label>
+                                                                    <input type="email" class="form-control mb-4" id="user_email" name="user_email" placeholder="User Email" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-md-6">
