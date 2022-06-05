@@ -1,20 +1,18 @@
 <?php
 
 //session_start();
-class GetAllSalesLead
+require_once('../model/AllSaleLeads.php');
+class GetAllSalesLead extends AllSaleLeads
 {
-    static public function callAllSalesLeads()
+    public static function callAllSalesLeads()
     {
-        require_once('../model/AllSaleLeads.php');
-        $me             = $_SESSION['uid'];
-        $merchant_ID    = $_SESSION['merchant_ID'];
-        $userType       = $_SESSION['user_type'];
+        
         $tbl            = 'sales_lead';
 
         $data = array(
-            'm' => $me,
-            'md' => $merchant_ID,
-            'ust'=> $userType,
+            'm' => $_SESSION['uid'],
+            'md' => $_SESSION['merchant_ID'],
+            'ust'=> $_SESSION['user_type']
         );
 
         $getRst         = AllSaleLeads::SalesLeads($tbl, $data);

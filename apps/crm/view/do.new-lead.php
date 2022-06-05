@@ -30,8 +30,8 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lead_name" class="bmd-label-floating"> Lead Name *</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="lead_name" name="lead_name" placeholder="Lead Name" required>
+                                                                <label for="lead_name" class="bmd-label-floating"> Lead (Customer) Name *</label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="lead_name" name="lead_name" placeholder="Lead (Customer)Name" required>
                                                             </div>
                                                         </div>
 
@@ -82,7 +82,11 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                                     <div class="row">
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="lead_type" class="bmd-label-floating"> Lead Type*</label>
+                                                                <label for="lead_type" class="bmd-label-floating"> Lead Type *
+                                                                    <span class="bs-popover rounded" data-container="body" data-trigger="hover" data-content="A sales lead is a person or business who may eventually become a client." style="cursor: pointer;">
+                                                                        ?
+                                                                    </span>
+                                                                </label>
                                                                 <select class="form-control mb-4" id="wes-from1" id="lead_type" name="lead_type">
                                                                     <option value="Cold">Cold Lead</option>
                                                                     <option value="Warm">Warm Lead</option>
@@ -93,27 +97,12 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
 
                                                         <div class="col-md-6">
                                                             <div class="form-group">
-                                                                <label for="potential_opportunity" class="bmd-label-floating"> Potential Opportunity</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="potential_opportunity" name="potential_opportunity" 
-                                                                placeholder="Potential Opportunity" onkeypress="return IsNumeric(event);" ondrop="return false;">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                                <label for="forecast_close" class="bmd-label-floating"> Forecast Close *
 
-                                                <div class="col-md-12">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="chance_of_sales" class="bmd-label-floating"> Chance of Sales (%)</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="chance_of_sales" name="chance_of_sales" 
-                                                                value="10" max="100" onkeypress="return IsNumeric(event);" ondrop="return false;" style="font-weight:bolder;">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-4">
-                                                            <div class="form-group">
-                                                                <label for="forecast_close" class="bmd-label-floating"> Forecast Close *</label>
+                                                                    <span class="bs-popover rounded" data-container="body" data-trigger="hover" data-content="Expected month to close deal." style="cursor: pointer;">
+                                                                        ?
+                                                                    </span>
+                                                                </label>
                                                                 <select class="form-control mb-4" id="wes-from1" id="forecast_close" name="forecast_close" required>
                                                                     <option value="January">January</option>
                                                                     <option value="February">February</option>
@@ -130,15 +119,61 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                                                 </select>
                                                             </div>
                                                         </div>
+                                                        
+                                                    </div>
+                                                </div>
 
-                                                        <div class="col-md-4">
+                                                <div class="col-md-12">
+                                                    <div class="row">
+                                                    <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="potential_opportunity" class="bmd-label-floating"> Potential Opportunity
+                                                                    <span class="bs-popover rounded" data-container="body" data-trigger="hover" data-content="Sales Amount involved." style="cursor: pointer;">
+                                                                        ?
+                                                                    </span>
+                                                                </label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="potential_opportunity" name="potential_opportunity" placeholder="Potential Opportunity" onkeypress="return IsNumeric(event);" ondrop="return false;">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="chance_of_sales" class="bmd-label-floating"> Chance of Sales (%)
+
+                                                                    <span class="bs-popover rounded" data-container="body" data-trigger="hover" data-content="Percentage Chance of closing this sales deal. For cold leas, you may set 10%; 25% for warm lead and 50% for hot lead" style="cursor: pointer;">
+                                                                        ?
+                                                                    </span>
+
+                                                                </label>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="chance_of_sales" name="chance_of_sales" value="10" max="100" onkeypress="return IsNumeric(event);" ondrop="return false;" style="font-weight:bolder;">
+                                                            </div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-12">
+                                                    <div class=" row">
+                                                        <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="weighted_forecast" class="bmd-label-floating"> Weighted Forecast*</label>
-                                                                <input type="text" class="form-control input-lg m-bot15" id="weighted_forecast" style="font-weight:bolder;"
-                                                                name="weighted_forecast" required>
+                                                                <input type="text" class="form-control input-lg m-bot15" id="weighted_forecast" style="font-weight:bolder;" name="weighted_forecast" required>
                                                             </div>
                                                         </div>
 
+                                                        <div class="col-md-6">
+                                                            <div class="form-group">
+                                                                <label for="weighted_forecast" class="bmd-label-floating"> Pipeline Stage*</label>
+                                                                <select class="form-control mb-4" id="wes-from1" id="pipeline_stage" name="pipeline_stage" required>
+                                                                    <option value="Prospecting" selected>Prospecting</option>
+                                                                    <option value="Qualifying">Qualifying</option>
+                                                                    <option value="Contacted">Contacted</option>
+                                                                    <option value="Negotiation">Negotiation</option>
+                                                                    <option value="Closed Won">Closed Won</option>
+                                                                    <option value="Closed Loss">Closed Lost</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
 
@@ -164,19 +199,19 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                         <h6>Types of Leads</h6>
 
                                         <p class="mb-0 mt-3">
-                                        <span style="font-weight:bolder;">A cold lead </span>is one that hasn't shown any interest in your product, yet perfectly fits your ideal customer.
+                                            <span style="font-weight:bolder;">A cold lead </span>is one that hasn't shown any interest in your product, yet perfectly fits your ideal customer.
                                         </p>
-                                        
+
                                         <p class="mb-0 mt-3">
-                                        <span style="font-weight:bolder;">A warm  </span> is one that is already familiar with the way your business. 
-                                        These are the type of leads who happen to follow your blogs, watches your videos, 
-                                        or even gained familiarity through a past conversation with someone else.
-                                        Any user that has your product in their wish list is automatically added to a warm lead
+                                            <span style="font-weight:bolder;">A warm </span> is one that is already familiar with the way your business.
+                                            These are the type of leads who happen to follow your blogs, watches your videos,
+                                            or even gained familiarity through a past conversation with someone else.
+                                            Any user that has your product in their wish list is automatically added to a warm lead
                                         </p>
-                                        
+
                                         <p class="mb-0 mt-3">
-                                        <span style="font-weight:bolder;">A Hot lead </span> the kind of lead that has shown interest in your product in one way or the other. 
-                                        Any user that has your product in their cart is automatically added to a hot lead
+                                            <span style="font-weight:bolder;">A Hot lead </span> the kind of lead that has shown interest in your product in one way or the other.
+                                            Any user that has your product in their cart is automatically added to a hot lead
                                         </p>
 
                                     </div>
@@ -196,6 +231,7 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
 <?php
 require_once '../../template/footer.php';
 ?>
+
 
 <script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
 <script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>

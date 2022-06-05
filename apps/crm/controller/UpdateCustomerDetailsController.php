@@ -3,7 +3,7 @@
 session_start();
 class UpdateCustomerDetailsController
 {
-    static public function updateCustomerDetails(){
+    public static function updateCustomerDetails(){
         require_once ('../../model/crm/CustomerModel.php');
         $tkn = trim($_POST['tkn']);
         $error = false;
@@ -89,5 +89,4 @@ class UpdateCustomerDetailsController
     }
 }
 
-$callMethod     = new UpdateCustomerDetailsController();
-$thisMethod     = $callMethod->updateCustomerDetails();
+UpdateCustomerDetailsController::updateCustomerDetails();
