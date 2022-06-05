@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 class CheckEmails{
     
     public static function checkThisEmail(){
@@ -12,7 +12,8 @@ class CheckEmails{
             if($where_to_check == "customers"){
 
                 $val    = $email_to_check;
-                $getRst = CheckEmailsMdl::checkCustomerEmail($val);
+                $merchant_id    = $_SESSION['merchant_ID'];
+                $getRst = CheckEmailsMdl::checkCustomerEmail($val, $merchant_id);
 
                 $cnt_email = $getRst->rowCount();
                 if($cnt_email > 0){
@@ -25,7 +26,8 @@ class CheckEmails{
 
             elseif($where_to_check == "users"){
                 $val    = $email_to_check;
-                $getRst = CheckEmailsMdl::checkUserEmail($val);
+                $merchant_id    = $_SESSION['merchant_ID'];
+                $getRst = CheckEmailsMdl::checkUserEmail($val, $merchant_id);
 
                 $cnt_email = $getRst->rowCount();
                 if($cnt_email > 0){
@@ -37,8 +39,9 @@ class CheckEmails{
             }
 
             elseif($where_to_check == "contacts"){
-                $val    = $email_to_check;
-                $getRst = CheckEmailsMdl::checkContactEmail($val);
+                $val            = $email_to_check;
+                $merchant_id    = $_SESSION['merchant_ID'];
+                $getRst = CheckEmailsMdl::checkContactEmail($val, $merchant_id);
 
                 $cnt_email = $getRst->rowCount();
                 if($cnt_email > 0){

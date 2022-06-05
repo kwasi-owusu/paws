@@ -78,6 +78,8 @@ $fetchMenuItems = $menu_Items->fetchAll();
     <link href="template/statics/assets/css/apps/scrumboard.css" rel="stylesheet" type="text/css" />
     <link href="template/statics/assets/css/forms/theme-checkbox-radio.css" rel="stylesheet" type="text/css">
 
+    <link href="template/statics/assets/css/elements/popover.css" rel="stylesheet" type="text/css" />
+
     <style>
         .layout-px-spacing {
             min-height: calc(100vh - 166px) !important;

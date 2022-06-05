@@ -13,8 +13,8 @@ class SalesLeadModel
             try {
 
                 $stmt = $thisPDO->prepare("INSERT INTO $tbl(lead_name, lead_source, lead_email, lead_phone, lead_type, potential_opportunity, 
-                chance_of_sales, forecast_close, weighted_forecast, merchant_ID, addedBy) 
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                chance_of_sales, forecast_close, weighted_forecast, pipeline_stage, merchant_ID, addedBy) 
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute(array(
                     $data['ldn'],
                     $data['lds'],
@@ -25,11 +25,31 @@ class SalesLeadModel
                     $data['ldc'],
                     $data['ldf'],
                     $data['ldw'],
+                    $data['stg'],
                     $data['md'],
                     $data['adb']
                 ));
 
                 $lastInserted_ID = $thisPDO->lastInsertId();
+
+                //insert into sales pipeline
+                $pipeline = $thisPDO->prepare("INSERT INTO sales_pipeline (lead_ID, lead_name, lead_source, lead_email, lead_phone, lead_type, 
+                potential_opportunity, chance_of_sales, forecast_close, weighted_forecast, pipeline_stage, merchant_ID)
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $pipeline->execute(array(
+                    $lastInserted_ID, 
+                    $data['ldn'],
+                    $data['lds'],
+                    $data['lde'],
+                    $data['ldp'],
+                    $data['ldt'],
+                    $data['ldo'],
+                    $data['ldc'],
+                    $data['ldf'],
+                    $data['ldw'],
+                    $data['stg'],
+                    $data['md'],
+                ));
 
                 $activity_type = "New Sales Lead Added";
                 $activity = "Sales Lead added with id " . $lastInserted_ID;

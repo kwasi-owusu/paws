@@ -81,3 +81,5 @@
 <!-- END PAGE LEVEL CUSTOM SCRIPTS -->
 
 <script src="template/statics/assets/js/scrollspyNav.js"></script>
+
+<script src="template/statics/assets/js/elements/popovers.js"></script>

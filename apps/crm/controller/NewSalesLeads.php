@@ -19,6 +19,8 @@ class NewSalesLeads
             $forecast_close  = strip_tags(trim($_POST['forecast_close']));
             $weighted_forecast  = strip_tags(trim($_POST['weighted_forecast']));
 
+            $pipeline_stage     = strip_tags(trim($_POST['pipeline_stage']));
+
 
             if (empty($lead_name)) {
                 $error = true;
@@ -63,6 +65,7 @@ class NewSalesLeads
                     'ldc' => $chance_of_sales,
                     'ldf'=> $forecast_close,
                     'ldw' => $weighted_forecast,
+                    'stg' => $pipeline_stage,
                     'adb' => $addedBy,
                     'md' => $merchant_ID
                 );
