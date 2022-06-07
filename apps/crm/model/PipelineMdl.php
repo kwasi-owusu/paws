@@ -175,9 +175,7 @@ class PipelineMdl
             } catch (PDOException $e) {
                 echo "Failed";
             }
-        }
-
-        else{
+        } else {
             try {
 
                 $year        = Date('Y');
@@ -202,36 +200,50 @@ class PipelineMdl
         }
     }
 
-    public static function getQualifyingFunnel($tbl_a, $merchant_id, $myRole)
+    public static function getQualifyingFunnel($merchant_id, $myRole)
     {
-        try {
+        if ($myRole == 2) {
+            try {
 
-            $year        = Date('Y');
-
-            $stmt = Connection::connect()->prepare("SELECT $tbl_a.pipeline_ID, $tbl_a.potential_opportunity, SUM($tbl_a.potential_opportunity) 
-            AS ProspectValue 
-            FROM $tbl_a
-            WHERE $tbl_a.pipeline_stage = 'Qualifying'
-            AND YEAR($tbl_a.system_date) = :yr
-            AND $tbl_a.merchant_ID = :md
-            ");
-            $stmt->bindParam('yr', $year, PDO::PARAM_STR);
-            $stmt->bindParam('md', $merchant_id, PDO::PARAM_STR);
-            $stmt->execute();
-
-            return $stmt->fetch(PDO::FETCH_ASSOC);
-        } catch (PDOException $e) {
-            echo "Failed";
-        }
-    }
-
-    public function qualifiedFromProspecting($tbl_a, $tbl_b, $merchant_id, $myRole)
-    {
-        $year        = Date('Y');
-        $stmt = Connection::connect()->prepare("SELECT lead_ID, potential_opportunity, COUNT(pipeline_stage) AS total_lead, merchant_ID, system_date 
+                $year        = Date('Y');
+                $stmt = Connection::connect()->prepare("SELECT lead_ID, potential_opportunity, COUNT(pipeline_stage) AS total_lead, merchant_ID, system_date 
         FROM sales_pipeline WHERE pipeline_stage = 'Qualifying'
         AND merchant_ID = :md
         AND YEAR(system_date) = :yr
         AND pipeline_stage IN (SELECT * FROM sales_funnel WHERE previous_pipeline_stage = 'Prospecting')");
+                $stmt->bindParam('yr', $year, PDO::PARAM_STR);
+                $stmt->bindParam('md', $merchant_id, PDO::PARAM_STR);
+                $stmt->execute();
+
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo "Failed";
+            }
+        }
+
+        else{
+            try {
+
+                $year        = Date('Y');
+                $stmt = Connection::connect()->prepare("SELECT lead_ID, potential_opportunity, COUNT(pipeline_stage) AS total_lead, merchant_ID, system_date 
+        FROM sales_pipeline WHERE pipeline_stage = 'Qualifying'
+        AND merchant_ID = :md
+        AND YEAR(system_date) = :yr
+        AND addedBy = :me
+        AND pipeline_stage IN (SELECT * FROM sales_funnel WHERE previous_pipeline_stage = 'Prospecting')");
+                
+                $stmt->bindParam('md', $merchant_id, PDO::PARAM_STR);
+                $stmt->bindParam('me', $user_ID, PDO::PARAM_STR);
+                $stmt->bindParam('yr', $year, PDO::PARAM_STR);
+                
+                $stmt->execute();
+
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                echo "Failed";
+            }
+        }
     }
+
+   
 }
