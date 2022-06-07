@@ -7,6 +7,7 @@ class AllSaleLeads
     {
 
         if ($data['ust'] == 2) {
+            //merchant admin can see all sales leads for their institution
             $stmt = Connection::connect()->prepare("SELECT * FROM $tbl WHERE merchant_ID = :merchant_ID ORDER BY lead_ID DESC");
             $stmt->bindParam('merchant_ID', $data['md'], PDO::PARAM_STR);
 
@@ -14,6 +15,8 @@ class AllSaleLeads
 
             return $stmt->fetchAll();
         } else {
+
+            // select sales leads created by only you.
             $stmt = Connection::connect()->prepare("SELECT * FROM $tbl WHERE addedBy = :me ORDER BY lead_ID DESC");
             $stmt->bindParam('me', $data['m'], PDO::PARAM_STR);
 
