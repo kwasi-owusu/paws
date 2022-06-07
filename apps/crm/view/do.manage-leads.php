@@ -87,11 +87,7 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                                                 <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $sl['lead_ID']; ?>" onclick="editThisUser(this)" data-toggle="modal" data-target="#manageUserModalLG">
                                                     Edit Lead
                                                 </a>
-
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $sl['lead_ID']; ?>" onclick="changePassword(this)" data-toggle="modal" data-target="#manageUserModalSM">
-                                                    Delete Lead
-                                                </a>
-
+                                                
                                             </div>
                                         </div>
                                     </td>

@@ -4,7 +4,7 @@ require_once '../../template/statics/conn/connection.php';
 class AllUsersModel
 {
     //select all user
-    static public function allUsers($merchant_ID, $myRole){
+    static public function allUsers($merchant_ID, $myRole, $user_ID){
 
         if($myRole == 1){
             $stmt = Connection::connect()->prepare("SELECT users.*, user_roles.*
@@ -39,6 +39,15 @@ class AllUsersModel
         $stmt->bindParam('md', $merchant_ID, PDO::PARAM_STR);
         $stmt->execute();
             
+        }
+
+        else{
+            $stmt = Connection::connect()->prepare("SELECT users.*, user_roles.*
+        FROM users
+        INNER JOIN user_roles ON users.userRole = user_roles.role_ID 
+        WHERE users.user_ID = :me");
+        $stmt->bindParam('me', $user_ID, PDO::PARAM_STR);
+        $stmt->execute();
         }
     }
 }

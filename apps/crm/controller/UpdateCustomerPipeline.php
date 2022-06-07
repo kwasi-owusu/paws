@@ -24,7 +24,7 @@ class UpdateCustomerPipeline
                     'td' => $targetId,
                     'pd' => $pipelineID
                 );
-                if ($getRst = PipelineMdl::doPipeline($tbl, $data)){
+                if ($getRst = PipelineMdl::updatePipeline($tbl, $data)){
                     echo "<span style='color: #ffffff;'>Sales Pipeline Update Successful</span>";
                 }
                 else{
