@@ -18,6 +18,8 @@ class AddNewContact
             $company_name           = strip_tags(trim($_POST['company_name']));
             $job_title              = strip_tags(trim($_POST['job_title']));
 
+            $customer_category      = strip_tags(trim($_POST['customer_category']));
+
             $contact_notes          = strip_tags(trim($_POST['contact_notes']));
 
             $key_details = $contact_email."-".$contact_phone;
@@ -67,7 +69,8 @@ class AddNewContact
                     'jtt'=>$job_title,
                     'nts'=>$contact_notes,
                     'adb'=>$addedBy,
-                    'md'=> $merchant_ID
+                    'md'=> $merchant_ID,
+                    'cts' => $customer_category
                 );
 
                 if (ContactsModel::addNewContact($tbl, $data)){

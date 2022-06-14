@@ -4,31 +4,34 @@ session_start();
 class UpdateCustomerPipeline
 {
     static public function updateThisPipeline(){
-        if (isset($_SESSION['pipeline'])){
+
+        $getToken = trim($_POST['pipeCors']);
+
+        if (isset($_SESSION['pipeline']) && $_SESSION['pipeline'] == $getToken){
 
             $error      = false;
-            $sourceId   = strip_tags(trim($_POST['sourceId']));
-            $targetId   = strip_tags(trim($_POST['targetId']));
-            $pipelineID = strip_tags(trim($_POST['pipeId']));
+            $sourceId   = strip_tags(trim($_POST['sourcePipeline']));
+            $targetId   = strip_tags(trim($_POST['targetPipeline']));
+            $leadIdID   = strip_tags(trim($_POST['leadId']));
 
-            if ($sourceId == 3){
+            if ($sourceId == "Closed Won"){
                 $error = true;
-                echo "<span style='color: #ffffff;'>You cannot move Won Leads</span>";
+                echo "<span>You cannot move Won Leads</span>";
             }
 
             if (!$error && $sourceId != '' && $targetId != ''){
-                require_once '../../model/crm/PipelineMdl.php';
+                require_once('../model/PipelineMdl.php');
                 $tbl        = 'sales_pipeline';
                 $data       = array(
                     'sd' => $sourceId,
                     'td' => $targetId,
-                    'pd' => $pipelineID
+                    'pd' => $leadIdID
                 );
-                if ($getRst = PipelineMdl::updatePipeline($tbl, $data)){
-                    echo "<span style='color: #ffffff;'>Sales Pipeline Update Successful</span>";
+                if (PipelineMdl::updatePipeline($tbl, $data)){
+                    echo "<span>Sales Pipeline Update Successful</span>";
                 }
                 else{
-                    echo "<span style='color: #ffffff;'>Sales Pipeline Update Unsuccessful</span>";
+                    echo "<span>Sales Pipeline Update Unsuccessful</span>";
                 }
             }
         }
@@ -38,5 +41,4 @@ class UpdateCustomerPipeline
     }
 }
 
-$callClass      = new UpdateCustomerPipeline();
-$callMethod     = $callClass->updateThisPipeline();
+UpdateCustomerPipeline::updateThisPipeline();

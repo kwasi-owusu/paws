@@ -1,5 +1,5 @@
 <?php
-
+session_start();    
 require_once('../../controller/GetThisCustomer.php');
 
 require_once '../DoCustomerCors.php';

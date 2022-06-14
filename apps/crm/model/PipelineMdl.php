@@ -6,12 +6,41 @@ class PipelineMdl
 
     public static function updatePipeline($tbl, $data)
     {
-        $stmt   = Connection::connect()->prepare("UPDATE $tbl SET pipeline_status = :st WHERE pipeline_ID = :d");
-        $stmt->bindParam('st', $data['td'], PDO::PARAM_STR);
-        $stmt->bindParam('d', $data['pd'], PDO::PARAM_STR);
-        $stmt->execute();
+        $newPDO = new Connection();
+        $thisPDO = $newPDO->Connect();
 
-        return $stmt;
+        if ($thisPDO->beginTransaction()) {
+            try {
+
+                $stmt   =  $thisPDO->prepare("UPDATE $tbl SET pipeline_stage = :stg WHERE pipeline_ID = :d");
+                $stmt->bindParam('stg', $data['td'], PDO::PARAM_STR);
+                $stmt->bindParam('d', $data['pd'], PDO::PARAM_STR);
+                $stmt->execute();
+
+                $origin_date    = Date('Y-m-d');
+                $funnel_month   = Date('M');
+                $funnel_year    = Date('Y');
+                
+                $addFunnel =  $thisPDO->prepare("INSERT INTO sales_funnel(pipeline_ID, previous_pipeline_stage, current_pipeline_stage, 
+                origin_date, funnel_month, funnel_year) 
+                VALUES(?, ?, ?, ?, ?, ?)");
+                $addFunnel->execute(
+                    array(
+                        $data['pd'],
+                        $data['sd'],
+                        $data['td'],
+                        $origin_date,
+                        $funnel_month,
+                        $funnel_year
+                    )
+                );
+
+                $thisPDO->commit();
+                return $stmt;
+            } catch (PDOException $e) {
+                $thisPDO->rollBack();
+            }
+        }
     }
 
     ##################33333 sales pipeline ###########################################3
@@ -219,9 +248,7 @@ class PipelineMdl
             } catch (PDOException $e) {
                 echo "Failed";
             }
-        }
-
-        else{
+        } else {
             try {
 
                 $year        = Date('Y');
@@ -231,11 +258,11 @@ class PipelineMdl
         AND YEAR(system_date) = :yr
         AND addedBy = :me
         AND pipeline_stage IN (SELECT * FROM sales_funnel WHERE previous_pipeline_stage = 'Prospecting')");
-                
+
                 $stmt->bindParam('md', $merchant_id, PDO::PARAM_STR);
                 $stmt->bindParam('me', $user_ID, PDO::PARAM_STR);
                 $stmt->bindParam('yr', $year, PDO::PARAM_STR);
-                
+
                 $stmt->execute();
 
                 return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -244,6 +271,4 @@ class PipelineMdl
             }
         }
     }
-
-   
 }

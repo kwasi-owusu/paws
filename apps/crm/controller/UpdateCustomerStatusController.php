@@ -4,7 +4,7 @@ session_start();
 class UpdateCustomerStatusController
 {
     static public function changeCustomerStatus(){
-        require_once('../../model/crm/UpdateCustomerModel.php');
+        require_once('../model/UpdateCustomerModel.php');
 
         $tkn = trim($_POST['userStatusTkn']);
         $error = false;

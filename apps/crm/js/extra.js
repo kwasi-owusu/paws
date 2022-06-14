@@ -1,19 +1,46 @@
+function weighted_forecast() {
+  let potential_opportunity = parseFloat($("#potential_opportunity").val());
+  let chance_of_sales = parseFloat($("#chance_of_sales").val()) / 100;
+
+  let wtf = chance_of_sales * potential_opportunity;
+
+  if (potential_opportunity !== "" || chance_of_sales !== "") {
+    $("#weighted_forecast").val(wtf).toFixed(2);
+  } else {
+    $("#weighted_forecast").val("000");
+  }
+}
+
 $(document).on(
   "change keyup blur",
   "#potential_opportunity, #chance_of_sales",
-  function () {
-    let potential_opportunity = parseFloat($("#potential_opportunity").val());
-    let chance_of_sales = parseFloat($("#chance_of_sales").val()) / 100;
-
-    let wtf = chance_of_sales * potential_opportunity;
-
-    if (potential_opportunity !== "" || chance_of_sales !== "") {
-      $("#weighted_forecast").val(wtf).toFixed(2);
-    } else {
-      $("#weighted_forecast").val("000");
-    }
+  function (e) {
+    weighted_forecast();
   }
+)
+// apportion chance of sale depending on the lead_type
+function lead_type_percent() {
+  let lead_type = $("#lead_type").val();
+
+  let cold_percent = 10;
+  let warm_percent = 25;
+  let hot_percent = 50;
+
+  if (lead_type == "Cold") {
+    $("#chance_of_sales").val(cold_percent);
+  } else if (lead_type == "Warm") {
+    $("#chance_of_sales").val(warm_percent);
+  } else if (lead_type == "Hot") {
+    $("#chance_of_sales").val(hot_percent);
+  }
+}
+
+$(document).on("change", "#lead_type", function () {
+  lead_type_percent();
+  weighted_forecast();
+}
 );
+
 
 let specialKeys = new Array();
 specialKeys.push(8, 46); //Backspace
@@ -113,7 +140,6 @@ $(document).on("change", "#state_region", function () {
   });
 });
 
-
 //check if customer email exists
 $(document).on("change keyup blur", "#customa_email", function () {
   let email = $(this).val();
@@ -125,47 +151,44 @@ $(document).on("change keyup blur", "#customa_email", function () {
     //dataType:"json",
     data: { email: email, check_where: check_where },
     success: function (data) {
-      
-      if(data =="Email Exists"){
+      if (data == "Email Exists") {
         $("#saveBtn").prop("disabled", true);
 
         $("#responseHere").html(data);
-    }
-    else{
-      $("#saveBtn").prop("disabled", false);
+      } else {
+        $("#saveBtn").prop("disabled", false);
 
         $("#responseHere").text("");
-    }
+      }
     },
   });
-})
+});
 
 //fill contact person
 $(document).on("change keyup blur", "#customa_name", function () {
   let customer_name = $(this).val();
 
-  $("#contact_person").val(customer_name)
-})
-
+  $("#contact_person").val(customer_name);
+});
 
 //generate customer code
 let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let code_length = 6;
 let customer_code = "";
 for (var i = 0; i < code_length; i++) {
-  
   let gen_code = Math.floor(Math.random() * chars.length);
-  
+
   customer_code += chars.substring(gen_code, gen_code + 1);
 }
 $("#CCCode").val(customer_code);
 
-
 //edit customer modal
 function editThisCustomer(itm) {
   let id = $(itm).attr("data-id");
-  $('<div>').load('crm/view/modals/modal.edit_customer.php?id=' + id, function(data) {
+  $("<div>").load(
+    "crm/view/modals/modal.edit_customer.php?id=" + id,
+    function (data) {
       $("#customerModalContentLG").html(data);
-  });
-
+    }
+  );
 }

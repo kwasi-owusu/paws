@@ -4,13 +4,12 @@ session_start();
 class UpdateCustomerDetailsController
 {
     public static function updateCustomerDetails(){
-        require_once ('../../model/crm/CustomerModel.php');
+        require_once ('../model/CustomerModel.php');
         $tkn = trim($_POST['tkn']);
-        $error = false;
-
-        if (isset($_SESSION['customerEdit']) && $_SESSION['customerEdit'] == $tkn){
+       
+        if (isset($_SESSION['editCustomerToken']) && $_SESSION['editCustomerToken'] == $tkn){
             $customer_ID        = trim($_POST['customer_ID']);
-            $cust_cat           = trim($_POST['cust_cat']);
+            //$cust_cat           = trim($_POST['cust_cat']);
             $customa_name       = trim($_POST['customa_name']);
             $CCCode             = trim($_POST['CCCode']);
             $customa_email      = trim($_POST['customa_email']);
@@ -18,6 +17,8 @@ class UpdateCustomerDetailsController
             $customa_address    = trim($_POST['customa_address']);
             $contact_person     = trim($_POST['contact_person']);
             $contact_person_phone     = trim($_POST['contact_person_phone']);
+
+            $error = false;
 
             if (empty($cust_cat)){
                 $error = true;
@@ -83,7 +84,7 @@ class UpdateCustomerDetailsController
 
         }
         else{
-            echo "<span style='color: #b9090e'>Sorry. Action not permitted</span>";
+            echo "<span>Sorry. Action not permitted</span>";
         }
 
     }

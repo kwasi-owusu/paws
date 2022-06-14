@@ -11,10 +11,10 @@ class ContactsModel
 
             try {
 
-                $stmt = $thisPDO->prepare("INSERT INTO $tbl(contact_key, firstName, lastName, contact_email, contact_phone, company_name, job_title, 
+                $stmt = $thisPDO->prepare("INSERT INTO $tbl(contact_key, contact_cat, firstName, lastName, contact_email, contact_phone, company_name, job_title, 
                 contact_notes, addedBy, merchant_ID) 
-                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute(array($data['ck'], $data['cfn'], $data['cln'], $data['ce'], $data['cp'], $data['con'], $data['jtt'], 
+                VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute(array($data['ck'], $data['cts'], $data['cfn'], $data['cln'], $data['ce'], $data['cp'], $data['con'], $data['jtt'], 
                 $data['nts'], $data['adb'], $data['md']));
 
                 $lastInserted_ID = $thisPDO->lastInsertId();
