@@ -5,12 +5,10 @@ require_once 'DoCustomerCors.php';
 $page_name         = "sales_pipeline";
 $getToken          = DoCustomerCors::salesPipeline($page_name);
 
-$_SESSION['addSalesLeadTkn']  = $getToken;
+$_SESSION['pipeline']  = $getToken;
 
 
 require_once('../controller/GetAllSalesLead.php');
-$getSalesLeads = GetAllSalesLead::callAllSalesLeads();
-
 ?>
 
 <div id="content" class="main-content">
@@ -149,84 +147,128 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
 
                         <div class="connect-sorting">
                             <div class="task-container-header">
-                                <h6 class="s-heading" data-listTitle="New Lead">Prospecting</h6>
+                                <h6 class="s-heading" data-listTitle="Prospecting">Prospecting</h6>
                             </div>
 
-                            <div class="connect-sorting-content" data-sortable="true" id="1">
+                            <div class="connect-sorting-content" data-sortable="true" id="Prospecting">
 
-                                <div data-draggable="true" class="card img-task" style="">
-                                    <div class="card-body">
+                                <?php
 
-                                        <div class="task-content">
-                                            <img src="template/statics/assets/img/taskboard.jpg" class="img-fluid" alt="scrumboard">
-                                        </div>
+                                $callProspecting = GetAllSalesLead::getAllProspectingPipeline();
 
-                                        <div class="task-header">
-                                            <div class="">
-                                                <h4 class="" data-taskTitle="Creating a new Portfolio on Dribble">Creating a new Portfolio on Dribble</h4>
-                                            </div>
-                                        </div>
+                                foreach ($callProspecting as $cps) {
 
-                                        <div class="task-body">
+                                ?>
 
-                                            <div class="task-bottom">
-                                                <div class="tb-section-1">
-                                                    <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
-                                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                        </svg> 08 Aug, 2020</span>
-                                                </div>
-                                                <div class="tb-section-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                        <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                    </svg>
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                    </svg>
+                                    <div data-draggable="true" class="card img-task" style="" id="<?php echo $cps['pipeline_ID']; ?>">
+                                        <div class="card-body">
+                                            <div class="task-header">
+                                                <div class="">
+                                                    <h4 class="" data-taskTitle="<?php echo $cps['lead_name']; ?>"><?php echo $cps['lead_name']; ?></h4>
                                                 </div>
                                             </div>
 
+                                            <div class="task-body">
+
+                                                <div class="task-bottom">
+                                                    <div class="tb-section-1">
+                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg> <?php
+                                                                    //$lead_date = strtotime($cps['system_date']);
+                                                                    echo Date('Y-M-d', strtotime($cps['system_date'])); ?>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="tb-section-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div data-draggable="true" class="card simple-title-task" style="">
-                                    <div class="card-body">
-
-                                        <div class="task-header">
-                                            <div class="">
-                                                <h4 class="" data-taskTitle="Singapore Team Meet">Singapore Team Meet</h4>
-                                            </div>
-                                            <div class="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                </svg>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
+                                <?php
+                                }
+                                ?>
 
                             </div>
 
-                            <div class="add-s-task">
-                                <a class="addTask"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                    </svg> Add Lead</a>
+                        </div>
+                    </div>
+
+
+                    <div data-section="s-in-progress" class="task-list-container" data-connect="sorting">
+                        <div class="connect-sorting">
+                            <div class="task-container-header">
+                                <h6 class="s-heading" data-listTitle="Qualifying">Qualifying</h6>
+                            </div>
+
+                            <div class="connect-sorting-content" data-sortable="true" id="Qualifying">
+
+                                <?php
+
+                                $callQualifying = GetAllSalesLead::getAllQualifyingPipeline();
+
+                                foreach ($callQualifying as $qlf) {
+
+                                ?>
+                                    <div data-draggable="true" class="card img-task" style="" id="<?php echo $qlf['pipeline_ID']; ?>">
+                                        <div class="card-body">
+                                            <div class="task-header">
+                                                <div class="">
+                                                    <h4 class="" data-taskTitle="<?php echo $qlf['lead_name']; ?>"><?php echo $qlf['lead_name']; ?></h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="task-body">
+
+                                                <div class="task-bottom">
+                                                    <div class="tb-section-1">
+                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg> <?php
+                                                                    //$lead_date = strtotime($cps['system_date']);
+                                                                    echo Date('Y-M-d', strtotime($qlf['system_date'])); ?>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="tb-section-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
+
                             </div>
 
                         </div>
@@ -235,178 +277,260 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
                     <div data-section="s-in-progress" class="task-list-container" data-connect="sorting">
                         <div class="connect-sorting">
                             <div class="task-container-header">
-                                <h6 class="s-heading" data-listTitle="Qualifying">Qualifying</h6>
-                            </div>
-
-                            <div class="connect-sorting-content" data-sortable="true" id="2">
-                                <div data-draggable="true" class="card simple-title-task ui-sortable-handle" style="" id="Dinner">
-                                    <div class="card-body">
-
-                                        <div class="task-header">
-                                            <div class="">
-                                                <h4 class="" data-tasktitle="Dinner with Kelly Young">Dinner with Kelly Young</h4>
-                                            </div>
-                                            <div class="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                </svg>
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                    <polyline points="3 6 5 6 21 6"></polyline>
-                                                    <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                    <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                    <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                </svg>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <div data-draggable="true" class="card task-text-progress" style="" id="Launch">
-                                    <div class="card-body">
-
-                                        <div class="task-header">
-
-                                            <div class="">
-                                                <h4 class="" data-taskTitle="Launch New SEO Wordpress Theme ">Launch New SEO Wordpress Theme </h4>
-                                            </div>
-
-                                            <div class="">
-                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                    <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                </svg>
-                                            </div>
-
-                                        </div>
-
-                                        <div class="task-body">
-
-                                            <div class="task-content">
-                                                <p class="" data-taskText="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-
-                                                <div class="">
-                                                    <div class="progress br-30">
-                                                        <div class="progress-bar bg-success" role="progressbar" data-progressState="20" style="width: 20%" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
-                                                    </div>
-
-                                                    <p class="progress-count">20%</p>
-
-                                                </div>
-                                            </div>
-
-                                            <div class="task-bottom">
-                                                <div class="tb-section-1">
-                                                    <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
-                                                            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                                            <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                            <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                            <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                        </svg> 08 Aug, 2020</span>
-                                                </div>
-                                                <div class="tb-section-2">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                        <polyline points="3 6 5 6 21 6"></polyline>
-                                                        <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                        <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                        <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                    </svg>
-                                                </div>
-                                            </div>
-
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            <div class="add-s-task">
-                                <a class="addTask"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                    </svg> Add Task</a>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div data-section="s-approved" class="task-list-container" data-connect="sorting">
-
-                        <div class="connect-sorting">
-                            <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Contacting">Contacting</h6>
-
                             </div>
 
+                            <div class="connect-sorting-content" data-sortable="true" id="Contacting">
 
-                            <div class="connect-sorting-content" data-sortable="true" id="3">
+                                <?php
 
-                            </div>
+                                $callContacting = GetAllSalesLead::getAllContactingPipeline();
 
-                            <div class="add-s-task">
-                                <a class="addTask"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                    </svg> Add Task</a>
+                                foreach ($callContacting as $ctg) {
+
+                                ?>
+                                    <div data-draggable="true" class="card img-task" style="" id="<?php echo $ctg['pipeline_ID']; ?>">
+                                        <div class="card-body">
+                                            <div class="task-header">
+                                                <div class="">
+                                                    <h4 class="" data-taskTitle="<?php echo $ctg['lead_name']; ?>"><?php echo $ctg['lead_name']; ?></h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="task-body">
+
+                                                <div class="task-bottom">
+                                                    <div class="tb-section-1">
+                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg>
+                                                            <?php
+                                                            echo Date('Y-M-d', strtotime($ctg['system_date']));
+                                                            ?>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="tb-section-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
+
                             </div>
 
                         </div>
                     </div>
 
-                    <div data-section="s-approved" class="task-list-container" data-connect="sorting">
-
+                    <div data-section="s-in-progress" class="task-list-container" data-connect="sorting">
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Negotiation">Negotiation</h6>
-
                             </div>
 
+                            <div class="connect-sorting-content" data-sortable="true" id="Negotiation">
 
-                            <div class="connect-sorting-content" data-sortable="true" id="4">
+                                <?php
 
-                            </div>
+                                $callNegotiating = GetAllSalesLead::getAlNegotiationPipeline();
 
-                            <div class="add-s-task">
-                                <a class="addTask"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus-circle">
-                                        <circle cx="12" cy="12" r="10"></circle>
-                                        <line x1="12" y1="8" x2="12" y2="16"></line>
-                                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                                    </svg> Add Task</a>
+                                foreach ($callNegotiating as $ngt) {
+
+                                ?>
+                                    <div data-draggable="true" class="card img-task" style="" id="<?php echo $ngt['pipeline_ID']; ?>">
+                                        <div class="card-body">
+                                            <div class="task-header">
+                                                <div class="">
+                                                    <h4 class="" data-taskTitle="<?php echo $ngt['lead_name']; ?>"><?php echo $ngt['lead_name']; ?></h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="task-body">
+
+                                                <div class="task-bottom">
+                                                    <div class="tb-section-1">
+                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg>
+                                                            <?php
+                                                            echo Date('Y-M-d', strtotime($ngt['system_date']));
+                                                            ?>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="tb-section-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
+
                             </div>
 
                         </div>
                     </div>
 
-                    <div data-section="s-approved" class="task-list-container" data-connect="sorting">
-
+                    <div data-section="s-in-progress" class="task-list-container" data-connect="sorting">
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Closed Won">Closed Won</h6>
-
                             </div>
 
+                            <div class="connect-sorting-content" data-sortable="true" id="Closed Won">
 
-                            <div class="connect-sorting-content" data-sortable="true" id="5">
+                                <?php
+
+                                $callWon = GetAllSalesLead::getWonPipeline();
+
+                                foreach ($callWon as $won) {
+
+                                ?>
+                                    <div data-draggable="true" class="card img-task" style="" id="<?php echo $won['pipeline_ID']; ?>">
+                                        <div class="card-body">
+                                            <div class="task-header">
+                                                <div class="">
+                                                    <h4 class="" data-taskTitle="<?php echo $won['lead_name']; ?>"><?php echo $won['lead_name']; ?></h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="task-body">
+
+                                                <div class="task-bottom">
+                                                    <div class="tb-section-1">
+                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg>
+                                                            <?php
+                                                            echo Date('Y-M-d', strtotime($won['system_date']));
+                                                            ?>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="tb-section-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
 
                             </div>
 
                         </div>
                     </div>
 
-                    <div data-section="s-approved" class="task-list-container" data-connect="sorting">
-
+                    <div data-section="s-in-progress" class="task-list-container" data-connect="sorting">
                         <div class="connect-sorting">
                             <div class="task-container-header">
-                                <h6 class="s-heading" data-listTitle="Closed Lost">Closed Lost</h6>
+                                <h6 class="s-heading" data-listTitle="Closed Won">Closed Won</h6>
+                            </div>
+
+                            <div class="connect-sorting-content" data-sortable="true" id="Closed Won">
+
+                                <?php
+
+                                $callLost = GetAllSalesLead::getLostPipeline();
+
+                                foreach ($callLost as $lost) {
+
+                                ?>
+                                    <div data-draggable="true" class="card img-task" style="" id="<?php echo $ngt['pipeline_ID']; ?>">
+                                        <div class="card-body">
+                                            <div class="task-header">
+                                                <div class="">
+                                                    <h4 class="" data-taskTitle="<?php echo $lost['lead_name']; ?>"><?php echo $lost['lead_name']; ?></h4>
+                                                </div>
+                                            </div>
+
+                                            <div class="task-body">
+
+                                                <div class="task-bottom">
+                                                    <div class="tb-section-1">
+                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                            </svg>
+                                                            <?php
+                                                            echo Date('Y-M-d', strtotime($lost['system_date']));
+                                                            ?>
+
+                                                        </span>
+                                                    </div>
+                                                    <div class="tb-section-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
+                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
+                                                        </svg>
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
+                                                            <polyline points="3 6 5 6 21 6"></polyline>
+                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
+                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
+                                                        </svg>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                <?php
+                                }
+                                ?>
 
                             </div>
 
-
-                            <div class="connect-sorting-content" data-sortable="true" id="6">
-
-                            </div>
                         </div>
                     </div>
 
@@ -416,8 +540,10 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
         <div class="col-12">
             <div class="loader multi-loader mx-auto" style="display: none;" id="loader"></div>
             <p style="display: none" id="pipeCors"><?php echo $getToken; ?></p>
-            <h4 id="srcResponse"></h4>
-            <h4 id="targetResponse"></h4>
+
+            <span id="response"></span>
+            
+
         </div>
 
     </div>
@@ -428,9 +554,12 @@ $getSalesLeads = GetAllSalesLead::callAllSalesLeads();
 require_once '../../template/footer.php';
 ?>
 
-<script src="template/statics/assets/js/ie11fix/fn.fix-padStart.js"></script>
+<script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
+<script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
+
+<!-- <script src="template/statics/assets/js/ie11fix/fn.fix-padStart.js"></script> -->
 <script src="template/statics/assets/js/apps/scrumboard.js"></script>
-<script src="auth/js/extra.js"></script>
+<script src="crm/js/extra.js"></script>
 
 </body>
 

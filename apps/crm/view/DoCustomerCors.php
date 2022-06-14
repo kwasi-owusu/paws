@@ -20,7 +20,7 @@ class DoCustomerCors{
         $addNewSalesLead = hash_hmac('sha512', $rock_hash, $thi_is_is);
 
 
-        return $addNewSalesLeadTkn;
+        return $addNewSalesLead;
     }
     
     public static function salesPipeline($page_name){

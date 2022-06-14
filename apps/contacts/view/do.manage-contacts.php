@@ -11,6 +11,9 @@ require_once '../controller/GetAllContacts.php';
 $loadContacts = GetAllContacts::callAllContacts();
 $cntAllContacts = $loadContacts->rowCount();
 
+
+// contact categories
+
 ?>
 
 <div id="content" class="main-content">
@@ -101,6 +104,29 @@ $cntAllContacts = $loadContacts->rowCount();
                                                                 <div class="contact-location">
                                                                     <i class="flaticon-fill-area"></i>
                                                                     <input type="text" id="job_title" name="job_title" class="form-control" placeholder="Job Title">
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="contact-location">
+                                                                <span> Select Contact Category*</span>
+                                                                    <select class="form-control mb-4" id="wes-from1" id="customer_category" name="customer_category" required>
+                                                                    
+                                                                    <?php
+                                                                    $contactCats = GetAllContacts::contactCats();
+
+                                                                    foreach ($contactCats as $cts){
+                                                                    ?>
+                                                                    <option value="<?php echo $cts['cnt_cat_ID']; ?>" selected><?php echo $cts['cat_name']; ?></option>
+
+                                                                    <?php
+                                                                    }
+                                                                    ?>
+
+                                                                </select>
                                                                 </div>
                                                             </div>
 
@@ -214,7 +240,7 @@ $cntAllContacts = $loadContacts->rowCount();
                                                 <circle cx="8.5" cy="7" r="4"></circle>
                                                 <line x1="23" y1="11" x2="17" y2="11"></line>
                                             </svg>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -255,19 +281,19 @@ $cntAllContacts = $loadContacts->rowCount();
 </div> -->
 
 <div class="modal fade" id="manageContactModalSM" tabindex="-1" role="dialog" aria-labelledby="deleteConformationLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content" id="deleteConformationLabel">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body" id="contactModalContentSM">
-                    
-                </div>
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" id="deleteConformationLabel">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="contactModalContentSM">
+
             </div>
         </div>
     </div>
+</div>
 
 
 
@@ -297,7 +323,7 @@ require_once '../../template/footer.php';
                 $('#responseHere').fadeOut('slow', function() {
                     $('#responseHere').fadeIn('slow').html(data);
                     $("#loader").hide();
-                    setInterval('location.reload()', 3000);
+                    setInterval('location.reload(true)', 3000);
                 });
             }
         });
