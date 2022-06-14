@@ -10,5 +10,4 @@ class SettingsForModalCtrl extends SettingsForModal
 
         return $getRst;
     }
-    
 }

@@ -8,6 +8,7 @@ class AllSaleLeads
 
         if ($data['ust'] == 2) {
             //merchant admin can see all sales leads for their institution
+
             $stmt = Connection::connect()->prepare("SELECT * FROM $tbl 
             WHERE merchant_ID = :merchant_ID ORDER BY lead_ID DESC");
             $stmt->bindParam('merchant_ID', $data['md'], PDO::PARAM_STR);

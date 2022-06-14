@@ -4,7 +4,9 @@ session_start();
 class UpdateCustomerDetailsController
 {
     public static function updateCustomerDetails(){
+
         require_once ('../model/CustomerModel.php');
+
         $tkn = trim($_POST['tkn']);
        
         if (isset($_SESSION['editCustomerToken']) && $_SESSION['editCustomerToken'] == $tkn){

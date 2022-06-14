@@ -27,6 +27,7 @@ class UpdateCustomerPipeline
                     'td' => $targetId,
                     'pd' => $leadIdID
                 );
+
                 if (PipelineMdl::updatePipeline($tbl, $data)){
                     echo "<span>Sales Pipeline Update Successful</span>";
                 }

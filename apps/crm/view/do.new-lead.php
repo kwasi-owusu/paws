@@ -87,7 +87,9 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                                                         ?
                                                                     </span>
                                                                 </label>
+
                                                                 <select class="form-control mb-4" id="lead_type" name="lead_type">
+                        
                                                                     <option value="Cold">Cold Lead</option>
                                                                     <option value="Warm">Warm Lead</option>
                                                                     <option value="Hot">Hot Lead</option>
@@ -132,8 +134,10 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                                                         ?
                                                                     </span>
                                                                 </label>
+
                                                                 <input type="text" class="form-control input-lg m-bot15" id="potential_opportunity" name="potential_opportunity" value="0"
                                                                 placeholder="Potential Opportunity" onkeypress="return IsNumeric(event);" ondrop="return false;">
+                                                                
                                                             </div>
                                                         </div>
                                                         
@@ -158,8 +162,10 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                                         <div class="col-md-6">
                                                             <div class="form-group">
                                                                 <label for="weighted_forecast" class="bmd-label-floating"> Weighted Forecast*</label>
+
                                                                 <input type="text" class="form-control input-lg m-bot15" id="weighted_forecast" style="font-weight:bolder;" 
                                                                 name="weighted_forecast" required onkeypress="return IsNumeric(event);" ondrop="return false;">
+                                                         
                                                             </div>
                                                         </div>
 
@@ -171,6 +177,10 @@ $_SESSION['addSalesLeadTkn']  = $getToken;
                                                                     <option value="Qualifying">Qualifying</option>
                                                                     <option value="Contacted">Contacted</option>
                                                                     <option value="Negotiation">Negotiation</option>
+
+                                                                    <option value="Closed Won">Closed Won</option>
+                                                                    <option value="Closed Loss">Closed Lost</option>
+
                                                                 </select>
                                                             </div>
                                                         </div>

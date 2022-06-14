@@ -45,6 +45,4 @@ class SettingsForModal
             echo "No cities were selected";
         }
     }
-
-    
 }
