@@ -8,6 +8,7 @@ class AllSaleLeads
 
         if ($data['ust'] == 2) {
             //merchant admin can see all sales leads for their institution
+
             $stmt = Connection::connect()->prepare("SELECT * FROM $tbl 
             WHERE merchant_ID = :merchant_ID 
             AND pipeline_stage = 'Prospecting'
