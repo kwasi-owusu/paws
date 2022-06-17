@@ -19,6 +19,9 @@ $getCustomers = GetAllCustomers::allCustomerListController();
 
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
+                    <div class="w-content">
+                        <span class="w-value" style="padding: 15px; font-size:20px; font-weight:bolder;">Manage Customers</span>
+                    </div>
                     <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                         <thead>
                             <tr>
@@ -41,10 +44,10 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Status</th>
                                 <th>City</th>
                                 <th>State/Region</th>
                                 <th>Country</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -89,12 +92,8 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                                     Edit Customer
                                                 </a>
 
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deleteCustomer(this)" data-toggle="modal" data-target="#deleteConformation">
+                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deleteThisCustomer(this)" data-toggle="modal" data-target="#deleteConfirmation">
                                                     Delete Customer
-                                                </a>
-
-                                                <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deactivateCustomer(this)" data-toggle="modal" data-target="#deactivateCustomer">
-                                                    Change Status
                                                 </a>
 
                                             </div>
@@ -135,9 +134,9 @@ $getCustomers = GetAllCustomers::allCustomerListController();
 
 
 
-<div class="modal fade" id="deleteConformation" tabindex="-1" role="dialog" aria-labelledby="deleteConformationLabel" aria-hidden="true">
+<div class="modal fade" id="deleteConfirmation" tabindex="-1" role="dialog" aria-labelledby="deleteConfirmationLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" id="deleteConformationLabel">
+        <div class="modal-content" id="deleteConfirmationLabel">
             <div class="modal-header">
                 <div class="icon">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2">
@@ -152,21 +151,9 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="customer_delete_frm" class="section work-experience" action="" method="post" autocomplete="off">
-                <div class="modal-body">
-                    <p class="">If you delete this customer it will be gone forever. Are you sure you want to proceed?</p>
+            <div id="modalContentHere">
 
-                    <input type="hidden" class="form-control input-lg m-bot15" id="customer_ID" name="customer_ID" value="<?php echo $ac['customa_ID']; ?>" readonly>
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-danger" id="saveBtn">Delete</button>
-                    <!-- <button type="button" class="btn btn-danger" data-remove="task">Delete</button> -->
-                </div>
-
-                <p id="responseHere"></p>
-            </form>
+            </div>
         </div>
     </div>
 </div>
@@ -178,37 +165,6 @@ require_once '../../template/footer.php';
 <script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
 <script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
 <script src="crm/js/extra.js"></script>
-
-<script>
-    $("#customer_delete_frm").on("submit", function(e) {
-        $("#saveBtn").prop("disabled", true);
-        $("#loader").show();
-        e.preventDefault();
-        $.ajax({
-            url: "crm/controller/UpdateCustomerDetailsController.php",
-            method: "POST",
-            data: new FormData(this),
-            contentType: false,
-            cache: false,
-            processData: false,
-            success: function(data) {
-                $("#responseHere").fadeOut("slow", function() {
-                    Snackbar.show({
-                        text: data,
-                        actionTextColor: "#fff",
-                        backgroundColor: "#2196f3",
-                    });
-
-                    $("#loader").hide();
-
-                    setInterval("location.reload()", 3000);
-                });
-
-                $("#saveBtn").prop("disabled", false);
-            },
-        });
-    });
-</script>
 
 </body>
 

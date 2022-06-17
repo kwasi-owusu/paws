@@ -106,28 +106,24 @@ class CustomerModel
         if ($thisPDO->beginTransaction()) {
             try {
 
-
-                $stmt = $thisPDO->prepare("UPDATE $tblName SET CCCode = :cccd, cust_cat = :cct, customa_name = :ccn, customa_email = :cce, 
-            customa_phone = :ccp, customa_address1 = :ccad, contact_person = :cpers, contact_person_phone = :cpers_ph, customerStatus = 2, lastUpdateBy = :clb, 
-            lastUpdateOn = :cln 
-            WHERE customa_ID = :ccid");
-                $stmt->bindParam('cccd', $data['ccd'], PDO::PARAM_STR);
-                $stmt->bindParam('cct', $data['cc'], PDO::PARAM_STR);
+               
+                $stmt = $thisPDO->prepare("UPDATE $tblName SET customa_name = :ccn, customa_email = :cce, customa_phone = :ccp, customa_address1 = :cad, 
+                lastUpdateBy = :lbd, lastUpdateOn = :lbn 
+            WHERE customa_ID = :cid");
+                
                 $stmt->bindParam('ccn', $data['cn'], PDO::PARAM_STR);
                 $stmt->bindParam('cce', $data['ce'], PDO::PARAM_STR);
                 $stmt->bindParam('ccp', $data['cp'], PDO::PARAM_STR);
-                $stmt->bindParam('ccad', $data['cad'], PDO::PARAM_STR);
-                $stmt->bindParam('cpers', $data['cps'], PDO::PARAM_STR);
-                $stmt->bindParam('cpers_ph', $data['cpsp'], PDO::PARAM_STR);
-                $stmt->bindParam('clb', $data['lb'], PDO::PARAM_STR);
-                $stmt->bindParam('cln', $data['ln'], PDO::PARAM_STR);
-                $stmt->bindParam('ccid', $data['cd'], PDO::PARAM_STR);
+                $stmt->bindParam('cad', $data['cad'], PDO::PARAM_STR);
+                $stmt->bindParam('lbd', $data['lbd'], PDO::PARAM_STR);
+                $stmt->bindParam('lbn', $data['lbn'], PDO::PARAM_STR);
+                $stmt->bindParam('cid', $data['cd'], PDO::PARAM_STR);
                 $stmt->execute();
 
-                $lastInserted_ID = $thisPDO->lastInsertId();
+                //$lastInserted_ID = $thisPDO->lastInsertId();
 
                 $activity_type = "Customer Details Updated";
-                $activity = "Customer Details Updated with id " . $lastInserted_ID;
+                $activity = "Customer Details Updated by  " . $data['lbd'];
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
@@ -137,6 +133,40 @@ class CustomerModel
                 return $stmt;
             } catch (PDOException $e) {
                 $thisPDO->rollBack();
+            }
+        }
+    }
+
+
+    public static function deleteThisCustomerSoftly($tbl, $data){
+        $newPDO = new Connection();
+        $thisPDO = $newPDO->Connect();
+
+        if ($thisPDO->beginTransaction()) {
+            try {
+
+               
+                $stmt = $thisPDO->prepare("UPDATE $tbl SET customerStatus = 3, lastUpdateBy = :lbd WHERE customa_ID = :cid");
+               
+                $stmt->bindParam('lbd', $data['lbd'], PDO::PARAM_STR);
+                $stmt->bindParam('cid', $data['cd'], PDO::PARAM_STR);
+                $stmt->execute();
+
+                //$lastInserted_ID = $thisPDO->lastInsertId();
+
+                $activity_type = "Customer Deleted";
+                $activity = "Customer Delete by  " . $data['lbd'];
+                // create an activity
+                $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
+                $u_act->execute(array($activity_type, $activity));
+
+                $thisPDO->commit();
+
+                return $stmt;
+            } catch (PDOException $e) {
+                $thisPDO->rollBack();
+
+                echo $e->getMessage();
             }
         }
     }

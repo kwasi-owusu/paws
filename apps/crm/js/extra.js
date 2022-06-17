@@ -192,3 +192,24 @@ function editThisCustomer(itm) {
     }
   );
 }
+
+//delete customer 
+function deleteThisCustomer(itm) {
+  let id = $(itm).attr("data-id");
+  $("<div>").load(
+    "crm/view/modals/modal.delete_customer.php?id=" + id,
+    function (data) {
+      $("#modalContentHere").html(data);
+    }
+  );
+}
+
+function editThisLead(itm) {
+  let id = $(itm).attr("data-id");
+  $("<div>").load(
+    "crm/view/modals/modal.edit_lead.php?id=" + id,
+    function (data) {
+      $("#salesLeadModalContentLG").html(data);
+    }
+  );
+}

@@ -19,8 +19,6 @@ require_once('../controller/GetAllSalesLead.php');
                     <div class="modal-body">
                         <div class="compose-box">
                             <div class="compose-content" id="addTaskModalTitle">
-                                <h5 class="add-task-title">Add Task</h5>
-                                <h5 class="edit-task-title">Edit Task</h5>
 
                                 <div class="addTaskAccordion" id="add_task_accordion">
                                     <div class="card task-text-progress">
@@ -148,6 +146,14 @@ require_once('../controller/GetAllSalesLead.php');
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Prospecting">Prospecting</h6>
+                                <?php
+                                $callProspectingValues = GetAllSalesLead::getProspectingPipelineValue(); //
+                                $prospectingValue   = $callProspectingValues['PipelineValue'];
+
+                                if (isset($prospectingValue)) {
+                                    echo "Value: " . number_format($prospectingValue, 2);
+                                }
+                                ?>
                             </div>
 
                             <div class="connect-sorting-content" data-sortable="true" id="Prospecting">
@@ -164,7 +170,9 @@ require_once('../controller/GetAllSalesLead.php');
                                         <div class="card-body">
                                             <div class="task-header">
                                                 <div class="">
-                                                    <h4 class="" data-taskTitle="<?php echo $cps['lead_name']; ?>"><?php echo $cps['lead_name']; ?></h4>
+                                                    <h4 class="" style="color:#D53412; font-weight: bolder" data-taskTitle="<?php echo $cps['lead_name']; ?>">
+                                                        <?php echo $cps['lead_name']; ?>
+                                                    </h4>
                                                 </div>
                                             </div>
 
@@ -172,7 +180,7 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                 <div class="task-bottom">
                                                     <div class="tb-section-1">
-                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <span style="color: #1273D5;" data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -183,17 +191,25 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                         </span>
                                                     </div>
-                                                    <div class="tb-section-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                        </svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </div>
+                                                    
+
+                                                </div>
+                                                <div style="padding:15px;">
+                                                    <p>
+                                                        Potential Opportunity:  <?php echo number_format($cps['potential_opportunity'], 2) ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Chance of Sale:  <?php echo $cps['chance_of_sales'] ?>%
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Forecast Close:  <?php echo $cps['forecast_close'] ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Weighted Forecast:  <?php echo number_format($cps['weighted_forecast'], 2) ?>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -214,6 +230,14 @@ require_once('../controller/GetAllSalesLead.php');
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Qualifying">Qualifying</h6>
+                                <?php
+                                $callQualifyingValues = GetAllSalesLead::getQualifyingPipelineValue();
+                                $qualifyingValue = $callQualifyingValues['PipelineValue'];
+
+                                if (isset($qualifyingValue)) {
+                                    echo "Value: " . number_format($qualifyingValue, 2);
+                                }
+                                ?>
                             </div>
 
                             <div class="connect-sorting-content" data-sortable="true" id="Qualifying">
@@ -229,7 +253,7 @@ require_once('../controller/GetAllSalesLead.php');
                                         <div class="card-body">
                                             <div class="task-header">
                                                 <div class="">
-                                                    <h4 class="" data-taskTitle="<?php echo $qlf['lead_name']; ?>"><?php echo $qlf['lead_name']; ?></h4>
+                                                    <h4 class="" style="color:#D53412; font-weight: bolder" data-taskTitle="<?php echo $qlf['lead_name']; ?>"><?php echo $qlf['lead_name']; ?></h4>
                                                 </div>
                                             </div>
 
@@ -237,7 +261,7 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                 <div class="task-bottom">
                                                     <div class="tb-section-1">
-                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <span style="color: #1273D5;" data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -248,17 +272,25 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                         </span>
                                                     </div>
-                                                    <div class="tb-section-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                        </svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div style="padding:15px;">
+                                                    <p>
+                                                        Potential Opportunity:  <?php echo number_format($qlf['potential_opportunity'], 2) ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Chance of Sale:  <?php echo $qlf['chance_of_sales'] ?>%
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Forecast Close:  <?php echo $qlf['forecast_close'] ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Weighted Forecast:  <?php echo number_format($qlf['weighted_forecast'], 2) ?>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -278,6 +310,15 @@ require_once('../controller/GetAllSalesLead.php');
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Contacting">Contacting</h6>
+
+                                <?php
+                                $callContactingValues = GetAllSalesLead::getContactingPipelineValue(); //
+                                $contactingValue   = $callContactingValues['PipelineValue'];
+
+                                if (isset($contactingValue)) {
+                                    echo "Value: " . number_format($contactingValue, 2);
+                                }
+                                ?>
                             </div>
 
                             <div class="connect-sorting-content" data-sortable="true" id="Contacting">
@@ -293,7 +334,7 @@ require_once('../controller/GetAllSalesLead.php');
                                         <div class="card-body">
                                             <div class="task-header">
                                                 <div class="">
-                                                    <h4 class="" data-taskTitle="<?php echo $ctg['lead_name']; ?>"><?php echo $ctg['lead_name']; ?></h4>
+                                                    <h4 class="" style="color:#D53412; font-weight: bolder" data-taskTitle="<?php echo $ctg['lead_name']; ?>"><?php echo $ctg['lead_name']; ?></h4>
                                                 </div>
                                             </div>
 
@@ -301,7 +342,7 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                 <div class="task-bottom">
                                                     <div class="tb-section-1">
-                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <span style="color: #1273D5;" data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -313,17 +354,25 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                         </span>
                                                     </div>
-                                                    <div class="tb-section-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                        </svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div style="padding:15px;">
+                                                    <p>
+                                                        Potential Opportunity:  <?php echo number_format($ctg['potential_opportunity'], 2) ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Chance of Sale:  <?php echo $ctg['chance_of_sales'] ?>%
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Forecast Close:  <?php echo $ctg['forecast_close'] ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Weighted Forecast:  <?php echo number_format($ctg['weighted_forecast'], 2) ?>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -343,6 +392,14 @@ require_once('../controller/GetAllSalesLead.php');
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Negotiation">Negotiation</h6>
+                                <?php
+                                $callNegotiationValues = GetAllSalesLead::getNegotiationPipelineValue(); //
+                                $negotiationValue   = $callNegotiationValues['PipelineValue'];
+
+                                if (isset($negotiationValue)) {
+                                    echo "Value: " . number_format($negotiationValue, 2);
+                                }
+                                ?>
                             </div>
 
                             <div class="connect-sorting-content" data-sortable="true" id="Negotiation">
@@ -358,7 +415,7 @@ require_once('../controller/GetAllSalesLead.php');
                                         <div class="card-body">
                                             <div class="task-header">
                                                 <div class="">
-                                                    <h4 class="" data-taskTitle="<?php echo $ngt['lead_name']; ?>"><?php echo $ngt['lead_name']; ?></h4>
+                                                    <h4 class=""style="color:#D53412; font-weight: bolder"  data-taskTitle="<?php echo $ngt['lead_name']; ?>"><?php echo $ngt['lead_name']; ?></h4>
                                                 </div>
                                             </div>
 
@@ -366,7 +423,7 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                 <div class="task-bottom">
                                                     <div class="tb-section-1">
-                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <span style="color: #1273D5;" data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -378,17 +435,25 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                         </span>
                                                     </div>
-                                                    <div class="tb-section-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                        </svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div style="padding:15px;">
+                                                    <p>
+                                                        Potential Opportunity:  <?php echo number_format($ngt['potential_opportunity'], 2) ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Chance of Sale:  <?php echo $ngt['chance_of_sales'] ?>%
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Forecast Close:  <?php echo $ngt['forecast_close'] ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Weighted Forecast:  <?php echo number_format($ngt['weighted_forecast'], 2) ?>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -408,6 +473,14 @@ require_once('../controller/GetAllSalesLead.php');
                         <div class="connect-sorting">
                             <div class="task-container-header">
                                 <h6 class="s-heading" data-listTitle="Closed Won">Closed Won</h6>
+                                <?php
+                                $callClosedWonValues = GetAllSalesLead::getClosedWonPipelineValue(); //
+                                $closedWonValue   = $callClosedWonValues['PipelineValue'];
+
+                                if (isset($closedWonValue)) {
+                                    echo "Value: " . number_format($closedWonValue, 2);
+                                }
+                                ?>
                             </div>
 
                             <div class="connect-sorting-content" data-sortable="true" id="Closed Won">
@@ -423,7 +496,7 @@ require_once('../controller/GetAllSalesLead.php');
                                         <div class="card-body">
                                             <div class="task-header">
                                                 <div class="">
-                                                    <h4 class="" data-taskTitle="<?php echo $won['lead_name']; ?>"><?php echo $won['lead_name']; ?></h4>
+                                                    <h4 class="" style="color:#D53412; font-weight: bolder" data-taskTitle="<?php echo $won['lead_name']; ?>"><?php echo $won['lead_name']; ?></h4>
                                                 </div>
                                             </div>
 
@@ -431,7 +504,7 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                 <div class="task-bottom">
                                                     <div class="tb-section-1">
-                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <span style="color: #1273D5;" data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -443,17 +516,25 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                         </span>
                                                     </div>
-                                                    <div class="tb-section-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                        </svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div style="padding:15px;">
+                                                    <p>
+                                                        Potential Opportunity:  <?php echo number_format($won['potential_opportunity'], 2) ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Chance of Sale:  <?php echo $won['chance_of_sales'] ?>%
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Forecast Close:  <?php echo $won['forecast_close'] ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Weighted Forecast:  <?php echo number_format($won['weighted_forecast'], 2) ?>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -472,10 +553,18 @@ require_once('../controller/GetAllSalesLead.php');
                     <div data-section="s-in-progress" class="task-list-container" data-connect="sorting">
                         <div class="connect-sorting">
                             <div class="task-container-header">
-                                <h6 class="s-heading" data-listTitle="Closed Won">Closed Won</h6>
+                                <h6 class="s-heading" data-listTitle="Closed Lost">Closed Lost</h6>
+                                <?php
+                                $callClosedLostValues = GetAllSalesLead::getClosedLostPipelineValue(); //
+                                $closedLostValue   = $callClosedLostValues['PipelineValue'];
+
+                                if (isset($closedLostValue)) {
+                                    echo "Value: " . number_format($closedLostValue, 2);
+                                }
+                                ?>
                             </div>
 
-                            <div class="connect-sorting-content" data-sortable="true" id="Closed Won">
+                            <div class="connect-sorting-content" data-sortable="true" id="Closed Lost">
 
                                 <?php
 
@@ -488,7 +577,7 @@ require_once('../controller/GetAllSalesLead.php');
                                         <div class="card-body">
                                             <div class="task-header">
                                                 <div class="">
-                                                    <h4 class="" data-taskTitle="<?php echo $lost['lead_name']; ?>"><?php echo $lost['lead_name']; ?></h4>
+                                                    <h4 class="" style="color:#D53412; font-weight: bolder" data-taskTitle="<?php echo $lost['lead_name']; ?>"><?php echo $lost['lead_name']; ?></h4>
                                                 </div>
                                             </div>
 
@@ -496,7 +585,7 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                 <div class="task-bottom">
                                                     <div class="tb-section-1">
-                                                        <span data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
+                                                        <span style="color: #1273D5;" data-taskDate="08 Aug 2020"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
                                                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
                                                                 <line x1="16" y1="2" x2="16" y2="6"></line>
                                                                 <line x1="8" y1="2" x2="8" y2="6"></line>
@@ -508,17 +597,25 @@ require_once('../controller/GetAllSalesLead.php');
 
                                                         </span>
                                                     </div>
-                                                    <div class="tb-section-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-edit-2 s-task-edit">
-                                                            <path d="M17 3a2.828 2.828 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5L17 3z"></path>
-                                                        </svg>
-                                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2 s-task-delete">
-                                                            <polyline points="3 6 5 6 21 6"></polyline>
-                                                            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                                                            <line x1="10" y1="11" x2="10" y2="17"></line>
-                                                            <line x1="14" y1="11" x2="14" y2="17"></line>
-                                                        </svg>
-                                                    </div>
+                                                    
+                                                </div>
+
+                                                <div style="padding:15px;">
+                                                    <p>
+                                                        Potential Opportunity:  <?php echo number_format($lost['potential_opportunity'], 2) ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Chance of Sale:  <?php echo $lost['chance_of_sales'] ?>%
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Forecast Close:  <?php echo $lost['forecast_close'] ?>
+                                                    </p>
+                                                    
+                                                    <p>
+                                                        Weighted Forecast:  <?php echo number_format($lost['weighted_forecast'], 2) ?>
+                                                    </p>
                                                 </div>
 
                                             </div>
@@ -542,7 +639,7 @@ require_once('../controller/GetAllSalesLead.php');
             <p style="display: none" id="pipeCors"><?php echo $getToken; ?></p>
 
             <span id="response"></span>
-            
+
 
         </div>
 

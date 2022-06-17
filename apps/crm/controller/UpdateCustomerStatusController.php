@@ -40,5 +40,4 @@ class UpdateCustomerStatusController
     }
 }
 
-$callMethod     = new UpdateCustomerStatusController();
-$thisMethod     = $callMethod->changeCustomerStatus();
+UpdateCustomerStatusController::changeCustomerStatus();

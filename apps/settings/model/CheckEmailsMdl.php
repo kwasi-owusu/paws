@@ -3,45 +3,45 @@ require_once '../../template/statics/conn/connection.php';
 
 class CheckEmailsMdl{
     public static function checkCustomerEmail($val, $merchant_id){
-        $stmt   = Connection::connect()->prepare("SELECT * FROM customers WHERE customa_email = :cem AND merchant_ID = :merchant_id LIMIT 1");
+        $stmt   = Connection::connect()->prepare("SELECT * FROM customers WHERE customa_email = :cem LIMIT 1");
         $stmt->bindParam(':cem',$val, PDO::PARAM_STR);
-        $stmt->bindParam('merchant_id', $merchant_id, PDO::PARAM_STR);
+        
         $stmt->execute();
 
         return $stmt;
     }
 
     public static function checkSupplierEmail($val, $merchant_id){
-        $stmt   = Connection::connect()->prepare("SELECT * FROM suppliers WHERE supp_email = :cem AND merchant_ID = :merchant_id LIMIT 1");
+        $stmt   = Connection::connect()->prepare("SELECT * FROM suppliers WHERE supp_email = :cem LIMIT 1");
         $stmt->bindParam(':cem',$val, PDO::PARAM_STR);
-        $stmt->bindParam('merchant_id', $merchant_id, PDO::PARAM_STR);
+        
         $stmt->execute();
 
         return $stmt;
     }
 
     public static function checkUserEmail($val, $merchant_id){
-        $stmt   = Connection::connect()->prepare("SELECT * FROM users WHERE userEmail = :cem AND merchant_ID = :merchant_id LIMIT 1");
+        $stmt   = Connection::connect()->prepare("SELECT * FROM users WHERE userEmail = :cem LIMIT 1");
         $stmt->bindParam(':cem',$val, PDO::PARAM_STR);
-        $stmt->bindParam('merchant_id', $merchant_id, PDO::PARAM_STR);
+        
         $stmt->execute();
 
         return $stmt;
     }
     
     public static function checkContactEmail($val, $merchant_id){
-        $stmt   = Connection::connect()->prepare("SELECT * FROM contacts WHERE contact_email = :cem AND merchant_ID = :merchant_id LIMIT 1");
+        $stmt   = Connection::connect()->prepare("SELECT * FROM contacts WHERE contact_email = :cem LIMIT 1");
         $stmt->bindParam(':cem',$val, PDO::PARAM_STR);
-        $stmt->bindParam('merchant_id', $merchant_id, PDO::PARAM_STR);
+       
         $stmt->execute();
 
         return $stmt;
     }
 
     public static function checkMerchantEmail($val, $merchant_id){
-        $stmt   = Connection::connect()->prepare("SELECT * FROM merchants WHERE email = :cem AND merchant_ID = :merchant_id LIMIT 1");
+        $stmt   = Connection::connect()->prepare("SELECT * FROM merchants WHERE email = :cem LIMIT 1");
         $stmt->bindParam(':cem',$val, PDO::PARAM_STR);
-        $stmt->bindParam('merchant_id', $merchant_id, PDO::PARAM_STR);
+        
         $stmt->execute();
 
         return $stmt;

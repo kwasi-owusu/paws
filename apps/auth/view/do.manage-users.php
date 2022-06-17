@@ -18,6 +18,9 @@ $loadRoles = GetAllUsers::doAllUsers();
 
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
+                <div class="w-content">
+                        <span class="w-value" style="padding: 15px; font-size:20px; font-weight:bolder;">Manage Users</span>
+                    </div>
                     <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                         <thead>
                             <tr>
