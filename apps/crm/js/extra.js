@@ -203,3 +203,13 @@ function deleteThisCustomer(itm) {
     }
   );
 }
+
+function editThisLead(itm) {
+  let id = $(itm).attr("data-id");
+  $("<div>").load(
+    "crm/view/modals/modal.edit_lead.php?id=" + id,
+    function (data) {
+      $("#salesLeadModalContentLG").html(data);
+    }
+  );
+}

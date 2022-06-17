@@ -19,6 +19,9 @@ $getCustomers = GetAllCustomers::allCustomerListController();
 
             <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
                 <div class="widget-content widget-content-area br-6">
+                    <div class="w-content">
+                        <span class="w-value" style="padding: 15px; font-size:20px; font-weight:bolder;">Manage Customers</span>
+                    </div>
                     <table id="html5-extension" class="table table-hover non-hover" style="width:100%">
                         <thead>
                             <tr>
@@ -41,10 +44,10 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                 <th>Email</th>
                                 <th>Phone</th>
                                 <th>Address</th>
-                                <th>Status</th>
                                 <th>City</th>
                                 <th>State/Region</th>
                                 <th>Country</th>
+                                <th>Status</th>
                                 <th>Action</th>
                             </tr>
                         </tfoot>
@@ -92,7 +95,7 @@ $getCustomers = GetAllCustomers::allCustomerListController();
                                                 <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ac['customa_ID']; ?>" onclick="deleteThisCustomer(this)" data-toggle="modal" data-target="#deleteConfirmation">
                                                     Delete Customer
                                                 </a>
-                                                
+
                                             </div>
                                         </div>
                                     </td>

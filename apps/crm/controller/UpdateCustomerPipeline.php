@@ -22,12 +22,16 @@ class UpdateCustomerPipeline
             if (!$error && $sourceId != '' && $targetId != ''){
                 require_once('../model/PipelineMdl.php');
                 $tbl        = 'sales_pipeline';
+                $tbl_b      = 'sales_lead';
+
+                $lastUpdateBy = $_SESSION['uid'];
                 $data       = array(
                     'sd' => $sourceId,
                     'td' => $targetId,
-                    'pd' => $leadIdID
+                    'pd' => $leadIdID,
+                    'lbd'=> $lastUpdateBy
                 );
-                if (PipelineMdl::updatePipeline($tbl, $data)){
+                if (PipelineMdl::updatePipeline($tbl, $tbl_b, $data)){
                     echo "<span>Sales Pipeline Update Successful</span>";
                 }
                 else{

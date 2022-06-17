@@ -8,7 +8,7 @@ class DeleteCustomerController{
         require_once ('../model/CustomerModel.php');
         $tkn = trim($_POST['tkn']);
        
-        if (isset($_SESSION['editCustomerToken']) && $_SESSION['editCustomerToken'] == $tkn){
+        if (isset($_SESSION['deleteCustomerToken']) && $_SESSION['deleteCustomerToken'] == $tkn){
             $customer_ID        = trim($_POST['customer_ID']);
             $delete_by          = $_SESSION['uid'];
             $tbl                = 'customers';
@@ -19,11 +19,11 @@ class DeleteCustomerController{
             );
 
             if(CustomerModel::deleteThisCustomerSoftly($tbl, $data)){
-                echo 'Customer deleted successfully';
+                echo 'Customer Deleted successfully';
             }
 
             else{
-                echo 'Customer delete unsuccessful';
+                echo 'Customer Delete unsuccessful';
             }
 
         }

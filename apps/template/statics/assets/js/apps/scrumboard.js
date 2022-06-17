@@ -66,10 +66,13 @@ $(function () {
                 });
               });
               $("#loader").hide();
-              location.reload(true);
+              //location.reload(true);
               setInterval("location.reload()", 3000);
             },
           });
+        }
+        else{
+          $("#loader").hide();
         }
       },
       update: function (event, ui) {

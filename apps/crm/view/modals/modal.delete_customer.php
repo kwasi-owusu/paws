@@ -3,10 +3,10 @@ session_start();
 
 require_once '../DoCustomerCors.php';
 
-$page_name         = "edit_this_customer";
+$page_name         = "delete_this_customer";
 
-$editCustomerToken = DoCustomerCors::editCustomerCors($page_name);
-$_SESSION['editCustomerToken'] = $editCustomerToken;
+$deleteCustomerToken = DoCustomerCors::editCustomerCors($page_name);
+$_SESSION['deleteCustomerToken'] = $deleteCustomerToken;
 
 
 $customer_ID = $_REQUEST['id'];
@@ -17,7 +17,7 @@ $customer_ID = $_REQUEST['id'];
         <p class="">If you delete this customer it will be gone forever. Are you sure you want to proceed?</p>
 
         <input type="hidden" class="form-control input-lg m-bot15" id="customer_ID" name="customer_ID" value="<?php echo $customer_ID; ?>" readonly>
-        <input type="hidden" class="form-control input-lg m-bot15" id="tkn" name="tkn" value="<?php echo $editCustomerToken; ?>" readonly>
+        <input type="hidden" class="form-control input-lg m-bot15" id="tkn" name="tkn" value="<?php echo $deleteCustomerToken; ?>" readonly>
 
     </div>
     <div class="modal-footer">
