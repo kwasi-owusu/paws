@@ -13,7 +13,7 @@ $_SESSION['loginPage']  = $token;
                 <div class="form-container">
                     <div class="form-content">
 
-                        <h1 class="">Log In to <a href="index-2.html"><span class="brand-name">Paws</span></a></h1>
+                        <h1 class="">Log In to <a href="index-2.html"><span class="brand-name">Rails ERP</span></a></h1>
                         <p class="signup">New Here? <a href="auth_register.html">Create an account</a></p>
                         <form class="text-left" id="login_user_frm" method="post" action="" autocomplete="off">
                             <div class="form">

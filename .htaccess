@@ -25,3 +25,7 @@ RewriteRule ^manage-leads(.*)?$ apps/crm/view/do.manage-leads.php
 RewriteRule ^sales-pipeline(.*)?$ apps/crm/view/do.sales-pipeline.php
 
 
+### mass email
+RewriteRule ^spam-check(.*)?$ apps/emailing/view/do.spam-check.php
+
+
