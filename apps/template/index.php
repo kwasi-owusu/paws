@@ -24,7 +24,7 @@ $fetchMenuItems = $menu_Items->fetchAll();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Paws Admin </title>
+    <title>Rails ERP Admin </title>
     <link rel="icon" type="image/x-icon" href="template/statics/assets/img/favicon.ico" />
     <link href="template/statics/assets/css/loader.css" rel="stylesheet" type="text/css" />
     <script src="template/statics/assets/js/loader.js"></script>
@@ -112,7 +112,7 @@ $fetchMenuItems = $menu_Items->fetchAll();
                     </a>
                 </li>
                 <li class="nav-item theme-text">
-                    <a href="javascript:void(0)" class="nav-link"> Paws </a>
+                    <a href="javascript:void(0)" class="nav-link"> Rails ERP </a>
                 </li>
             </ul>
 
