@@ -80,6 +80,13 @@ $fetchMenuItems = $menu_Items->fetchAll();
 
     <link href="template/statics/assets/css/elements/popover.css" rel="stylesheet" type="text/css" />
 
+    <!-- email upload -->
+    <link rel="stylesheet" type="text/css" href="template/statics/assets/plugins/jquery-step/jquery.steps.css">
+    <style>
+        #formValidate .wizard > .content {min-height: 25em;}
+        #example-vertical.wizard > .content {min-height: 24.5em;}
+    </style>
+
     <style>
         .layout-px-spacing {
             min-height: calc(100vh - 166px) !important;

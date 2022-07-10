@@ -26,7 +26,7 @@ require_once '../../template/index.php';
                                     </a>
                                 </div>
 
-                                <div class="card component-card_5 col" title="This represents the total number Orders received for today">
+                                <div class="card component-card_5_b col" title="This represents the total number Orders received for today">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(182, 255, 239);">
@@ -38,7 +38,7 @@ require_once '../../template/index.php';
                                     </a>
                                 </div>
 
-                                <div class="card component-card_5 col" title="Total Number of your Items currently in the Wishlist of the E-Commerce users">
+                                <div class="card component-card_5_c col" title="Total Number of your Items currently in the Wishlist of the E-Commerce users">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(182, 255, 239);">
@@ -50,7 +50,7 @@ require_once '../../template/index.php';
                                     </a>
                                 </div>
 
-                                <div class="card component-card_5 col" title="Total Number of your Items currently in  Shopping Cart by the E-Commerce users">
+                                <div class="card component-card_5_d col" title="Total Number of your Items currently in  Shopping Cart by the E-Commerce users">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(182, 255, 239);">
@@ -66,7 +66,7 @@ require_once '../../template/index.php';
 
                             <div class="row">
                                 
-                                <div class="card component-card_5 col" title="Total Revenue from both E-commerce and Physical Shop (if any)">
+                                <div class="card component-card_5_e col" title="Total Revenue from both E-commerce and Physical Shop (if any)">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(182, 255, 239);">
@@ -78,7 +78,7 @@ require_once '../../template/index.php';
                                     </a>
                                 </div>
 
-                                <div class="card component-card_5 col" title="Total Value of all your Inventory in the System">
+                                <div class="card component-card_5_f col" title="Total Value of all your Inventory in the System">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(182, 255, 239);">
@@ -90,7 +90,7 @@ require_once '../../template/index.php';
                                     </a>
                                 </div>
 
-                                <div class="card component-card_5 col" title="Total Value of your Price Quotes that are yet to be converted to Sales">
+                                <div class="card component-card_5_g col" title="Total Value of your Price Quotes that are yet to be converted to Sales">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(237, 17, 17);">
@@ -102,7 +102,7 @@ require_once '../../template/index.php';
                                     </a>
                                 </div>
 
-                                <div class="card component-card_5 col" title="Total Value of your Price Quotes that have been converted to Sales">
+                                <div class="card component-card_5_h col" title="Total Value of your Price Quotes that have been converted to Sales">
                                     <a href="javascript:void(0);">
                                         <div class="card-body">
                                             <div class="icon-svg" style="color:rgb(182, 255, 239);">
