@@ -38,13 +38,16 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                     </div>
                                                 </div>
 
+                                                <div class="col-md-12 text-right mb-5">
+                                                    <button type="submit" class="btn btn-secondary" id="saveBtn">Check</button>
+                                                </div>
+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-12 text-right mb-5">
-                                    <button type="submit" class="btn btn-secondary" id="saveBtn">Check</button>
-                                </div>
+
+                                <p id="responseHere" style="padding:15px;"></p>
                             </form>
 
                             <div class="col-12">

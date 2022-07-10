@@ -12,7 +12,7 @@ $("#circle-basic").steps({
     autoFocus: true,
     cssClass: 'circle wizard'
 });
-$("#example-vertical").steps({
+$("#vertical_step").steps({
     headerTag: "h3",
     bodyTag: "section",
     transitionEffect: "slideLeft",

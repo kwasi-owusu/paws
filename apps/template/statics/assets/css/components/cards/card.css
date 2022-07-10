@@ -164,16 +164,94 @@
     margin: 5px;
     border: none; 
     border-radius: 8px;
-    background: #000;
+    background: #3817b0;
     -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
     box-shadow: 4px 6px 10px -3px #000;
     color: #fff;
     font-weight: bolder;
 }
+
+.component-card_5_b {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #000000;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.component-card_5_c {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #7017b0;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.component-card_5_d {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #009688;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.component-card_5_e {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #fe5f75;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.component-card_5_f {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #760848;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.component-card_5_g {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #177ab0;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
+.component-card_5_h {
+    margin: 5px;
+    border: none; 
+    border-radius: 8px;
+    background: #d8a702;
+    -webkit-box-shadow: 4px 6px 10px -3px #bfc9d4;
+    box-shadow: 4px 6px 10px -3px #000;
+    color: #fff;
+    font-weight: bolder;
+}
+
 .component-card_5 .card-body { padding:15px; }
 
-.component-card_5 .card-body .card-text {
-    color: #f1f2f3;
+.card-body .card-text {
+    color: #ffffff;
     font-size: 14px;
     letter-spacing: 1px;
 }

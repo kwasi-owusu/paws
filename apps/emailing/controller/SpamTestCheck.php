@@ -13,7 +13,7 @@ class SpamTestCheck
 
             $getEmail = filter_var($email, FILTER_SANITIZE_EMAIL);
 
-            if (empty($getEmail)) {
+            if (empty($email)) {
                 $error = true;
                 echo "Email address cannot be empty";
             } elseif (!$error) {
@@ -21,19 +21,16 @@ class SpamTestCheck
                 //check if domain is blacklisted
 
                 $email_parts = explode("@", $getEmail);
-                $parsed_email = $email_parts[1];
+                $parsed_domain = $email_parts[1];
 
+                $parsed = parse_url($parsed_domain);
 
-                $parsed = parse_url($parsed_email);
+                $full_url = "www." . $parsed_domain;
 
-                if (!isset($parsed['host']))
-                    return 'malformed';
+                $get_domain_ip =  gethostbyname($full_url);
 
-                // Remove www. from domain (but not from www.com)
-                $parsed['host'] = preg_replace('/^www\.(.+\.)/i', '$1', $parsed['host']);
-
-                // The 3 major blacklists
-                $blacklists = array(
+                //databases to check
+                $dns_db_lookup = array(
                     "blocklist.de/lists/ssh.txt",
                     "blocklist.de/lists/apache.txt",
                     "blocklist.de/lists/asterisk.txt",
@@ -50,28 +47,76 @@ class SpamTestCheck
                     "ciarmy.com/list/ci-badguys.txt",
                     "sbl.spamhaus.org",
                     "xbl.spamhaus.org",
-                    "zen.spamhaus.org"
+                    "zen.spamhaus.org",
+                    "dnsbl-1.uceprotect.net",
+                    "all.s5h.net",
+                    "wormrbl.imp.ch",
+                    "dnsbl-2.uceprotect.net",
+                    "blacklist.woody.ch",
+                    "dnsbl-3.uceprotect.net",
+                    "combined.abuse.ch",
+                    "dnsbl.spfbl.net",
+                    "dnsbl.dronebl.org",
+                    "http.dnsbl.sorbs.net",
+                    "spam.dnsbl.sorbs.net",
+                    "dyna.spamrats.com"
+
                 );
+
+
+                if ($get_domain_ip) {
+                    $reverse_ip = implode(".", array_reverse(explode(".", $get_domain_ip)));
+
+                    foreach ($dns_db_lookup as $host)
+                        if (checkdnsrr("$reverse_ip.$host.", "A")) {
+                            echo "$get_domain_ip ($parsed_domain) <font color='red'><strong>is blacklisted in </strong></font> $host<br />\n";
+                        } else {
+                            echo "$get_domain_ip ($parsed_domain) <font color='green'><strong>passed in </strong></font> $host<br />\n";
+                        }
+                }
+
+                //demarc check 
+                // $dmk = dns_get_record("_dmarc".$parsed_email, DNS_TXT);
+                // print_r($dmk);
 
                 // Check against each black list, exit if blacklisted
                 // foreach ($blacklists as $blacklist) {
-                //     $domain = $parsed['host'] . '.' . $blacklist . '.';
-                //     $record = dns_get_record($domain);
+                //     $domain = $get_domain_ip . '.' . $blacklist . '.';
 
-                //     echo $record;
+
 
                 //     // if (count($record) > 0) {
                 //     //     echo "Email is blacklisted";
                 //     // }
                 // }
 
-                $dmarc = dns_get_record($parsed, DNS_TXT);
-                echo "DMARC is ". $dmarc;
+                $DNS_MX_record = dns_get_record("_dmarc." . $parsed_domain, DNS_TXT);
 
-                echo " \n Domain is ". $parsed['host'];
+                $SPF_record = dns_get_record($parsed_domain, DNS_TXT);
 
-                // All clear, probably not spam
-                echo "Email is not blacklisted";
+                echo "<hr />";
+                if (isset($SPF_record[0]["txt"])) {
+                    echo "<p>SPF Record " . $SPF_record[0]["txt"] . "</p>";
+                }
+                else{
+                    echo "<p>SPF Record returned empty</p>";
+                }
+
+                if (isset($DNS_MX_record[0]["txt"])) {
+                    echo "<p>DMARC Record " . $DNS_MX_record[0]["txt"] . "</p>";
+                }
+
+                else{
+                    echo "<p>DMARC Record returned empty</p>";
+                }
+
+                // foreach ($DNS_MX_record as $ar) {
+
+                //     foreach ($ar as $key => $val) {
+                //         echo "DMARC Record" .$key . ":" . $val . "</br>";
+                //     }
+                //     echo "</br>";
+                // }
             }
         } else {
             echo "Action is not allowed";
