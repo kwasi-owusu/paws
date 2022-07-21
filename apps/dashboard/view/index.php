@@ -33,6 +33,7 @@ require_once '../../template/index.php';
                                     </div>
                                 </div>
 
+
                                 <div class="col-md-3">
                                     <div class="card component-card_5_b" title="This represents the total number Orders received for today">
                                         <a href="javascript:void(0);">
@@ -46,10 +47,18 @@ require_once '../../template/index.php';
                                                 </div>
                                                 <h5 class="card-title" style="color:#fff;">30</h5>
                                                 <p class="card-text">Total Orders.</p>
+
+                                <div class="card component-card_5_b col" title="This represents the total number Orders received for today">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(182, 255, 239);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+
                                             </div>
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <div class="card component-card_5_c" title="Total Number of your Items currently in the Wishlist of the E-Commerce users">
@@ -64,10 +73,18 @@ require_once '../../template/index.php';
                                                 </div>
                                                 <h5 class="card-title" style="color:#fff;">21</h5>
                                                 <p class="card-text">Total Items in Wishlist.</p>
+
+                                <div class="card component-card_5_c col" title="Total Number of your Items currently in the Wishlist of the E-Commerce users">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(182, 255, 239);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-bag"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+
                                             </div>
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <div class="card component-card_5_d" title="Total Number of your Items currently in  Shopping Cart by the E-Commerce users">
@@ -81,6 +98,13 @@ require_once '../../template/index.php';
                                                 </div>
                                                 <h5 class="card-title" style="color:#fff;">30</h5>
                                                 <p class="card-text">Total Items in Cart.</p>
+
+                                <div class="card component-card_5_d col" title="Total Number of your Items currently in  Shopping Cart by the E-Commerce users">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(182, 255, 239);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-square"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></svg>
+
                                             </div>
                                         </a>
                                     </div>
@@ -89,6 +113,7 @@ require_once '../../template/index.php';
 
 
                             <div class="row">
+
                                 <div class="col-md-3">
                                     <div class="card component-card_5_e" title="Total Revenue from both E-commerce and Physical Shop (if any)">
                                         <a href="javascript:void(0);">
@@ -102,11 +127,19 @@ require_once '../../template/index.php';
                                                     </svg>
                                                 </div>
                                                 <h5 style="color:#fff;">15000</h5>
-                                                <p class="card-text">Total Revenue.</p>
+
+                                
+                                <div class="card component-card_5_e col" title="Total Revenue from both E-commerce and Physical Shop (if any)">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(182, 255, 239);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+
                                             </div>
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <div class="card component-card_5_f" title="Total Value of all your Inventory in the System">
@@ -119,10 +152,18 @@ require_once '../../template/index.php';
                                                 </div>
                                                 <h5 style="color:#fff;">175000</h5>
                                                 <p class="card-text">Total Inventory Value.</p>
+
+                                <div class="card component-card_5_f col" title="Total Value of all your Inventory in the System">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(182, 255, 239);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-maximize"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+
                                             </div>
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <div class="card component-card_5_g" title="Total Value of your Price Quotes that are yet to be converted to Sales">
@@ -137,10 +178,18 @@ require_once '../../template/index.php';
                                                 </div>
                                                 <h5 style="color:#fff;">21</h5>
                                                 <p class="card-text">Total Value of Lost Leads.</p>
+
+                                <div class="card component-card_5_g col" title="Total Value of your Price Quotes that are yet to be converted to Sales">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(237, 17, 17);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-square"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="9" y1="9" x2="15" y2="15"></line><line x1="15" y1="9" x2="9" y2="15"></line></svg>
+
                                             </div>
                                         </a>
                                     </div>
                                 </div>
+
 
                                 <div class="col-md-3">
                                     <div class="card component-card_5_h" title="Total Value of your Price Quotes that have been converted to Sales">
@@ -154,6 +203,13 @@ require_once '../../template/index.php';
                                                 </div>
                                                 <h5 style="color:#fff;">30</h5>
                                                 <p class="card-text">Total Value of Won Leads.</p>
+
+                                <div class="card component-card_5_h col" title="Total Value of your Price Quotes that have been converted to Sales">
+                                    <a href="javascript:void(0);">
+                                        <div class="card-body">
+                                            <div class="icon-svg" style="color:rgb(182, 255, 239);">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+
                                             </div>
                                         </a>
                                     </div>

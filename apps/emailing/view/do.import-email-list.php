@@ -2,10 +2,17 @@
 require_once '../../template/index.php';
 
 require_once 'DoEmailCors.php';
+
 $page_name         = "addEmailList.php";
 $getToken          = DoEmailCors::addEmailLists($page_name);
 
 $_SESSION['addEmailContactList']  = $getToken;
+
+$page_name         = "checkSPam.php";
+$getToken          = DoEmailCors::checkSPam($page_name);
+
+$_SESSION['spamTestTkn']  = $getToken;
+
 
 $merchant_ID = $_SESSION['merchant_ID'];
 ?>
@@ -21,6 +28,7 @@ $merchant_ID = $_SESSION['merchant_ID'];
 
                         <div class="col-xl-8 col-lg-8 col-md-8 layout-spacing">
 
+
                             <div class="statbox widget box box-shadow">
                                 <div class="widget-header">
                                     <div class="row">
@@ -32,6 +40,18 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                 <div class="widget-content widget-content-area">
 
                                     <form id="upload_email_contacts_frm" class="section work-experience" action="" method="post" autocomplete="off">
+
+                            <form id="upload_email_contacts_frm" class="section work-experience" action="" method="post" autocomplete="off">
+                                <div class="statbox widget box box-shadow">
+                                    <div class="widget-header">
+                                        <div class="row">
+                                            <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                                <h4>Upload Email Contacts</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="widget-content widget-content-area">
+
                                         <div id="vertical_step">
                                             <h3>Keyboard</h3>
                                             <section>
@@ -42,7 +62,9 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                         <span class="new-control-indicator"></span>
                                                         I confirm these contacts have consented to receive my email communications
                                                     </label>
+
                                                     <input type="hidden" class="form-control input-lg m-bot15" id="tkn" name="tkn" value="<?php echo $getToken; ?>">
+
                                                 </div>
                                             </section>
                                             <h3>Effects</h3>
@@ -50,7 +72,11 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                 <p>How do you want to upload contacts?</p>
                                                 <div class="n-chk">
                                                     <label class="new-control new-radio radio-primary">
+
                                                         <input type="radio" class="new-control-input contact_load_type" name="upload_format" id="zip_csv_json_upload" value="zip_csv_json_upload" checked>
+
+                                                        <input type="radio" class="new-control-input contact_load_type" name="upload_format" id="zip_csv_json_upload" value="zip_csv_json_upload" required checked>
+
                                                         <span class="new-control-indicator"></span>
                                                         Upload contacts from file (csv only)
                                                     </label>
@@ -58,7 +84,11 @@ $merchant_ID = $_SESSION['merchant_ID'];
 
                                                 <div class="n-chk">
                                                     <label class="new-control new-radio radio-primary">
+
                                                         <input type="radio" class="new-control-input contact_load_type" name="upload_format" id="paste_email" value="paste_email">
+
+                                                        <input type="radio" class="new-control-input contact_load_type" name="upload_format" id="paste_email" value="paste_email" required>
+
                                                         <span class="new-control-indicator"></span>
                                                         Type or copy and paste contacts
                                                     </label>
@@ -72,7 +102,10 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                     <p>Upload contacts from file (csv only)</p>
 
                                                     <div class="custom-file mb-4">
+
                                                         <input type="file" class="custom-file-input" id="contactCSVFile" name="contactCSVFile">
+
+                                                        <input type="file" class="custom-file-input" id="customFile">
                                                         <label class="custom-file-label" for="customFile">Choose file</label>
                                                     </div>
                                                 </div>
@@ -126,6 +159,11 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                                     <select class="form-control mb-4" id="select_contact_list" name="select_contact_list" required>
                                                                         <optgroup label="Default List">
                                                                             <option value="all_contact_list" selected>All Contacts</option>
+
+                                                                    <select class="form-control mb-4" id="wes-from1" id="select_contact_list" name="select_contact_list" required>
+                                                                        <optgroup label="Default List">
+                                                                            <option value="Active" selected>All Contacts</option>
+
                                                                         </optgroup>
                                                                     </select>
 
@@ -139,8 +177,14 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                         <div class="row">
                                                             <div class="col-md-12">
                                                                 <div class="form-group">
+
                                                                     <label class="bmd-label-floating"> Enter list name*</label>
                                                                     <input type="text" class="form-control input-lg m-bot15" id="enter_contact_list" name="enter_contact_list">
+
+                                                                    <label for="weighted_forecast" class="bmd-label-floating"> Enter list name*</label>
+
+                                                                    <input type="text" class="form-control input-lg m-bot15" id="enter_contact_list" style="font-weight:bolder;" name="enter_contact_list" required>
+
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -152,16 +196,22 @@ $merchant_ID = $_SESSION['merchant_ID'];
                                                         <div class="col-md-12">
                                                             <div class="form-group">
                                                                 <label for="weighted_forecast" class="bmd-label-floating"> Select list status*</label>
+
                                                                 <select class="form-control mb-4" id="wes-from1" id="select_list_status" name="select_list_status" required>
                                                                     <option value="Transactional" selected>Transactional</option>
                                                                     <option value="Active" selected>Active</option>
                                                                     <option value="Favorites">Favorites</option>
+
+                                                                <select class="form-control mb-4" id="wes-from1" id="pipeline_stage" name="pipeline_stage" required>
+                                                                    <option value="Active" selected>Active</option>
+
                                                                     <option value="Inactive">Inactive</option>
                                                                     <option value="Unsubscribed">Unsubscribed</option>
                                                                 </select>
                                                             </div>
                                                         </div>
                                                     </div>
+
 
                                                     <div class="col-md-12 text-right mb-5">
                                                         <button type="submit" class="btn btn-dark mb-2" id="saveBtn">Save</button>
@@ -179,6 +229,17 @@ $merchant_ID = $_SESSION['merchant_ID'];
 
                                 </div>
                             </div>
+
+                                                </div>
+
+                                            </section>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+
                         </div>
 
 
