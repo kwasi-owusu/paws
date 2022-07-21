@@ -1,10 +1,10 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 
 class GetSellableItems
 {
-    static public function allSellableItems($tbl_a, $tbl_b, $tbl_c, $myBranch, $noDays, $userType)
+    public static function allSellableItems($tbl_a, $tbl_b, $tbl_c, $myBranch, $noDays, $userType)
     {
 
 
@@ -29,7 +29,7 @@ class GetSellableItems
         }
     }
 
-    static public function branchStockLevels($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e, $branchName, $userType)
+    public static function branchStockLevels($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e, $branchName, $userType)
     {
         $stmt = Connection::connect()->prepare("SELECT $tbl_a.storage_ID, $tbl_a.product_code, $tbl_a.inventory_cat, $tbl_a.inventory_sub_cat, 
         $tbl_a.product_name, $tbl_a.batch_num, $tbl_a.recieved_qty, $tbl_a.wh_stored, $tbl_a.storage_address, $tbl_a.manu_dt, $tbl_a.expiry_dt, 
@@ -49,10 +49,10 @@ class GetSellableItems
         $stmt->execute();
 
         return $stmt;
-
     }
 
-    static public function LoadAllSellableItems($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e){
+    public static function LoadAllSellableItems($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e)
+    {
         $stmt = Connection::connect()->prepare("SELECT $tbl_a.storage_ID, $tbl_a.product_code, $tbl_a.inventory_cat, $tbl_a.inventory_sub_cat, 
         $tbl_a.product_name, $tbl_a.batch_num, $tbl_a.recieved_qty, $tbl_a.wh_stored, $tbl_a.storage_address, $tbl_a.manu_dt, $tbl_a.expiry_dt, 
         DATEDIFF(product_storage_tbl.expiry_dt, NOW()) AS days_to_expire, $tbl_a.addedOn, $tbl_a.addedBy, $tbl_b.inventory_code, $tbl_b.inventory_cat, 
@@ -72,7 +72,8 @@ class GetSellableItems
     }
 
 
-    static public function costThisSellableItems($tbl_a){
+    public static function costThisSellableItems($tbl_a)
+    {
         $stmt = Connection::connect()->prepare("SELECT *
         FROM $tbl_a
         ORDER BY product_name ASC

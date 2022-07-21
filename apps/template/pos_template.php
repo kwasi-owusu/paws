@@ -24,7 +24,7 @@ $fetchMenuItems = $menu_Items->fetchAll();
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>Rails ERP Admin </title>
+    <title>Rails ERP POS </title>
     <link rel="icon" type="image/x-icon" href="template/statics/assets/img/favicon.ico" />
     <link href="template/statics/assets/css/loader.css" rel="stylesheet" type="text/css" />
     <script src="template/statics/assets/js/loader.js"></script>
@@ -67,12 +67,7 @@ $fetchMenuItems = $menu_Items->fetchAll();
     <link rel="stylesheet" type="text/css" href="template/statics/assets/css/forms/theme-checkbox-radio.css">
     <link href="template/statics/assets/plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
     <link href="template/statics/assets/css/apps/contacts.css" rel="stylesheet" type="text/css" />
-
-    <!-- sweet alert -->
-    <script src="template/statics/assets/plugins/sweetalerts/promise-polyfill.js"></script>
-    <link href="template/statics/assets/plugins/sweetalerts/sweetalert2.min.css" rel="stylesheet" type="text/css" />
-    <link href="template/statics/assets/plugins/sweetalerts/sweetalert.css" rel="stylesheet" type="text/css" />
-    <link href="template/statics/assets/css/components/custom-sweetalert.css" rel="stylesheet" type="text/css" />
+   
 
     <!-- sales pipeline -->
     <link href="template/statics/assets/css/apps/scrumboard.css" rel="stylesheet" type="text/css" />
@@ -83,8 +78,13 @@ $fetchMenuItems = $menu_Items->fetchAll();
     <!-- email upload -->
     <link rel="stylesheet" type="text/css" href="template/statics/assets/plugins/jquery-step/jquery.steps.css">
     <style>
-        #formValidate .wizard > .content {min-height: 25em;}
-        #example-vertical.wizard > .content {min-height: 24.5em;}
+        #formValidate .wizard>.content {
+            min-height: 25em;
+        }
+
+        #example-vertical.wizard>.content {
+            min-height: 24.5em;
+        }
     </style>
 
     <style>
@@ -97,7 +97,7 @@ $fetchMenuItems = $menu_Items->fetchAll();
 
 </head>
 
-<body>
+<body class="alt-menu">
     <!-- BEGIN LOADER -->
     <div id="load_screen">
         <div class="loader">
@@ -174,114 +174,16 @@ $fetchMenuItems = $menu_Items->fetchAll();
     <!--  BEGIN NAVBAR  -->
     <div class="sub-header-container">
         <header class="header navbar navbar-expand-sm">
-            <a href="javascript:void(0);" class="sidebarCollapse" data-placement="bottom"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu">
-                    <line x1="3" y1="12" x2="21" y2="12"></line>
-                    <line x1="3" y1="6" x2="21" y2="6"></line>
-                    <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg></a>
-
-            <ul class="navbar-nav flex-row">
-                <li>
-                    <div class="page-header">
-                        <div class="page-title">
-
-                <li class="menu">
-                    <a href="../dashboard" aria-expanded="false" class="dropdown-toggle">
-                        <div class="">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-                                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                            </svg>
-                            <span> Dashboard</span>
-                        </div>
-                    </a>
-                </li>
+            
+        </header>
 
     </div>
-    </div>
-    </li>
-    </ul>
-    </header>
-    </div>
+
     <!--  END NAVBAR  -->
 
     <!--  BEGIN MAIN CONTAINER  -->
     <div class="main-container" id="container">
-
         <div class="overlay"></div>
         <div class="search-overlay"></div>
 
         <!--  BEGIN SIDEBAR  -->
-        <div class="sidebar-wrapper sidebar-theme">
-
-            <nav id="sidebar">
-                <div class="shadow-bottom"></div>
-
-                <ul class="list-unstyled menu-categories" id="accordionExample">
-                    <!--
-                    <li class="menu">
-                        <a href="admin" aria-expanded="false" class="dropdown-toggle">
-                            <div class="">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-                                <span> Dashboard</span>
-                            </div>
-                        </a>
-                    </li>
-                    -->
-
-                    <?php
-                    foreach ($fetchMenuItems as $mt) {
-                        $menu_ID = $mt['menu_ID'];
-                    ?>
-                        <li class="menu">
-                            <a href="#<?php echo $mt['menu_slug']; ?>" title="<?php echo $mt['menu_title']; ?>" data-active="false" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-
-                                <div class="">
-                                    <?php echo $mt['menu_svg_icon']; ?>
-                                    <span><?php echo $mt['menu_description']; ?></span>
-                                </div>
-
-                                <div>
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right">
-                                        <polyline points="9 18 15 12 9 6"></polyline>
-                                    </svg>
-
-                                </div>
-                            </a>
-
-
-                            <ul class="submenu list-unstyled collapse" id="<?php echo $mt['menu_slug']; ?>" data-parent="#accordionExample">
-
-                                <?php
-                                $getSubMenu = CtrMenu::subMenuCtr($menu_ID);
-
-                                $cntSubMenu = $getSubMenu->rowCount();
-
-                                if ($cntSubMenu > 0) {
-                                    $fetchSubMenu = $getSubMenu->fetchAll();
-
-                                    foreach ($fetchSubMenu as $sbm) {
-
-                                ?>
-
-                                        <li>
-                                            <a href="../<?php echo $sbm['sub_menu_slug']; ?>"><?php echo $sbm['sub_menu_description']; ?> </a>
-                                        </li>
-                                <?php
-                                    }
-                                }
-                                ?>
-
-                            </ul>
-
-                        </li>
-
-                    <?php
-                    }
-                    ?>
-
-                </ul>
-
-            </nav>
-
-        </div>

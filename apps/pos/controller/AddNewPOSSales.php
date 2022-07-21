@@ -13,16 +13,17 @@ use Mike42\Escpos\CapabilityProfile;
 
 class AddNewPOSSales
 {
-    static public function addPOSTransaction(){
+    public static function addPOSTransaction()
+    {
         $getToken   = strip_tags(trim($_POST['tkn']));
-        if (isset($_SESSION['posCors']) && $_SESSION['posCors'] == $getToken) {
+        if (isset($_SESSION['pos_token']) && $_SESSION['pos_token'] == $getToken) {
 
             if (isset($_POST['itemCode'])) {
 
                 $error = false;
 
-                $getCurrency = strip_tags(trim($_POST['curr']));
-                $customer = strip_tags(trim($_POST['customa_name']));
+                $getCurrency = strip_tags(trim("GHS"));
+                $customer = "";
                 $addedBy = $_SESSION['uid'];
                 $branch_owner = $_SESSION['branch_name'];
                 $totalAftertax = strip_tags(trim($_POST['totalAftertax']));
@@ -38,11 +39,11 @@ class AddNewPOSSales
                 $quantity = $_POST['quantity'];
                 $total = $_POST['total'];
 
-                $tdy = trim($_POST['sales_day']);
-                $mnt = trim($_POST['sales_month']);
-                $yr = trim($_POST['salesYear']);
+                $tdy = Date('d');
+                $mnt = Date('m');
+                $yr = Date('Y');
 
-                $pmt_type = strip_tags(trim($_POST['pmt_type']));
+                $pmt_type = isset($_POST['pmt_type']) ? strip_tags(trim($_POST['pmt_type'])) : "Cash";
 
                 $initialTransactionCode = '10000000';
                 $thisTransactionCode = '';
@@ -51,8 +52,8 @@ class AddNewPOSSales
                 $tbl_b = 'pos_trans_items';
                 $tbl_c = 'pos_trans_financials';
 
-                require_once('../../model/settings/SelectAllTaxes.php');
-                require_once('../../model/pos/POSTransactionsMdl.php');
+                require_once('../../settings/model/SelectAllTaxes.php');
+                require_once('../model/POSTransactionsMdl.php');
 
                 $callTransCode = POSTransactionsMdl::getLatestTransaction($tbl_a);
                 $cntTransCode = $callTransCode->rowCount();
@@ -98,7 +99,7 @@ class AddNewPOSSales
                     $vatPercent = (float)$vfx['tax_percent'] / 100;
                     $vatAmount = (float)$vatPercent * $totalBeforeVAT;
 
-//                    $grandTotal = (float)$covidAmount + $vatAmount + $taxableAmount;
+                    //                    $grandTotal = (float)$covidAmount + $vatAmount + $taxableAmount;
                     $grandTotal = $totalAftertax;
 
 
@@ -125,7 +126,7 @@ class AddNewPOSSales
                         'ptp' => $pmt_type,
                         'tdy' => $tdy,
                         'mnt' => $mnt,
-                        'yr'=> $yr
+                        'yr' => $yr
                     );
 
                     if (POSTransactionsMdl::saveTaxableTransactions($tbl_a, $tbl_b, $tbl_c, $data)) {
@@ -139,12 +140,12 @@ class AddNewPOSSales
 
                         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
-                        $printer->text(Date("Y-m-d H:i:s") . "\n");//Invoice date
+                        $printer->text(Date("Y-m-d H:i:s") . "\n"); //Invoice date
 
                         $printer->feed(1); //We feed paper 1 time*/
 
                         $img = EscposImage::load("logo.png");
-                        $printer -> graphics($img);
+                        $printer->graphics($img);
 
                         $printer->text("Atlantic Catering & Logistics" . "\n");
 
@@ -153,7 +154,7 @@ class AddNewPOSSales
 
                         $printer->feed(1); //We feed paper 1 time*/
 
-                        $printer->text("Customer: " . $customer . "\n");//Customer's name
+                        $printer->text("Customer: " . $customer . "\n"); //Customer's name
 
                         $printer->setJustification(Printer::JUSTIFY_LEFT);
                         $printer->text("Description ");
@@ -167,11 +168,10 @@ class AddNewPOSSales
 
                             $printer->setJustification(Printer::JUSTIFY_LEFT);
 
-                            $printer->text($itemName[$countPrint]. " ");//Product's name
+                            $printer->text($itemName[$countPrint] . " "); //Product's name
 
                             $printer->setJustification(Printer::JUSTIFY_RIGHT);
-                            $printer->text(" ".number_format($quantity[$countPrint], 2) . " ".$price[$countPrint] ." ".number_format($total[$countPrint], 2) . "\n");
-
+                            $printer->text(" " . number_format($quantity[$countPrint], 2) . " " . $price[$countPrint] . " " . number_format($total[$countPrint], 2) . "\n");
                         }
 
 
@@ -180,8 +180,8 @@ class AddNewPOSSales
                         $printer->setJustification(Printer::JUSTIFY_RIGHT);
                         $printer->text("Total: " . number_format($taxableAmount, 2) . "\n"); //net price
 
-                        $printer->text("COVID Tax:". number_format($covidAmount, 2) . "\n"); //tax value
-                        $printer->text("VAT Tax: ". number_format($vatAmount, 2) . "\n"); //tax value
+                        $printer->text("COVID Tax:" . number_format($covidAmount, 2) . "\n"); //tax value
+                        $printer->text("VAT Tax: " . number_format($vatAmount, 2) . "\n"); //tax value
 
                         $printer->text("----------------------------\n");
 
@@ -195,7 +195,7 @@ class AddNewPOSSales
 
                         $printer->text("====================== \n"); //We can add a footer
 
-                        $printer->text("Rails ERP- Point of Sale" . "\n");//Software name
+                        $printer->text("Rails ERP- Point of Sale" . "\n"); //Software name
 
 
                         $printer->feed(3); //We feed paper 3 times*/
@@ -203,8 +203,8 @@ class AddNewPOSSales
                         $printer->cut(); //We cut the paper, if the printer has the option
 
 
-                        $data = $connector -> getData();
-                        $base64data=base64_encode($data);
+                        $data = $connector->getData();
+                        $base64data = base64_encode($data);
 
                         echo $base64data;
 
@@ -213,7 +213,6 @@ class AddNewPOSSales
                     } else {
                         echo "<span style='color: #ffffff;'>Transaction Unsuccessful</span> ";
                     }
-
                 } elseif (!$error && $taxableSales == 0) {
                     $data = array(
                         'curr' => $getCurrency,
@@ -246,22 +245,22 @@ class AddNewPOSSales
 
                         $printer->setJustification(Printer::JUSTIFY_CENTER);
 
-                        $printer->text(Date("Y-m-d H:i:s") . "\n");//Invoice date
+                        $printer->text(Date("Y-m-d H:i:s") . "\n"); //Invoice date
 
                         $printer->feed(1); //We feed paper 1 time*/
 
                         $img = EscposImage::load("logo.png");
-                        $printer -> graphics($img);
+                        $printer->graphics($img);
 
                         $printer->text("Atlantic Catering & Logistics" . "\n");
 
                         $printer->setJustification(Printer::JUSTIFY_LEFT);
 
-                        $printer->text("Receipt No." . $thisTransactionCode . "\n");//Invoice number
+                        $printer->text("Receipt No." . $thisTransactionCode . "\n"); //Invoice number
 
                         $printer->feed(1); //We feed paper 1 time*/
 
-                        $printer->text("Customer: " . $customer . "\n");//Customer's name
+                        $printer->text("Customer: " . $customer . "\n"); //Customer's name
 
                         $printer->setJustification(Printer::JUSTIFY_LEFT);
                         $printer->text("Item ");
@@ -275,11 +274,10 @@ class AddNewPOSSales
 
                             $printer->setJustification(Printer::JUSTIFY_LEFT);
 
-                            $printer->text($itemName[$countPrint]. " ");//Product's name
+                            $printer->text($itemName[$countPrint] . " "); //Product's name
 
                             $printer->setJustification(Printer::JUSTIFY_RIGHT);
-                            $printer->text(" ".number_format($quantity[$countPrint], 2) . " ".$price[$countPrint] ." ".number_format($total[$countPrint], 2) . "\n");
-
+                            $printer->text(" " . number_format($quantity[$countPrint], 2) . " " . $price[$countPrint] . " " . number_format($total[$countPrint], 2) . "\n");
                         }
 
 
@@ -299,7 +297,7 @@ class AddNewPOSSales
 
                         $printer->text("====================== \n"); //We can add a footer
 
-                        $printer->text("Rails ERP- Point of Sale" . "\n");//Software name
+                        $printer->text("Rails ERP- Point of Sale" . "\n"); //Software name
 
 
                         $printer->feed(3); //We feed paper 3 times*/
@@ -307,27 +305,22 @@ class AddNewPOSSales
                         $printer->cut(); //We cut the paper, if the printer has the option
 
 
-                        $data = $connector -> getData();
-                        $base64data=base64_encode($data);
+                        $data = $connector->getData();
+                        $base64data = base64_encode($data);
 
                         echo $base64data;
 
                         $printer->pulse();
                         $printer->close();
                     }
-
                 }
-
-            }
-            else{
+            } else {
                 echo "<span style='color: #ffffff;'>Action Not Permitted</span> ";
             }
-        }
-        else{
-            echo "<span style='color: #ffffff;'>Action Not Permitted</span> ";
+        } else {
+            echo "Action Not Permitted";
         }
     }
 }
 
-$callClass  = new AddNewPOSSales();
-$callMethod = $callClass->addPOSTransaction();
+AddNewPOSSales::addPOSTransaction();

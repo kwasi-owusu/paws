@@ -176,6 +176,9 @@ code { color: #e7515a; }
 }
 .navbar {
     padding: 0;
+
+    background: #177ab0;
+
     background: #760848;
 }
 .navbar .theme-brand {

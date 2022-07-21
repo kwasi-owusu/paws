@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class GetMyTodaySalesMdl
 {
     static public function mySalesForToday($me, $tbl){

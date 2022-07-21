@@ -3,14 +3,14 @@
 class FetchSellableItems
 {
     public static function callSellableItems(){
-        require_once('../../../controller/middleware/ExpiryCheckDuration.php');
+        require_once('../../settings/controller/ExpiryCheckDuration.php');
         $expiryDays     = ExpiryCheckDuration::checkExpiry();
         $fetchArrayType = $expiryDays->fetch(PDO::FETCH_ASSOC);
         $noDays         = $fetchArrayType['expiryDays'];
 
         $userType       = $_SESSION['user_type'];
 
-        require_once('../../../model/sales/GetSellableItems.php');
+        require_once('../../sales/model/GetSellableItems.php');
         $tbl_a      = 'inventory_master';
         $tbl_b      = 'sales_stock';
         $tbl_c      = 'inventory_cat';
@@ -21,14 +21,14 @@ class FetchSellableItems
     }
 
     public static function branchSellableItems($branchName){
-        require_once('../../../controller/middleware/ExpiryCheckDuration.php');
+        require_once('../../settings/controller/ExpiryCheckDuration.php');
         $expiryDays     = ExpiryCheckDuration::checkExpiry();
         $fetchArrayType = $expiryDays->fetch(PDO::FETCH_ASSOC);
         $noDays         = $fetchArrayType['expiryDays'];
 
         $userType       = $_SESSION['user_type'];
 
-        require_once('../../../model/sales/GetSellableItems.php');
+        require_once('../model/sales/GetSellableItems.php');
         $tbl_b      = 'inventory_master';
         $tbl_a      = 'product_storage_tbl';
         $tbl_c      = 'inventory_cat';
@@ -42,14 +42,14 @@ class FetchSellableItems
     }
 
     public static function getAllSellableItems(){
-        require_once('../../../controller/middleware/ExpiryCheckDuration.php');
+        require_once('../../settings/controller/ExpiryCheckDuration.php');
         $expiryDays     = ExpiryCheckDuration::checkExpiry();
         $fetchArrayType = $expiryDays->fetch(PDO::FETCH_ASSOC);
         $noDays         = $fetchArrayType['expiryDays'];
 
         $userType       = $_SESSION['user_type'];
 
-        require_once('../../../model/sales/GetSellableItems.php');
+        require_once('../../sales/model/sales/GetSellableItems.php');
         $tbl_b      = 'inventory_master';
         $tbl_a      = 'product_storage_tbl';
         $tbl_c      = 'inventory_cat';
@@ -63,14 +63,14 @@ class FetchSellableItems
     }
 
     public static function costAllSellableItems(){
-        require_once('../../../controller/middleware/ExpiryCheckDuration.php');
+        require_once('../../settings/controller/ExpiryCheckDuration.php');
         $expiryDays     = ExpiryCheckDuration::checkExpiry();
         $fetchArrayType = $expiryDays->fetch(PDO::FETCH_ASSOC);
         $noDays         = $fetchArrayType['expiryDays'];
 
         $userType       = $_SESSION['user_type'];
 
-        require_once('../../../model/sales/GetSellableItems.php');
+        require_once('../model/GetSellableItems.php');
         $tbl_a      = 'sales_stock';
 
         $myBranch   = $_SESSION['branch_name'];

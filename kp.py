@@ -1,6 +1,6 @@
 #KwickPython [FREE TO USE FOR ANY PROJECT, NO WARRANTY]link back to http://kwickpos.com if it works 4u
 import cgi,os,sys,win32print,pywintypes
-print("Access-Control-Allow-Origin: https://test.atlantic-erp.com")
+print("Access-Control-Allow-Origin: http://localhost:122/paws")
 print("Content-Type: text/plain\n")
 form = cgi.FieldStorage()
 p=form.getvalue('p')
