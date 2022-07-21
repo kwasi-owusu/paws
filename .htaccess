@@ -4,7 +4,7 @@ RewriteEngine On
 ErrorDocument 404 /ErrorPage.php
 RewriteRule ^home?$ index.php
 
-RewriteRule ^logout(.*)?$ bamboo/sign_out.php
+RewriteRule ^logout(.*)?$ apps/sign_out.php
 
 RewriteRule ^dashboard?$ apps/dashboard/view/index.php
 
@@ -24,9 +24,9 @@ RewriteRule ^sales-lead(.*)?$ apps/crm/view/do.new-lead.php
 RewriteRule ^manage-leads(.*)?$ apps/crm/view/do.manage-leads.php
 RewriteRule ^sales-pipeline(.*)?$ apps/crm/view/do.sales-pipeline.php
 
-
 ### mass email
 RewriteRule ^spam-check(.*)?$ apps/emailing/view/do.spam-check.php
 RewriteRule ^import-email-list(.*)?$ apps/emailing/view/do.import-email-list.php
 
-
+#### pos
+RewriteRule ^create_pos(.*)?$ apps/pos/view/do.pos_sell.php

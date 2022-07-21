@@ -41,6 +41,7 @@ class UserLogin{
                             $_SESSION['user_type'] = $rqsModel['userRole'];
                             $_SESSION['merchant_ID'] = $rqsModel['merchant_ID'];
                             $_SESSION['branch_ID'] = $rqsModel['branch_ID'];
+                            $_SESSION['branch_name'] = $rqsModel['branch_ID'];
                             $_SESSION['isLogin'] = "1";
 
                             $userIS         = $val;

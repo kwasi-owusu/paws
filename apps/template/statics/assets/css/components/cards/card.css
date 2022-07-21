@@ -540,7 +540,15 @@
 	/*
 		Component Card 5
 	*/
-	.component-card_5 { width: auto; }
+	.component-card_5 { width: 100%; }
+
+    .component-card_5_b { width: 100%; }
+    .component-card_5_c { width: 100%; }
+    .component-card_5_d { width: 100%; }
+    .component-card_5_e { width: 100%; }
+    .component-card_5_f { width: 100%; }
+    .component-card_5_g { width: 100%; }
+    .component-card_5_h { width: 100%; }
 
 	/*
 		Component Card 6

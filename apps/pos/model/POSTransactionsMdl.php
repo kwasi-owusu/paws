@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class POSTransactionsMdl
 {
     static public function saveTaxableTransactions($tbl_a, $tbl_b, $tbl_c, $data)
@@ -8,14 +8,6 @@ class POSTransactionsMdl
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
 
-//        $tdy = Date('d');
-//        $mnt = Date('m');
-//        $yr = Date('Y');
-        /*
-         'tdy' => $tdy,
-                        'mnt' => $mnt,
-                        'yr'=> $yr
-         */
         $data_owner = 1;
 
         if ($thisPDO->beginTransaction()) {

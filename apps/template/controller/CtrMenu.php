@@ -14,7 +14,7 @@ Class CtrMenu{
         $current_package = '';
         
         require_once '../../template/model/Menu.php';
-        require_once '../../merchants/models/Merchants.php';
+        require_once '../../merchants/model/Merchants.php';
 
         if($userRole != 1){
         $getMerchant    = Merchants::thisMerchants($merchant_ID);

@@ -33,6 +33,35 @@ $("#spam_test_frm").on("submit", function (e) {
   });
 });
 
+$("#upload_email_contacts_frm").on("submit", function (e) {
+  $("#saveBtn").prop("disabled", true);
+
+  $("#loader").show();
+
+  e.preventDefault();
+  $.ajax({
+    url: "emailing/controller/AddEmailContacts.php",
+    method: "POST",
+    data: new FormData(this),
+    contentType: false,
+    cache: false,
+    processData: false,
+
+    success: function (data) {
+      $("#responseHere").fadeOut("slow", function () {
+        Snackbar.show({
+          text: data,
+          actionTextColor: "#fff",
+          backgroundColor: "#2196f3",
+        });
+        
+        $("#saveBtn").prop("disabled", false);
+      });
+      $("#loader").hide();
+    },
+  });
+});
+
 //get all states_regions from selected country
 $(document).on("change", "#thisCountry", function () {
   let cty = $(this).val();
@@ -62,8 +91,6 @@ $(document).on("change", "#state_region", function () {
     },
   });
 });
-
-
 
 //generate customer code
 let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -110,33 +137,31 @@ function editThisLead(itm) {
 
 //converts the textarea input into an array
 
-$("#email_contact_list").keyup(function() {
-  let contentVal = $(this).val().split(',');
-  
-  let totalContacts = contentVal.length
+$("#email_contact_list").keyup(function () {
+  let contentVal = $(this).val().split(",");
 
-  $('#responseHere').html("We found " + totalContacts + " contacts");
+  let totalContacts = contentVal.length;
+
+  $("#responseHere").html("We found " + totalContacts + " contacts");
 });
 
-
-$(document).ready(function(){
-  $('.contact_load_type').click(function(){
-      let inputValue = $(this).attr("value");
-      let targetBox = $("." + inputValue);
-      $(".upload_div").not(targetBox).hide();
-      $(targetBox).show();
+$(document).ready(function () {
+  $(".contact_load_type").click(function () {
+    let inputValue = $(this).attr("value");
+    let targetBox = $("." + inputValue);
+    $(".upload_div").not(targetBox).hide();
+    $(targetBox).show();
   });
 });
 
+$(document).ready(function () {
+  $(".contact_list_div").click(function () {
+    let radioValue = $(this).attr("value");
 
-$(document).ready(function(){
-  $('.contact_list_div').click(function(){
-      let radioValue = $(this).attr("value");
-      
-      //$('#radio_value_here').html(radioValue);
-      
-      let targetDiv = $("." + radioValue);
-      $(".list_div_here").not(targetDiv).hide();
-      $(targetDiv).show();
+    //$('#radio_value_here').html(radioValue);
+
+    let targetDiv = $("." + radioValue);
+    $(".list_div_here").not(targetDiv).hide();
+    $(targetDiv).show();
   });
 });
