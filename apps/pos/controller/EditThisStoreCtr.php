@@ -1,19 +1,21 @@
 <?php
 
 session_start();
-class AddNewStoreCtr
+class EditThisStoreCtr
 {
-    public static function createNewStore(){
+    static public function editStore(){
         $getToken   = strip_tags(trim($_POST['tkn']));
         $error  = false;
-        if (isset($_SESSION['pos_settings_tkn']) && $_SESSION['pos_settings_tkn'] == $getToken){
+        if (isset($_SESSION['editShopToken']) && $_SESSION['editShopToken'] == $getToken){
             require_once('../model/SaveNewStore.php');
+            
             $tbl    = "pos_store";
-
+            
             $store_code     = strip_tags(trim($_POST['store_code']));
             $store_name     = strip_tags(trim($_POST['store_name']));
             $store_physical_location    = strip_tags(trim($_POST['store_physical_location']));
             $defaultCurr    = strip_tags(trim($_POST['defaultCurr']));
+            $shop_ID        = strip_tags(trim($_POST['shop_ID']));
             
             $addedBy        = $_SESSION['uid'];
             $branchName     = $_SESSION['branch_name'];
@@ -36,37 +38,25 @@ class AddNewStoreCtr
                 echo "<span style='color: #fff;'>Default Currency cannot be empty</span>";
             }
 
-            //check if store exist
-
-            //checkIfStoreExist($tbl, $data)
-            $dt     = array(
-              'stn'=> $store_name,
-              'spl' => $store_physical_location
-            );
-
-            $checkRst   = SaveNewStore::checkIfStoreExist($tbl, $dt);
-            $cntRst     = $checkRst->rowCount();
-            if ($cntRst > 0){
-                $error  = true;
-                echo "<span style='color: #fff;'>Shop Entries already exist</span>";
-            }
+           $lastUpdateOn = Date('Y-m-d');
 
             if (!$error){
                 $data   = array(
                     'stc'=> $store_code,
                     'stn' => $store_name,
                     'spl' => $store_physical_location,
+                    'sd' => $shop_ID,
                     'dcr' => $defaultCurr,
                     'adb' => $addedBy,
                     'md' => $merchant_ID,
-                    'brn' => $branchName
+                    'lbn' => $lastUpdateOn
                 );
 
-                if (SaveNewStore:: CreateThisStore($tbl, $data)){
-                    echo "<span style='color: #fff;'>Entry Successful</span>";
+                if (SaveNewStore:: updateThisStore($tbl, $data)){
+                    echo "<span style='color: #fff;'>Update Successful</span>";
                 }
                 else{
-                    echo "<span style='color: #fff;'>Entry Unsuccessful</span>";
+                    echo "<span style='color: #fff;'>Update Unsuccessful</span>";
                 }
             }
         }
@@ -76,4 +66,4 @@ class AddNewStoreCtr
     }
 }
 
-AddNewStoreCtr::createNewStore();
+EditThisStoreCtr::editStore();

@@ -1,12 +1,3 @@
-function createNewCustomer(itm) {
-  $("<div>").load(
-    "bamboo/view/modules/pos/modals/createCustomer.php",
-    function (data) {
-      $("#loadModalHere").html(data);
-    }
-  );
-}
-
 $(document).ready(function () {
   $("#searchProductHere").on("keyup", function () {
     let value = $(this).val().toLowerCase();
@@ -17,7 +8,7 @@ $(document).ready(function () {
 });
 
 $("#point_of_sale_form").on("submit", function (e) {
-  $('#saveBtn').prop('disabled', true);
+  $("#saveBtn").prop("disabled", true);
   $("#loader").show();
   e.preventDefault();
 
@@ -105,7 +96,7 @@ $("#point_of_sale_form").on("submit", function (e) {
 });
 
 $("#pos_settings_form").on("submit", function (e) {
-  $('#saveBtn').prop('disabled', true);
+  $("#saveBtn").prop("disabled", true);
   $("#loader").show();
   e.preventDefault();
   $.ajax({
@@ -127,11 +118,21 @@ $("#pos_settings_form").on("submit", function (e) {
   });
 });
 
-//auth/view/modals/modal.change_user_role
+
 function editThisShop(itm) {
   let id = $(itm).attr("data-id");
-  $("#loadPageHere").load(
-    "auth/view/modals/modal.editThisShop.php?id=" + id,
+  $("<div>").load(
+    "pos/view/modals/modal.editThisShop.php?id=" + id,
+    function (data) {
+      $("#ModalContentLG").html(data);
+    }
+  );
+}
+
+function manageShopStatus(itm) {
+  let id = $(itm).attr("data-id");
+  $("<div>").load(
+    "pos/view/modals/modal.manageShopStatus.php?id=" + id,
     function (data) {
       $("#ModalContentLG").html(data);
     }
@@ -141,9 +142,9 @@ function editThisShop(itm) {
 function addSalesPerson(itm) {
   let id = $(itm).attr("data-id");
   $("<div>").load(
-    "bamboo/view/modules/pos/modals/addSalesPerson.php?id=" + id,
+    "pos/view/modals/modal.addSalesPerson.php?id=" + id,
     function (data) {
-      $("#loadModalHere").html(data);
+      $("#ModalContentLG").html(data);
     }
   );
 }
@@ -160,7 +161,7 @@ function transferToPOS(itm) {
 
 let chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 let string_length = 6;
-let shop_code = "";
+var shop_code = "";
 for (var i = 0; i < string_length; i++) {
   var rnum = Math.floor(Math.random() * chars.length);
   shop_code += chars.substring(rnum, rnum + 1);
