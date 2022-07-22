@@ -102,6 +102,7 @@ class AddNewPOSSales
                     //                    $grandTotal = (float)$covidAmount + $vatAmount + $taxableAmount;
                     $grandTotal = $totalAftertax;
 
+                    $merchant_ID    = $_SESSION['merchant_ID'];
 
                     $data = array(
                         'curr' => $getCurrency,
@@ -126,7 +127,8 @@ class AddNewPOSSales
                         'ptp' => $pmt_type,
                         'tdy' => $tdy,
                         'mnt' => $mnt,
-                        'yr' => $yr
+                        'yr' => $yr,
+                        'md'=> $merchant_ID
                     );
 
                     if (POSTransactionsMdl::saveTaxableTransactions($tbl_a, $tbl_b, $tbl_c, $data)) {

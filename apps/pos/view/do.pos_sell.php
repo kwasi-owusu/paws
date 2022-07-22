@@ -274,6 +274,9 @@ $mySales = GetMyTodaySales::TodaySalesItems();
 
 require_once '../../template/pos_footer.php';
 ?>
+<script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
+<script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
+
 <script src="pos/js/extra.js"></script>
 <script src="pos/js/sales.js"></script>
 </body>

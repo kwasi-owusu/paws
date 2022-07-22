@@ -2,7 +2,7 @@
 
 class GetAllRolesController
 {
-        static public function allRoles(){
+        public static function allRoles(){
             require_once('../model/GetRoles.php');
 
             $table = "user_roles";
