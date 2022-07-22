@@ -6,16 +6,18 @@ class AddNewStoreCtr
     static public function createNewStore(){
         $getToken   = strip_tags(trim($_POST['tkn']));
         $error  = false;
-        if (isset($_SESSION['setStoreTkn']) && $_SESSION['setStoreTkn'] == $getToken){
-            require_once ('../../model/pos/SaveNewStore.php');
+        if (isset($_SESSION['pos_settings_tkn']) && $_SESSION['pos_settings_tkn'] == $getToken){
+            require_once('../model/SaveNewStore.php');
             $tbl    = "pos_store";
 
             $store_code     = strip_tags(trim($_POST['store_code']));
             $store_name     = strip_tags(trim($_POST['store_name']));
             $store_physical_location    = strip_tags(trim($_POST['store_physical_location']));
             $defaultCurr    = strip_tags(trim($_POST['defaultCurr']));
+            
             $addedBy        = $_SESSION['uid'];
             $branchName     = $_SESSION['branch_name'];
+            $merchant_ID    = $_SESSION['merchant_ID'];
 
             if (empty($store_code)){
                 $error  = true;
@@ -56,6 +58,7 @@ class AddNewStoreCtr
                     'spl' => $store_physical_location,
                     'dcr' => $defaultCurr,
                     'adb' => $addedBy,
+                    'md' => $merchant_ID,
                     'brn' => $branchName
                 );
 

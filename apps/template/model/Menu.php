@@ -10,7 +10,7 @@ class Menu
             
             if($data['usr'] == 1){
                 //user is a super admin
-                $stmt = Connection::connect() -> prepare("SELECT $table.*
+                $stmt = Connection::connect() -> prepare("SELECT *
                 FROM $table
                 ");
 
@@ -18,14 +18,22 @@ class Menu
            
                 return $stmt;
             }
+            
+            // $table      = 'menus';
+            // $table_b    = 'sub_menu';
+            // $table_c    = 'packages';  
+            // $table_d    = 'user_permission_menu';
+            // $table_e    = 'merchants';
+
 
             elseif($data['usr'] == 2){
                 //user is a merchant admin
-                $stmt = Connection::connect() -> prepare("SELECT $table.*, $table_e
+                $user_package = $data['pkg'];
+                $stmt = Connection::connect() -> prepare("SELECT $table.*, packages.*
                 FROM $table
-                WHERE $table.menu_ID IN (SELECT :pkg FROM packages)");
-
-                $stmt->bindParam('pkg', $data['pkg'], PDO::PARAM_STR);
+                INNER JOIN packages ON $table.menu_ID = packages.$user_package
+                ");
+                
                 $stmt->execute();
 
                 return $stmt;

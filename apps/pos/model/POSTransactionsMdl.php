@@ -16,7 +16,7 @@ class POSTransactionsMdl
 
                 //save transaction record
                 $stmt = $thisPDO->prepare("INSERT INTO $tbl_a(transaction_code, customer, pmt_type, sales_day, sales_month, sales_yr, 
-                addedBy, data_owner, branch_owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                addedBy, merchant_ID, branch_owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute(array(
                     $data['trnCode'],
                     $data['cst'],
@@ -25,7 +25,7 @@ class POSTransactionsMdl
                     $data['mnt'],
                     $data['yr'],
                     $data['adb'],
-                    $data_owner,
+                    $data['md'],
                     $data['brn']
                 ));
 
@@ -110,7 +110,7 @@ class POSTransactionsMdl
             try {
                 //save transaction record
                 $stmt = $thisPDO->prepare("INSERT INTO $tbl_a(transaction_code, customer, pmt_type, sales_day, sales_month, sales_yr, 
-                addedBy, data_owner, branch_owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                addedBy, merchant_ID, branch_owner) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute(array(
                     $data['trnCode'],
                     $data['cst'],
@@ -119,7 +119,7 @@ class POSTransactionsMdl
                     $data['mnt'],
                     $data['yr'],
                     $data['adb'],
-                    $data_owner,
+                    $data['md'],
                     $data['brn']
                 ));
 

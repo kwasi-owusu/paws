@@ -30,3 +30,5 @@ RewriteRule ^import-email-list(.*)?$ apps/emailing/view/do.import-email-list.php
 
 #### pos
 RewriteRule ^create_pos(.*)?$ apps/pos/view/do.pos_sell.php
+RewriteRule ^pos-settings(.*)?$ apps/pos/view/do.pos-settings.php
+RewriteRule ^manage-shops(.*)?$ apps/pos/view/do.manage-shops.php
