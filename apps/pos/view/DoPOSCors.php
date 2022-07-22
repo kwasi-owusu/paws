@@ -27,8 +27,8 @@ class DoPOSCors
     
 
 
-    static public function setStores(){
-        $page_is        = "do.setup.stores.php";
+    static public function editUShopCors($page_name){
+        $page_is        = $page_name;
         $thi_is_is      = "[Developed by Bahrima InfoSystems with LOVE]";
         $rock_hash      = $page_is.$thi_is_is;
 

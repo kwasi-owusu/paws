@@ -1,7 +1,7 @@
 <?php
 require_once '../../template/index.php';
 
-require_once('../controller//CTRListAllShops.php');
+require_once('../controller/CTRListAllShops.php');
 $rst = CTRListAllShops::callAllStores();
 
 ?>
@@ -48,7 +48,7 @@ $rst = CTRListAllShops::callAllStores();
                                     $shopStatus    = $rs['shop_status'];
                                     $status = '';
                                     switch ($shopStatus) {
-                                        case 0:
+                                        case 2:
                                             $status .= 'Inactive';
                                             break;
 
@@ -57,7 +57,7 @@ $rst = CTRListAllShops::callAllStores();
                                             break;
                                     }
                                 ?>
-                                    <tr id="">
+                                    <tr>
                                         <td></td>
                                         <td><?php echo $rs['store_code']; ?></td>
                                         <td><?php echo $rs['store_name']; ?></td>
@@ -79,13 +79,24 @@ $rst = CTRListAllShops::callAllStores();
                                                         Edit Shop Details
                                                     </a>
 
-                                                    <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="AddSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
-                                                        Add Sales Person
-                                                    </a>
-
-                                                    <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="deactivateUser(this)" data-toggle="modal" data-target="#manageModalLG">
+                                                    <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="manageShopStatus(this)" data-toggle="modal" data-target="#manageModalLG">
                                                         Change Shop Status
                                                     </a>
+
+                                                    <?php
+                                                    if ($status == 'Active') {
+                                                    ?>
+
+                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="AddSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
+                                                            Add Sales Person
+                                                        </a>
+                                                        
+                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="ViewSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
+                                                            View All Sales Person
+                                                        </a>
+                                                    <?php
+                                                    }
+                                                    ?>
 
                                                 </div>
                                             </div>
@@ -132,6 +143,7 @@ require_once '../../template/footer.php';
 
 <script src="template/statics/assets/plugins/notification/snackbar/snackbar.min.js"></script>
 <script src="template/statics/assets/js/components/notification/custom-snackbar.js"></script>
+
 <script src="pos/js/extra.js"></script>
 
 </body>
