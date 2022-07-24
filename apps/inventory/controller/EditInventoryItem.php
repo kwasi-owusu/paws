@@ -3,8 +3,8 @@
 session_start();
 class EditInventoryItem
 {
-    static public function editItemMaster(){
-        require_once ('../../model/inventory/InventoryModel.php');
+    public static function editItemMaster(){
+        require_once ('../model/InventoryModel.php');
         $getToken   = trim($_POST['tkn']);
         $error      = false;
         if (isset($_SESSION['editInventoryItemsCors']) && $_SESSION['editInventoryItemsCors'] == $getToken){
@@ -39,16 +39,16 @@ class EditInventoryItem
 
             if (empty($inventory_code)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Inventory Code Cannot be empty</span>";
+                echo "Inventory Code Cannot be empty";
             }
             elseif (empty($inventory_name)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Inventory Name Cannot be empty</span>";
+                echo "Inventory Name Cannot be empty";
             }
 
             elseif (empty($re_order_rule)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Re-Order Rule Cannot be empty</span>";
+                echo "Re-Order Rule Cannot be empty";
             }
 
 
@@ -68,7 +68,7 @@ class EditInventoryItem
             $allowed_file_types = ['image/png', 'image/jpeg'];
             if ($file_size != 0 && $fileError != 4 && !in_array($mime_type, $allowed_file_types)) {
                 $error = true;
-                echo '<span style="color: #ffffff;">Uploaded file not allowed</span>';
+                echo '<span style="color: #ffffff;">Uploaded file not allowed';
             }
 
             elseif (!$error){
@@ -118,18 +118,17 @@ class EditInventoryItem
                 );
 
                 if (InventoryModel::editInventoryItem($tbl, $data, $folder, $edited_trail_tbl, $original_data)){
-                    echo "<span style='color: #1b901d'>Update Successful.</span>";
+                    echo "Update Successful.";
                 } else {
-                    echo "<span style='color: #b9090e'>Update Unsuccessful</span> ";
+                    echo "Update Unsuccessful ";
                 }
             }
 
         }
         else{
-            echo "<span style='color: #b9090e'>Sorry. Action not permitted</span>";
+            echo "Sorry. Action not permitted";
         }
     }
 }
 
-$callClass  = new EditInventoryItem();
-$callMethod = $callClass->editItemMaster();
+EditInventoryItem::editItemMaster();

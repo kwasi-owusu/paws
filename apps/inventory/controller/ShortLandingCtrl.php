@@ -3,8 +3,8 @@
 
 class ShortLandingCtrl
 {
-    static public function getShortLanding(){
-        require_once('../../../model/inventory/ShortLandingMdl.php');
+    public static function getShortLanding(){
+        require_once('../model/ShortLandingMdl.php');
         $tbl = 'purchase_order_items;';
         $getRst = ShortLandingMdl::getShortLanding();
 

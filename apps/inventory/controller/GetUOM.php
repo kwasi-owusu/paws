@@ -3,8 +3,8 @@
 
 class GetUOM
 {
-    static public function selectUOM(){
-        require_once ('../../../model/inventory/FetchUOM.php');
+    public static function selectUOM(){
+        require_once ('../model/FetchUOM.php');
         $tbl    = 'uom';
         $getRst     = FetchUOM::getAllUOM($tbl);
 

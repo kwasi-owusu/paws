@@ -192,24 +192,24 @@ $mySales = GetMyTodaySales::TodaySalesItems();
                                                         <th>Qty</th>
                                                         <th>Unit Price</th>
                                                         <th>Total</th>
+                                                        <th>Amount Paid</th>
                                                         <th>Actions</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     <?php
-                                                    foreach ($mySales
-
-                                                        as $ms) {
+                                                    foreach ($mySales as $ms) {
                                                     ?>
                                                         <tr>
                                                             <td></td>
                                                             <td><?php echo $ms['transaction_code']; ?></td>
                                                             <td><?php echo $ms['customer']; ?></td>
-                                                            <td><?php echo Date('Y-m-d', strtotime($ms['addedOn'])); ?></td>
+                                                            <td><?php echo Date('Y-m-d', strtotime($ms['system_date'])); ?></td>
                                                             <td><?php echo $ms['inventory_name']; ?></td>
                                                             <td><?php echo $ms['qty']; ?></td>
                                                             <td><?php echo $ms['unit_price']; ?></td>
                                                             <td><?php echo $ms['sub_total']; ?></td>
+                                                            <td><?php echo $ms['amt_paid']; ?></td>
                                                             <td class="text-right">
                                                                 <div class="btn-group">
                                                                     <!-- <button type="button" class="btn btn-dark btn-sm">Open</button> -->
@@ -220,7 +220,7 @@ $mySales = GetMyTodaySales::TodaySalesItems();
                                                                     </button>
                                                                     <div class="dropdown-menu" aria-labelledby="dropdownMenuReference28">
 
-                                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ms['transaction_code']; ?>" onclick="$ms['transaction_code'](this)" data-toggle="modal" data-target="#transactionDetailsModal">
+                                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $ms['transaction_ID']; ?>" onclick="transactionDetails(this)" data-toggle="modal" data-target="#transactionDetailsModal">
                                                                             View Transaction Details
                                                                         </a>
 

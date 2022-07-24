@@ -3,36 +3,37 @@
 session_start();
 class InventorySubCategories
 {
-    static public function addSubCategories(){
-        require_once ('../../model/inventory/InventoryModel.php');
+    public static function addSubCategories(){
+        require_once ('../model/InventoryModel.php');
         $getToken   = trim($_POST['tkn']);
         $error      = false;
-        if (isset($_SESSION['inventorySubCategoryToken']) && $_SESSION['inventorySubCategoryToken'] == $getToken){
+        if (isset($_SESSION['inventory_control_token']) && $_SESSION['inventory_control_token'] == $getToken){
             $sub_cat    = trim($_POST['sub_cat_name']);
             $catName    = trim($_POST['inventory_cat']);
             if (empty($sub_cat)){
                 $error  = true;
-                echo "<span style='color: #b9090e'>Sub category name cannot be empty/span>";
+                echo "Sub category name cannot be empty";
             }
             elseif (!$error){
                 $tbl        = 'inventory_sub_cat';
-                $addedBy    = 1;
+                $addedBy    = $_SESSION['uid'];
+                $merchant_ID = $_SESSION['merchant_ID'];
                 $data       = array(
                     'sbc'=>$sub_cat,
                     'cn'=>$catName,
-                    'adb'=>$addedBy
+                    'adb'=>$addedBy,
+                    'md' =>$merchant_ID
                 );
                 if (InventoryModel::addSubCategory($tbl, $data)){
-                    echo "<span style='color: #1b901d'>Entry Successful.</span>";
+                    echo "Entry Successful.";
                 } else {
-                    echo "<span style='color: #b9090e'>Entry Unsuccessful</span>";
+                    echo "Entry Unsuccessful";
                 }
             }
         }
         else{
-            echo "<span style='color: #b9090e'>Sorry. Action not permitted</span>";
+            echo "Sorry. Action not permitted";
         }
     }
 }
-$callClass  = new InventorySubCategories();
-$callMetho  = $callClass->addSubCategories();
+InventorySubCategories::addSubCategories();

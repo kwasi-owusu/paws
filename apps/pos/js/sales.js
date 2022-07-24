@@ -33,14 +33,12 @@ function addMe(itm){
         calculateAmountDue();
     }
     else {
-        $.toast({
-            heading: 'Rails ERP',
+
+        Snackbar.show({
             text: itemNm + " already added",
-            icon: 'info',
-            loader: true,
-            position: 'top-right',
-            loaderBg: '#9EC600'
-        });
+            actionTextColor: "#fff",
+            backgroundColor: "#2196f3",
+          });
     }
 }
 

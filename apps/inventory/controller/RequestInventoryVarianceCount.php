@@ -73,22 +73,21 @@ class RequestInventoryVarianceCount
                     'tra'=> $trans_action,
                     'brn' => $branch
                 );
-                require_once '../../model/inventory/RequestInventoryMgtMdl.php';
+                require_once '../model/RequestInventoryMgtMdl.php';
                 if (RequestInventoryMgtMdl::countVarianceRequest($tbl, $data)){
-                    echo "<span style='color: #ffffff;'>Entry Successful</span>";
+                    echo "Entry Successful";
                 }
                 else{
-                    echo "<span style='color: #ffffff;'>Entry Unsuccessful</span>";
+                    echo "Entry Unsuccessful";
                 }
             }
 
 
         }
         else{
-            echo "<span style='color: #ffffff;'>Action Not Permitted</span>";
+            echo "Action Not Permitted";
         }
     }
 }
 
-$callClass  = new RequestInventoryVarianceCount();
-$callMethod = $callClass->requestItemScrap();
+RequestInventoryVarianceCount::requestItemScrap();

@@ -10,7 +10,7 @@ class GetSubCatController
             $data   = array(
               'ct'=>$getCat
             );
-            require_once ('../../model/inventory/GetInventorySubCategory.php');
+            require_once ('../model/GetInventorySubCategory.php');
             $rqsModel = GetInventorySubCategory::loadSubCat($tbl, $data);
             if (isset($rqsModel)) {
                 foreach ($rqsModel as $sct) {

@@ -41,7 +41,7 @@ class Menu
 
             else{
                 //user is not merchant admin but a merchant user
-                $stmt = Connection::connect() -> prepare("SELECT $table.*, $$table_d.*                
+                $stmt = Connection::connect() -> prepare("SELECT $table.*, $table_d.*                
                 FROM $table
                 INNER JOIN $table_d ON $table.menu_ID = $table_d.menu_ID
                 WHERE $table_d.user_ID = :uid

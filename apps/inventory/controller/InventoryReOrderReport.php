@@ -3,8 +3,8 @@
 
 class InventoryReOrderReport
 {
-    static public function getReorderRuleReport(){
-        require_once('../../../model/inventory/ReorderLimitReport.php');
+    public static function getReorderRuleReport(){
+        require_once('../model/ReorderLimitReport.php');
         $tbl    = 'inventory_master';
         $tbl_b  = 'inventory_cat';
         $tbl_c  = 'inventory_sub_cat';

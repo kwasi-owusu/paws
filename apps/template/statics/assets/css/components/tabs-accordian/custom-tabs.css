@@ -39,7 +39,7 @@ h4 { font-size: 1.125rem; }
 .simple-tab .nav-tabs li a { color: #3b3f5c; }
 .simple-tab .nav-tabs .nav-item.show .nav-link,
 .simple-tab .nav-tabs .nav-link.active {
-    color: #4361ee;
+    color: #fe5f75;
     font-weight: 600;
     background-color: #fff;
 }
@@ -54,7 +54,7 @@ h4 { font-size: 1.125rem; }
 .simple-pills .nav-pills li a { color: #3b3f5c; }
 .simple-pills .nav-pills .nav-link.active, 
 .simple-pills .nav-pills .show>.nav-link {
-    background-color: #4361ee;
+    background-color: #fe5f75;
     border-color: transparent;
 }
 .simple-pills .tab-content>.tab-pane { padding: 20px 0 0 0; }
@@ -274,7 +274,7 @@ h4 { font-size: 1.125rem; }
 .rounded-vertical-pills-icon .nav-pills .nav-link.active,
 .rounded-vertical-pills-icon .nav-pills .show>.nav-link {
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
-    background-color: #009688;
+    background-color: #fe5f75;
     border-color: transparent;
 
 }
@@ -295,7 +295,7 @@ h4 { font-size: 1.125rem; }
 .rounded-circle-pills-icon .nav-pills .nav-link.active,
 .rounded-circle-pills-icon .nav-pills .show>.nav-link {
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
-    background-color: #2196f3;
+    background-color: #fe5f75;
 }
 .rounded-circle-pills-icon .tab-content>.tab-pane { padding: 20px 0 0 0; }
 
@@ -321,7 +321,7 @@ h4 { font-size: 1.125rem; }
 .rounded-circle-vertical-pills-icon .nav-pills .nav-link.active,
 .rounded-circle-vertical-pills-icon .nav-pills .show>.nav-link {
     box-shadow: 0px 5px 15px 0px rgba(0, 0, 0, 0.3);
-    background-color: #2196f3;
+    background-color: #fe5f75;
     border-color: transparent;
 }
 

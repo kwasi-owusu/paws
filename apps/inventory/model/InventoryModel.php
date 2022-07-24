@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class InventoryModel
 {
-    static public function addCategory($tbl, $data)
+    public static function addCategory($tbl, $data)
     {
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
@@ -12,8 +12,8 @@ class InventoryModel
 
             try {
 
-                $stmt = $thisPDO->prepare("INSERT INTO $tbl(cat_name, cat_desc, addedBy) VALUES(?, ?, ?)");
-                $stmt->execute(array($data['ctn'], $data['ctd'], $data['adb']));
+                $stmt = $thisPDO->prepare("INSERT INTO $tbl(cat_name, cat_desc, addedBy, merchant_ID) VALUES(?, ?, ?, ?)");
+                $stmt->execute(array($data['ctn'], $data['ctd'], $data['adb'], $data['md']));
 
                 $lastInserted_ID = $thisPDO->lastInsertId();
 
@@ -28,14 +28,14 @@ class InventoryModel
                 return $stmt;
             } catch (PDOException $e) {
                 $thisPDO->rollBack();
-                //$e->getMessage();
-                echo "Failed";
+                echo $e->getMessage();
+                //echo "Failed";
             }
         }
     }
 
 
-    static public function addSubCategory($tbl, $data)
+    public static function addSubCategory($tbl, $data)
     {
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
@@ -43,8 +43,8 @@ class InventoryModel
         if ($thisPDO->beginTransaction()) {
 
             try {
-                $stmt = $thisPDO->prepare("INSERT INTO $tbl(cat_ID, sub_cat_name, addedBy) VALUES(?, ?, ?)");
-                $stmt->execute(array($data['cn'], $data['sbc'], $data['adb']));
+                $stmt = $thisPDO->prepare("INSERT INTO $tbl(cat_ID, sub_cat_name, addedBy, merchant_ID) VALUES(?, ?, ?, ?)");
+                $stmt->execute(array($data['cn'], $data['sbc'], $data['adb'], $data['md']));
 
                 $lastInserted_ID = $thisPDO->lastInsertId();
 
@@ -59,14 +59,14 @@ class InventoryModel
                 return $stmt;
             } catch (PDOException $e) {
                 $thisPDO->rollBack();
-                //$e->getMessage();
+                echo $e->getMessage();
                 echo "Failed";
             }
         }
     }
 
 
-    static public function addInventoryItem($tbl, $data){
+    public static function addInventoryItem($tbl, $data){
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
 
@@ -101,7 +101,7 @@ class InventoryModel
     }
 
 
-    static public function editInventoryItem($tbl, $data, $folder, $edited_trail_tbl, $original_data)
+    public static function editInventoryItem($tbl, $data, $folder, $edited_trail_tbl, $original_data)
     {
 
         $newPDO = new Connection();
@@ -168,13 +168,33 @@ class InventoryModel
         }
     }
 
-    static public function loadThisInventoryItem($tbl, $data){
+    public static function loadThisInventoryItem($tbl, $data){
         $stmt   = Connection::connect()->prepare("SELECT * FROM $tbl WHERE inventory_ID = :d AND inventory_code = :ic ORDER BY inventory_name ASC");
         $stmt->bindParam("d", $data['ind'], PDO::FETCH_ASSOC);
         $stmt->bindParam("ic", $data['ivc'], PDO::FETCH_ASSOC);
         $stmt->execute();
 
         return $stmt;
+    }
+
+    public static function saveInventoryBrand($tbl, $data){
+        try{
+        $stmt   = Connection::connect()->prepare("INSERT INTO $tbl( name, logo, slug, meta_title, meta_description) VALUES(?, ?, ?, ?, ?)");
+        $stmt->execute(
+            array(
+                $data['nm'],
+                $data['ig'],
+                $data['slg'],
+                $data['mdc'],
+                $data['mdc']
+            )
+        );
+            return $stmt;
+    }
+    catch (PDOException $e) {
+        echo $e->getMessage();
+        echo "Failed";
+    }
     }
 
 }

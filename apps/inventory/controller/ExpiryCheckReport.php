@@ -1,16 +1,16 @@
 <?php
 
-require_once('../../../model/inventory/ExpiryCheckReportMdl.php');
+require_once('../model/ExpiryCheckReportMdl.php');
 class ExpiryCheckReport
 {
-    static public function expiryCheckMonthReportController(){
+    public static function expiryCheckMonthReportController(){
         $tbl        = 'expirysetting';
         $getRst     = ExpiryCheckReportMdl::getMonthsToCheckReport($tbl);
 
         return $getRst;
     }
 
-    static public function checkExpiryReportController($no_of_month){
+    public static function checkExpiryReportController($no_of_month){
         $tbl    = 'product_storage_tbl';
         $tbl_b  = 'inventory_cat';
         $tbl_c  = 'inventory_sub_cat';

@@ -4,7 +4,7 @@ session_start();
 class SaveInventoryItems
 {
     static public function createInventoryItems(){
-        require_once ('../../model/inventory/InventoryModel.php');
+        require_once ('../model/InventoryModel.php');
 
         $getToken   = trim($_POST['tkn']);
         $error      = false;
@@ -43,7 +43,7 @@ class SaveInventoryItems
             $allowed_file_types = ['image/png', 'image/jpeg'];
             if ($file_size != 0 && $fileError != 4 && !in_array($mime_type, $allowed_file_types)) {
                 $error = true;
-                echo '<span style="color: #ffffff;">Uploaded file not allowed</span>';
+                echo "Uploaded file not accepted";
             }
 
 
@@ -62,20 +62,20 @@ class SaveInventoryItems
 
             if (empty($inventory_code)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Inventory Code Cannot be empty</span>";
+                echo "Inventory Code Cannot be empty";
             }
             elseif (empty($inventory_name)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Inventory Name Cannot be empty</span>";
+                echo "Inventory Name Cannot be empty";
             }
 
             elseif (empty($re_order_rule)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Re-Order Rule Cannot be empty</span>";
+                echo "Re-Order Rule Cannot be empty";
             }
             elseif (empty($inventory_desc)){
                 $error      = true;
-                echo "<span style='color: #b9090e'>Inventory Description Cannot be empty</span>";
+                echo "Inventory Description Cannot be empty";
             }
 
 
@@ -102,19 +102,17 @@ class SaveInventoryItems
 
                 );
                 if (InventoryModel::addInventoryItem($tbl, $data)){
-                    echo "<span style='color: #1b901d'>Entry Successful.</span>";
+                    echo "Entry Successful.";
                 } else {
-                    echo "<span style='color: #b9090e'>Entry Unsuccessful</span>";
+                    echo "Entry Unsuccessful";
                 }
             }
 
-
         }
         else{
-            echo "<span style='color: #b9090e'>Sorry. Action not permitted</span>";
+            echo "Sorry. Action not permitted";
         }
     }
 }
 
-$callClass  = new SaveInventoryItems();
-$callMethod = $callClass->createInventoryItems();
+SaveInventoryItems::createInventoryItems();

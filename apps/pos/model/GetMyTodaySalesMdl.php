@@ -25,14 +25,15 @@ class GetMyTodaySalesMdl
         return $stmt->fetchAll();
     }
 
-    static public function SalesForTodayDetails($me, $tbl, $tbl_b){
+    public static function SalesForTodayDetails($me, $tbl, $tbl_b, $tbl_c){
         $tdy = Date('d');
         $mnt = Date('m');
         $yr = Date('Y');
 
-        $stmt  = Connection::connect()->prepare("SELECT $tbl.*, $tbl_b.* 
+        $stmt  = Connection::connect()->prepare("SELECT $tbl.*, $tbl_b.*, $tbl_c.* 
         FROM $tbl 
         INNER JOIN $tbl_b ON $tbl.transaction_ID = $tbl_b.itm_transaction_ID
+        INNER JOIN $tbl_c ON $tbl.transaction_ID = $tbl_c.fin_transaction_ID 
         WHERE $tbl.addedBy = :m
         AND $tbl.sales_day = :sd 
         AND $tbl.sales_month = :sm 

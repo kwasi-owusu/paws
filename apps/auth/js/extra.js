@@ -99,28 +99,24 @@ $('#user_role_frm').on('submit', function(e){
 
 $('#update_my_password_frm').on('submit', function(e){
     $("#loader").show();
-    $('#saveBtn').prop('disabled', true);
+    $('#saveBtnModal').prop('disabled', true);
     e.preventDefault();
     $.ajax({
-        url: "bamboo/controller/users/UpdateMyPasswordController.php",
+        url: "auth/controller/UpdateMyPasswordController.php",
         method: "POST",
         data: new FormData(this),
         contentType: false,
         cache: false,
         processData: false,
         success: function(data){
-            $('#submit_output').fadeOut('slow', function(){
-                $("#save_gif_loader").hide();
-                $.toast({
-                    heading: 'Rails ERP',
-                    text: data,
-                    icon: 'info',
-                    loader: true,        // Change it to false to disable loader
-                    position: 'top-right',
-                    loaderBg: '#9EC600'  // To change the background
-                });
-                setInterval('location.reload()', 3000);
+            Snackbar.show({
+                text: data,
+                actionTextColor: '#fff',
+                backgroundColor: '#2196f3'
             });
+
+            $("#loader").hide(); 
+            setInterval('location.reload()', 3000);
         }
     });
 });

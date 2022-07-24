@@ -5,7 +5,7 @@ class GetAllInventoryMaster
 {
     static public function loadInventoryMaster()
     {
-        require_once('../../../model/inventory/FetchAllInventoryMaster.php');
+        require_once('../model/FetchAllInventoryMaster.php');
         $tbl        = 'inventory_master';
         $getRst     = FetchAllInventoryMaster::allInventoryMaster($tbl);
 
@@ -14,7 +14,7 @@ class GetAllInventoryMaster
 
     static public function loadPendingInventoryMaster()
     {
-        require_once('../../../model/inventory/FetchAllInventoryMaster.php');
+        require_once('../model/FetchAllInventoryMaster.php');
         $tbl        = 'inventory_master';
         $getRst     = FetchAllInventoryMaster::allPendingInventoryMaster($tbl);
 

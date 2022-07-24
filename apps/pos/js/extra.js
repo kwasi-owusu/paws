@@ -139,7 +139,7 @@ function manageShopStatus(itm) {
   );
 }
 
-function addSalesPerson(itm) {
+function assignSalesPerson(itm) {
   let id = $(itm).attr("data-id");
   $("<div>").load(
     "pos/view/modals/modal.addSalesPerson.php?id=" + id,

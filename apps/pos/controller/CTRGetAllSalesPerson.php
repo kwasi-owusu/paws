@@ -4,8 +4,8 @@
 class CTRGetAllSalesPerson
 {
     static public function GetAllSalesPersons(){
-        require_once ('../../../../model/pos/MDLGetAllSalesPersons.php');
-        $tbl    = 'users_tbl';
+        require_once ('../../model/MDLGetAllSalesPersons.php');
+        $tbl    = 'users';
         $getRst = MDLGetAllSalesPersons::AllSalesPersons($tbl);
 
         return $getRst;

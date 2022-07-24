@@ -2,7 +2,7 @@
 
 class GetAllUsers
 {
-    static public function doAllUsers(){
+    public static function doAllUsers(){
         $merchant_ID     = $_SESSION['merchant_ID'];
         $myRole = $_SESSION['user_type'];
         $user_ID = $_SESSION['user_id'];

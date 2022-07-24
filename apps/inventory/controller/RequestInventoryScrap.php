@@ -3,7 +3,7 @@
 session_start();
 class RequestInventoryScrap
 {
-    static public function requestItemScrap(){
+    public static function requestItemScrap(){
         //$_SESSION['scrapToken'];
         $error      = false;
         $getToken   = trim($_POST['tkn']);
@@ -61,22 +61,21 @@ class RequestInventoryScrap
                     'adb'=> $addedBy,
                     'brn' => $branch
                 );
-                require_once '../../model/inventory/RequestInventoryMgtMdl.php';
+                require_once '../model/RequestInventoryMgtMdl.php';
                 if (RequestInventoryMgtMdl::scrapRequest($tbl, $data)){
-                    echo "<span style='color: #ffffff;'>Entry Successful</span>";
+                    echo "Entry Successful";
                 }
                 else{
-                    echo "<span style='color: #ffffff;'>Entry Unsuccessful</span>";
+                    echo "Entry Unsuccessful";
                 }
             }
 
 
         }
         else{
-            echo "<span style='color: #ffffff;'>Action Not Permitted</span>";
+            echo "Action Not Permitted";
         }
     }
 }
 
-$callClass  = new RequestInventoryScrap();
-$callMethod = $callClass->requestItemScrap();
+RequestInventoryScrap::requestItemScrap();
