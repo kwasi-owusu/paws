@@ -3,8 +3,8 @@
 
 class CountShortLanding
 {
-    static public function getShortLanding(){
-        require_once('../../model/inventory/ShortLandingCount.php');
+    public static function getShortLanding(){
+        require_once('../model/ShortLandingCount.php');
         $tbl = 'purchase_order_items;';
         $getRst = ShortLandingCount::totalShortLanding($tbl);
 

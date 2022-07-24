@@ -16,14 +16,16 @@ class UserModel
                 $stmt = $thisPDO->prepare("INSERT INTO $tbl(firstName, lastName, branch_ID, userEmail, userPassword, phone_number, userRole, user_key, addedBy, 
                 merchant_ID ) 
                 VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmt->execute(array($data['fn'], $data['ln'], $data['ubr'], $data['em'], $data['pd'], $data['phn'], $data['rl'], $data['usk'], $data['adb'], 
-                $data['md']));
+                $stmt->execute(array(
+                    $data['fn'], $data['ln'], $data['ubr'], $data['em'], $data['pd'], $data['phn'], $data['rl'], $data['usk'], $data['adb'],
+                    $data['md']
+                ));
 
                 $lastInsertedID = $thisPDO->lastInsertId();
 
                 $activity_type = "New User Added";
                 $activity = "New User Added with id " . $lastInsertedID;
-                
+
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
@@ -56,7 +58,7 @@ class UserModel
 
                 $activity_type = "New User Role Added";
                 $activity = "New User Role Added with id " . $lastInsertedID;
-                
+
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
@@ -91,7 +93,7 @@ class UserModel
 
                 $activity_type = "User Role Updated";
                 $activity = "User Role Updated with id " . $lastInsertedID;
-                
+
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
@@ -131,7 +133,7 @@ class UserModel
 
                 $activity_type = "User Details Updated";
                 $activity = "User Details Updated with id " . $lastInsertedID;
-                
+
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
@@ -167,10 +169,19 @@ class UserModel
 
                 $activity_type = "User Status Updated";
                 $activity = "User Status Updated with id " . $lastInsertedID;
-                
+
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));
+
+                //update user status if exists in sales person table
+                if ($data['ust'] == 2) {
+                    $sps = $thisPDO->prepare("UPDATE sales_persons SET sales_person_status = :st WHERE sales_person = :sp");
+                    $sps->bindParam(':st', $data['ust'], PDO::PARAM_STR);
+                    $sps->bindParam(':sPt', $data['ud'], PDO::PARAM_STR);
+
+                    $sps->execute();
+                }
 
                 $thisPDO->commit();
 
@@ -192,8 +203,9 @@ class UserModel
 
             try {
 
-                $stmt = $thisPDO->prepare("UPDATE $tbl SET userPassword = :pd, lastUpdateOn = :on, lastUpdateBy =:ub  WHERE user_ID = :d");
+                $stmt = $thisPDO->prepare("UPDATE $tbl SET userPassword = :pd, lastUpdateOn = :on, phone_number = :phn, lastUpdateBy =:ub  WHERE user_ID = :d");
                 $stmt->bindParam('pd', $data['npd'], PDO::PARAM_STR);
+                $stmt->bindParam('phn', $data['phn'], PDO::PARAM_STR);
                 $stmt->bindParam('on', $data['lbn'], PDO::PARAM_STR);
                 $stmt->bindParam('ub', $data['lbd'], PDO::PARAM_STR);
                 $stmt->bindParam('d', $data['ud'], PDO::PARAM_STR);
@@ -203,7 +215,7 @@ class UserModel
 
                 $activity_type = "User Password Updated";
                 $activity = "User Password Updated with id " . $lastInsertedID;
-                
+
                 // create an activity
                 $u_act = $thisPDO->prepare("INSERT INTO user_activity(activity_type, activity_details) VALUES(?, ?)");
                 $u_act->execute(array($activity_type, $activity));

@@ -3,16 +3,16 @@
 
 class ValueInventoryCtrl
 {
-    static public function totalInventoryValue(){
-        require_once '../../../model/inventory/InventoryValuation.php';
+    public static function totalInventoryValue(){
+        require_once '../model/InventoryValuation.php';
 
         $getRst     = InventoryValuation::valueInventory();
 
         return $getRst;
     }
 
-    static public function totalWIPInventoryValue(){
-        require_once '../../../model/inventory/InventoryValuation.php';
+    public static function totalWIPInventoryValue(){
+        require_once '../model/InventoryValuation.php';
 
         $getRst     = InventoryValuation::wipValuation();
 

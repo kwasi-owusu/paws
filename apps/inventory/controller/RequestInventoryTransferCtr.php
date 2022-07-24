@@ -3,7 +3,7 @@
 session_start();
 class RequestInventoryTransferCtr
 {
-    static public function requestItemTrans(){
+    public static function requestItemTrans(){
         $error      = false;
         $getToken   = trim($_POST['tkn']);
         if (isset($_SESSION['transferToken']) && $_SESSION['transferToken'] == $getToken){
@@ -61,22 +61,21 @@ class RequestInventoryTransferCtr
                     'dst'=>$destination_wh,
                     'brn' => $branch
                 );
-                require_once '../../model/inventory/RequestInventoryMgtMdl.php';
+                require_once '../model/RequestInventoryMgtMdl.php';
                 if (RequestInventoryMgtMdl::transferInvRequest($tbl, $data)){
-                    echo "<span style='color: #ffffff;'>Transfer Successful</span>";
+                    echo "Transfer Successful";
                 }
                 else{
-                    echo "<span style='color: #ffffff;'>Transfer Unsuccessful</span>";
+                    echo "Transfer Unsuccessful";
                 }
             }
 
 
         }
         else{
-            echo "<span style='color: #ffffff;'>Action Not Permitted </span>";
+            echo "Action Not Permitted ";
         }
     }
 }
 
-$callClass  = new RequestInventoryTransferCtr();
-$callMethod = $callClass->requestItemTrans();
+RequestInventoryTransferCtr::requestItemTrans();

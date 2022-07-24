@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-class changeInventoryCategory
+class ChangeInventoryCategory
 {
-    static public function editCategory(){
+    public static function editCategory(){
         $getToken   = trim($_POST['tkn']);
         $error      = false;
         if (isset($_SESSION['editInventoryCategory']) && $_SESSION['editInventoryCategory'] == $getToken){
@@ -13,15 +13,15 @@ class changeInventoryCategory
 
             if (empty($cat_name)){
                 $error  = true;
-                echo "<span style='color: #bd0f09'>Category cannot be empty</span>";
+                echo "Category cannot be empty";
             }
             elseif (empty($cat_desc)){
                 $error  = true;
-                echo "<span style='color: #bd0f09'>Category Description cannot be empty</span>";
+                echo "Category Description cannot be empty";
             }
 
             elseif (!$error){
-                require_once ('../../model/inventory/EditInventoryCategoryByID.php');
+                require_once ('../model/EditInventoryCategoryByID.php');
                 $tbl    = 'inventory_cat';
                 $data   = array(
                     'id'=>$cat_ID,
@@ -40,5 +40,4 @@ class changeInventoryCategory
         }
     }
 }
-$callClass  = new changeInventoryCategory();
-$callMethod = $callClass->editCategory();
+changeInventoryCategory::editCategory();

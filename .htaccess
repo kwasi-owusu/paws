@@ -12,6 +12,7 @@ RewriteRule ^dashboard?$ apps/dashboard/view/index.php
 RewriteRule ^add-new-users(.*)?$ apps/auth/view/do.add-new-users.php
 
 RewriteRule ^manage-users(.*)?$ apps/auth/view/do.manage-users.php
+RewriteRule ^my-profile(.*)?$ apps/auth/view/do.my-profile.php
 
 
 ###contacts
@@ -24,11 +25,17 @@ RewriteRule ^sales-lead(.*)?$ apps/crm/view/do.new-lead.php
 RewriteRule ^manage-leads(.*)?$ apps/crm/view/do.manage-leads.php
 RewriteRule ^sales-pipeline(.*)?$ apps/crm/view/do.sales-pipeline.php
 
-### mass email
+###mass email
 RewriteRule ^spam-check(.*)?$ apps/emailing/view/do.spam-check.php
 RewriteRule ^import-email-list(.*)?$ apps/emailing/view/do.import-email-list.php
 
-#### pos
+####pos
 RewriteRule ^create_pos(.*)?$ apps/pos/view/do.pos_sell.php
 RewriteRule ^pos-settings(.*)?$ apps/pos/view/do.pos-settings.php
 RewriteRule ^manage-shops(.*)?$ apps/pos/view/do.manage-shops.php
+
+
+##inventory
+RewriteRule ^inventory-control(.*)?$ apps/inventory/view/do.inventory-control.php
+
+

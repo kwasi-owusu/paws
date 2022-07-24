@@ -4,21 +4,27 @@ require_once '../../template/statics/conn/connection.php';
 
 class GetSellableItems
 {
-    public static function allSellableItems($tbl_a, $tbl_b, $tbl_c, $myBranch, $noDays, $userType)
+    public static function allSellableItems($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e , $myBranch, $noDays, $userType, $me)
     {
-
-
+        $tbl_a      = 'inventory_master';
+        $tbl_b      = 'sales_stock';
+        $tbl_c      = 'inventory_cat';
+        $tbl_d      = 'sales_persons';
+        $tbl_e      = 'pos_store';
+        
         if ($userType != 1) {
-            $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*
+            $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*, $tbl_d.*, $tbl_e .*
         FROM $tbl_a 
         INNER JOIN $tbl_b ON $tbl_a.inventory_code = $tbl_b.product_code
+        INNER JOIN $tbl_e ON  $tbl_b.shop_ID = $tbl_e.store_ID
+        INNER JOIN $tbl_d ON $tbl_e.store_ID = $tbl_d.pos_store_ID
         WHERE $tbl_b.recieved_qty > 0
-        AND $tbl_b.branch_owner = :mb
+        AND $tbl_d.sales_person = :me
         ");
-            $stmt->bindParam('mb', $myBranch, PDO::PARAM_STR);
+            $stmt->bindParam('me', $me, PDO::PARAM_STR);
             $stmt->execute();
             return $stmt;
-        } elseif ($userType == 1) {
+        } elseif ($userType == 1 || $userType == 4) {
             $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*
         FROM $tbl_a 
         INNER JOIN $tbl_b ON $tbl_a.inventory_code = $tbl_b.product_code

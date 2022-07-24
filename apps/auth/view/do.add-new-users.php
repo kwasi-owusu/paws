@@ -21,7 +21,6 @@ $_SESSION['addUserTkn']  = $token;
                 <div class="scrollspy-example" data-spy="scroll" data-target="#account-settings-scroll" data-offset="-100">
                     <div class="row">
 
-
                         <div class="col-xl-12 col-lg-12 col-md-12 layout-spacing">
                             <form id="user_add_frm" class="section work-experience" action="" method="post" autocomplete="off">
                                 <div class="info">

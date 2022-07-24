@@ -1,9 +1,9 @@
 <?php
 
 session_start();
-class changeInventorySubCategory
+class ChangeInventorySubCategory
 {
-    static public function editSubCategory(){
+    public static  function editSubCategory(){
         $getToken   = trim($_POST['tkn']);
         $error      = false;
         if (isset($_SESSION['editInventorySubCategory']) && $_SESSION['editInventorySubCategory'] == $getToken){
@@ -18,7 +18,7 @@ class changeInventorySubCategory
             }
 
             elseif (!$error){
-                require_once ('../../model/inventory/EditInventorySubCategoryByID.php');
+                require_once ('../model/EditInventorySubCategoryByID.php');
                 $tbl    = 'inventory_sub_cat';
                 $data   = array(
                     'cid'=>$cat_ID,
@@ -38,5 +38,4 @@ class changeInventorySubCategory
     }
 }
 
-$callClass  = new changeInventorySubCategory();
-$callMethod = $callClass->editSubCategory();
+ChangeInventorySubCategory::editSubCategory();

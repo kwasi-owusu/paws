@@ -3,8 +3,8 @@
 
 class LoadInventoryCategoryByID
 {
-    static public function inventoryCatByID($cat_ID){
-        require_once ('../../../../model/inventory/LoadInventoryCatByID.php');
+    public static function inventoryCatByID($cat_ID){
+        require_once ('../model/LoadInventoryCatByID.php');
         $tbl    = 'inventory_cat';
         $data   = array(
             'cd'=>$cat_ID
@@ -15,8 +15,8 @@ class LoadInventoryCategoryByID
         return $getRst;
     }
 
-    static public function inventoryItem($inventory_ID){
-        require_once ('../../../../model/inventory/LoadInventoryCatByID.php');
+    public static function inventoryItem($inventory_ID){
+        require_once ('../model/LoadInventoryCatByID.php');
         $tbl    = 'sales_stock';
         $data   = array(
             'd'=>$inventory_ID
@@ -27,8 +27,8 @@ class LoadInventoryCategoryByID
         return $getRst;
     }
 
-    static public function fgItems($inventory_ID){
-        require_once ('../../../../model/inventory/LoadInventoryCatByID.php');
+    public static function fgItems($inventory_ID){
+        require_once ('../model/LoadInventoryCatByID.php');
         $tbl    = 'inventory_master';
         $data   = array(
             'd'=>$inventory_ID

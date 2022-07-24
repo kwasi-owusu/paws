@@ -1,10 +1,10 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class CallthisInventory
 {
 
-    static public function thisInventoryItem($tbl_a, $tbl_b, $tbl_c, $tbl_d, $inventory_ID){
+    public static function thisInventoryItem($tbl_a, $tbl_b, $tbl_c, $tbl_d, $inventory_ID){
         $stmt   = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*, $tbl_c.*, $tbl_d.*
         FROM $tbl_a, $tbl_b, $tbl_c, $tbl_d 
         WHERE $tbl_a.inventory_ID = :ci 

@@ -60,8 +60,8 @@ $loadRoles = GetAllUsers::doAllUsers();
                                     <td><?php echo $us['userEmail']; ?></td>
                                     <td><?php echo $us['phone_number']; ?></td>
                                     <td><?php echo $us['role_desc']; ?></td>
-                                    <td><?php echo $us['merchant_ID']; ?></td>
-                                    <td><?php echo $us['branch_ID']; ?></td>
+                                    <td><?php echo isset($us['name']) ? $us['name']: ''; ?></td>
+                                    <td><?php echo isset($us['branch_name']) ? $us['branch_name'] : ''; ?></td>
                                     <td><?php echo $myStatus; ?></td>
                                     <td>
                                         <div class="btn-group">

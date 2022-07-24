@@ -3,39 +3,40 @@
 session_start();
 class UpdateMyPasswordController
 {
-    static public function changeMyPassword(){
-        $getToken   = trim($_POST['tkn']);
+    public static function changeMyPassword(){
+        $getToken   = strip_tags(trim($_POST['tkn']));
         $error      = false;
-        if (isset($_SESSION['userPwdTkn']) && $_SESSION['userPwdTkn'] == $getToken){
-            $user_ID    = trim($_POST['user_ID']);
-            $user_pwd   = trim($_POST['user_pwd']);
-            $confirmPwd = trim($_POST['password_confirmation']);
+        if (isset($_SESSION['editUserToken']) && $_SESSION['editUserToken'] == $getToken){
+            $user_ID    = strip_tags(trim($_POST['user_ID']));
+            $user_pwd   = trim($_POST['c_password']);
+            $phone_number = strip_tags(trim($_POST['phone_number']));
 
             if (empty($user_pwd)){
                 $error  = true;
                 echo "<span style='color: #b9090e'>User Password cannot be empty</span>";
             }
-            elseif (empty($confirmPwd)){
+            elseif (empty($phone_number)){
                 $error  = true;
-                echo "<span style='color: #b9090e'>Confirm User Password cannot be empty</span>";
+                echo "<span style='color: #b9090e'>Phone number cannot be empty</span>";
             }
 
             elseif (!$error){
-                require_once('../../model/users/UserModel.php');
+                require_once('../model/UserModel.php');
                 $lastUpdateBy   = $_SESSION['uid'];;
                 $lastUpdateOn   = Date('Y-m-d');
                 $new_password = hash('sha256', $user_pwd);
-                $tbl    = 'users_tbl';
+                $tbl    = 'users';
                 $data   = array(
                     'ud'=>$user_ID,
+                    'phn'=> $phone_number,
                     'npd'=>$new_password,
                     'lb'=>$lastUpdateBy,
                     'ln'=>$lastUpdateOn
                 );
                 if (UserModel::updateUserPwd($tbl, $data)){
-                    echo "<span style='color: #1b901d'>Update Successful.</span> ". $new_password;
+                    echo "Update Successful. ";
                 } else {
-                    echo "<span style='color: #b9090e'>Update Unsuccessful</span>";
+                    echo "Update Unsuccessful";
                 }
             }
         }

@@ -16,7 +16,7 @@ $thisStoreDetails   = GetThiShopDetailsCTRL::callThisStores($shop_ID);
 $getDetails         = $thisStoreDetails->fetch(PDO::FETCH_ASSOC);
 $this_shop_status = $getDetails['shop_status'] == 1 ? "Activated" : "Deactivated";
 
-require_once('../../../../controller/pos/CTRGetAllSalesPerson.php');
+require_once('../../controller/CTRGetAllSalesPerson.php');
 $getSalesP  = CTRGetAllSalesPerson::GetAllSalesPersons();
 $fetchSP    = $getSalesP->fetchAll();
 ?>
@@ -31,15 +31,15 @@ $fetchSP    = $getSalesP->fetchAll();
                         <div class="form-group">
                             <label class="bmd-label-floating">Select Sales Person</label>
                             <input type="hidden" class="form-control input-lg m-bot15" id="tkn" name="tkn" value="<?php echo $getToken; ?>" required readonly>
-                            <input type="hidden" class="form-control input-lg m-bot15" id="shop_ID" name="shop_ID" value="<?php echo $shop_ID; ?>" required readonly>
-                            <select class="form-control mb-12" id="wes-from1" id="shop_status" name="shop_status">
-                                <optgroup label="Current Status">
-                                    <option value="<?php echo $getDetails['shop_status']; ?>"><?php echo $this_shop_status; ?></option>
-                                </optgroup>
-                                <optgroup label="Change Status">
-                                    <option value="1">Activate</option>
-                                    <option value="2">Deactivate</option>
-                                </optgroup>
+                            <input type="hidden" class="form-control input-lg m-bot15" id="store_ID" name="store_ID" value="<?php echo $shop_ID; ?>" required readonly>
+                            <select class="form-control input-lg m-bot15" name="salesPerson" id="salesPerson" data-size="7" data-style="select-with-transition" required>
+                                <?php
+                                foreach ($fetchSP as $sp) {
+                                ?>
+                                    <option value="<?php echo $sp['user_ID']; ?>"><?php echo $sp['firstName'] . " " . $sp['lastName']; ?></option>
+                                <?php
+                                }
+                                ?>
                             </select>
                         </div>
                     </div>
@@ -68,7 +68,7 @@ $fetchSP    = $getSalesP->fetchAll();
         $("#loader").show();
         e.preventDefault();
         $.ajax({
-            url: "pos/controller/ChangeThisStoreStatusCtr.php",
+            url: "pos/controller/AddNewSalesPersonToShop.php",
             method: "POST",
             data: new FormData(this),
             contentType: false,
@@ -81,7 +81,7 @@ $fetchSP    = $getSalesP->fetchAll();
                     actionTextColor: "#fff",
                     backgroundColor: "#2196f3",
                 });
-                //setInterval("location.reload()", 3000);
+                etInterval("location.reload()", 3000);
             },
         });
     });

@@ -67,7 +67,6 @@ $rst = CTRListAllShops::callAllStores();
                                         <td class="text-right">
 
                                             <div class="btn-group">
-                                                <!-- <button type="button" class="btn btn-dark btn-sm">Open</button> -->
                                                 <button type="button" class="btn btn-dark btn-sm dropdown-toggle dropdown-toggle-split" id="dropdownMenuReference28" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-reference="parent">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-down">
                                                         <polyline points="6 9 12 15 18 9"></polyline>
@@ -87,11 +86,11 @@ $rst = CTRListAllShops::callAllStores();
                                                     if ($status == 'Active') {
                                                     ?>
 
-                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="AddSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
+                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="assignSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
                                                             Add Sales Person
                                                         </a>
-                                                        
-                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="ViewSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
+
+                                                        <a class="dropdown-item" href="javascript:void(o);" data-id="<?php echo $rs['store_ID']; ?>" onclick="viewSalesPerson(this)" data-toggle="modal" data-target="#manageModalLG">
                                                             View All Sales Person
                                                         </a>
                                                     <?php

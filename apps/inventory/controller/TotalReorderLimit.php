@@ -3,8 +3,8 @@
 
 class TotalReorderLimit
 {
-    static public function getReorderRule(){
-        require_once('../../model/inventory/ReorderLimit.php');
+    public static function getReorderRule(){
+        require_once('../model/ReorderLimit.php');
         $tbl    = 'inventory_master';
         $getRst = ReorderLimit::getReorderRule($tbl);
 

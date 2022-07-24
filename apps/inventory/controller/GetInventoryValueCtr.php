@@ -3,15 +3,15 @@
 
 class GetInventoryValueCtr
 {
-    static public function totalInvVal(){
+    public static function totalInvVal(){
         $tbl    = 'product_storage_tbl';
-        require_once '../../model/inventory/GetInventoryValueMdl.php';
+        require_once '../model/GetInventoryValueMdl.php';
         $getRst     = GetInventoryValueMdl::totalInventoryValue($tbl);
 
         return $getRst;
     }
 
-    static public function totalScrapVal(){
+    public static function totalScrapVal(){
         $tbl    = 'scrap_inventory_tbl';
         require_once '../../model/inventory/GetInventoryValueMdl.php';
         $getRst     = GetInventoryValueMdl::totalScrapValue($tbl);
