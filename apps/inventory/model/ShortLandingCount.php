@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class ShortLandingCount
 {
-    static public function totalShortLanding($tbl){
+    public static function totalShortLanding($tbl){
     $stmt   = Connection::connect()->prepare("SELECT new_purch_oder.*, inbound_hold.*, purchase_order_items.*
         FROM new_purch_oder 
         INNER JOIN inbound_hold ON new_purch_oder.po_ID = inbound_hold.po_ID

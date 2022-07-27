@@ -29,14 +29,14 @@ class ChangeInventoryCategory
                     'cd'=>$cat_desc
                 );
                 if (EditInventoryCategoryByID::editCatByID($tbl, $data)){
-                    echo "<span style='color: #1b901d'>Update Successful.</span>";
+                    echo "Update Successful.";
                 } else {
-                    echo "<span style='color: #b9090e'>Update Unsuccessful</span>";
+                    echo "Update Unsuccessful";
                 }
             }
         }
         else{
-            echo "<span style='color: #b9090e'>Action not Permitted</span >";
+            echo "Action not Permitted";
         }
     }
 }

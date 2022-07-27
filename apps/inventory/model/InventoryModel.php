@@ -74,11 +74,11 @@ class InventoryModel
 
         try {
 
-            $stmt = $thisPDO->prepare("INSERT INTO $tbl(inventory_code, inventory_cat, invenotory_sub_cat, inventory_brand, inventory_name, 
-            prod_prefix, Internal_ref, re_order_rule, sellable, inventory_desc, enable_desc, item_img, base_uom, addedBy) 
-            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $thisPDO->prepare("INSERT INTO $tbl(inventory_code, inventory_cat_ID, invenotory_sub_cat_ID, inventory_brand, inventory_name, 
+            prod_prefix, Internal_ref, re_order_rule, sellable, inventory_desc, enable_desc, item_img, base_uom, addedBy, merchant_ID) 
+            VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute(array($data['ivc'], $data['pct'], $data['isc'], $data['itb'], $data['ivn'], $data['pp'], $data['inr'], $data['ror'], $data['sll'],
-                $data['ivd'], $data['edc'],$data['ig'], $data['uo'], $data['adb']));
+                $data['ivd'], $data['edc'],$data['ig'], $data['uo'], $data['adb'], $data['md']));
 
             $lastInserted_ID = $thisPDO->lastInsertId();
 
@@ -94,7 +94,7 @@ class InventoryModel
 
         } catch (PDOException $e) {
             $thisPDO->rollBack();
-            //$e->getMessage();
+            echo $e->getMessage();
             echo "Failed";
             }
         }
@@ -110,9 +110,10 @@ class InventoryModel
         if ($thisPDO->beginTransaction()) {
 
             try {
-                $stt    = $thisPDO->prepare("INSERT INTO $edited_trail_tbl(inventory_ID, inventory_code, inventory_cat, invenotory_sub_cat, inventory_brand, 
-                        inventory_name, Internal_ref, re_order_rule, sellable, enable_desc, item_img, base_uom, addedBy, data_owner, branch_owner) 
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stt    = $thisPDO->prepare("INSERT INTO $edited_trail_tbl(inventory_ID, inventory_code, inventory_cat_ID, invenotory_sub_cat_ID, 
+                inventory_brand, inventory_name, Internal_ref, re_order_rule, sellable, enable_desc, item_img, unit_cost, base_uom, 
+                addedBy, merchant_ID, branch_owner) 
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stt->execute(array(
                     $original_data['ind'],
                     $original_data['ivc'],
@@ -125,15 +126,21 @@ class InventoryModel
                     $original_data['slb'],
                     $original_data['dcs'],
                     $original_data['itg'],
+                    $original_data['unc'],
                     $original_data['um'],
                     $original_data['adb'],
                     $original_data['dto'],
                     $original_data['bro'],
                 ));
 
-                    $stmt = $thisPDO->prepare("UPDATE $tbl SET inventory_cat = :inv_ct, invenotory_sub_cat = :inv_sc, inventory_brand = :inv_brand, 
-            inventory_name = :inv_nm, Internal_ref = :int_ref, re_order_rule = :rr_r, sellable = :sllb, enable_desc = :en_dsc, item_img = :itg, base_uom = :u, 
-            InventoryStatus = 0, lastUpdateBy = :llb, lastUpdateOn = :lln WHERE inventory_ID = :inv_ID");
+                $lastInserted_ID = Connection::connect()->lastInsertId();
+
+                    $stmt = $thisPDO->prepare("UPDATE $tbl SET inventory_cat_ID = :inv_ct, invenotory_sub_cat_ID = :inv_sc, inventory_brand = :inv_brand, 
+            inventory_name = :inv_nm, Internal_ref = :int_ref, re_order_rule = :rr_r, sellable = :sllb, enable_desc = :en_dsc, item_img = :itg, 
+            unit_cost = :uct, base_uom = :u, lastUpdateBy = :llb, lastUpdateOn = :lln 
+            WHERE inventory_ID = :inv_ID
+            AND merchant_ID = :md
+            ");
                     $stmt->bindParam('inv_ct', $data['pct'], PDO::PARAM_STR);
                     $stmt->bindParam('inv_sc', $data['isc'], PDO::PARAM_STR);
                     $stmt->bindParam('inv_brand', $data['itb'], PDO::PARAM_STR);
@@ -143,13 +150,22 @@ class InventoryModel
                     $stmt->bindParam('sllb', $data['sll'], PDO::PARAM_STR);
                     $stmt->bindParam('en_dsc', $data['edc'], PDO::PARAM_STR);
                     $stmt->bindParam('itg', $data['ig'], PDO::PARAM_STR);
+                    $stmt->bindParam('uct', $data['unc'], PDO::PARAM_STR);
                     $stmt->bindParam('u', $data['uo'], PDO::PARAM_STR);
                     $stmt->bindParam('llb', $data['lb'], PDO::PARAM_STR);
                     $stmt->bindParam('lln', $data['ln'], PDO::PARAM_STR);
                     $stmt->bindParam('inv_ID', $data['ind'], PDO::PARAM_STR);
+                    $stmt->bindParam('md', $data['md'], PDO::PARAM_STR);
+                    
                     $stmt->execute();
 
-                    $lastInserted_ID = Connection::connect()->lastInsertId();
+                    //update price
+                    $slt = $thisPDO->prepare("UPDATE sales_stock SET unit_cost = :uc WHERE product_code = :pcd AND merchant_ID = :md");
+                    $slt->bindParam('uc', $data['unc'], PDO::PARAM_STR);
+                    $slt->bindParam('pcd', $original_data['ivc'], PDO::PARAM_STR);
+                    $slt->bindParam('md', $data['md'], PDO::PARAM_STR);
+                    $slt->execute();
+                    
 
                     $activity_type = "Inventory Item Updated";
                     $activity = "New Inventory Item added with id " . $lastInserted_ID;
@@ -162,7 +178,7 @@ class InventoryModel
                     return $stmt;
             } catch (PDOException $e) {
                 $thisPDO->rollBack();
-                //$e->getMessage();
+                echo $e->getMessage();
                 echo "Failed";
             }
         }

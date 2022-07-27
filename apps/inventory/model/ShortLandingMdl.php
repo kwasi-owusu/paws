@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class ShortLandingMdl
 {
-    static public function getShortLanding()
+    public static function getShortLanding()
     {
         $stmt = Connection::connect()->prepare("SELECT purchase_order_items.*, inbound_hold.*
         FROM purchase_order_items 

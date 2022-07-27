@@ -1,8 +1,8 @@
 <?php
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class WIPItems
 {
-    static public function thisWIPItems(){
+    public static function thisWIPItems(){
         $stmt   = Connection::connect()->prepare("SELECT rm_request.*, inventory_master.* 
         FROM rm_request 
         INNER JOIN inventory_master ON rm_request.finished_product = inventory_master.inventory_ID

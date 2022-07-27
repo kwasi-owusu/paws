@@ -35,7 +35,16 @@ RewriteRule ^pos-settings(.*)?$ apps/pos/view/do.pos-settings.php
 RewriteRule ^manage-shops(.*)?$ apps/pos/view/do.manage-shops.php
 
 
+#reports
+RewriteRule ^inventory-report(.*)?$ apps/inventory/view/do.stock-levels.php
+RewriteRule ^sales-report(.*)?$ apps/reports/view/do.pos_report.php
+
 ##inventory
 RewriteRule ^inventory-control(.*)?$ apps/inventory/view/do.inventory-control.php
+RewriteRule ^manage-inventory-control(.*)?$ apps/inventory/view/do.manage-inventory-control.php
+RewriteRule ^stock-levels(.*)?$ apps/inventory/view/do.stock-levels.php
+RewriteRule ^inventory-management(.*)?$ apps/inventory/view/do.inventory-management.php
+RewriteRule ^stock-shop(.*)?$ apps/inventory/view/do.stock-shop.php
+
 
 

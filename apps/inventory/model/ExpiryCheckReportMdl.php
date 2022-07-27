@@ -1,16 +1,16 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class ExpiryCheckReportMdl
 {
-    static public function getMonthsToCheckReport($tbl){
+    public static function getMonthsToCheckReport($tbl){
         $stmt = Connection::connect()->prepare("SELECT * FROM $tbl");
         $stmt->execute();
 
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
-    static public function checkExpiryReport($no_of_month, $tbl, $tbl_b, $tbl_c){
+    public static function checkExpiryReport($no_of_month, $tbl, $tbl_b, $tbl_c){
         $stmt = Connection::connect()->prepare("SELECT $tbl.*, $tbl_b.*, $tbl_c.* 
         FROM $tbl 
         INNER JOIN $tbl_b ON $tbl.inventory_cat = $tbl_b.cat_ID

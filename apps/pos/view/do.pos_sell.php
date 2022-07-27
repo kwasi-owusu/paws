@@ -91,8 +91,8 @@ $mySales = GetMyTodaySales::TodaySalesItems();
                                                 <div class="form-group">
                                                     <label>Taxable Sales</label>
                                                     <select class="form-control" name="taxableSales" id="taxableSales" data-size="7" data-style="select-with-transition">
-                                                        <option value="0">No</option>
-                                                        <option value="1" selected>Yes</option>
+                                                        <option value="0" selected>No</option>
+                                                        <option value="1">Yes</option>
                                                     </select>
                                                 </div>
                                             </div>

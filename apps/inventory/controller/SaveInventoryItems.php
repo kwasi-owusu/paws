@@ -8,7 +8,7 @@ class SaveInventoryItems
 
         $getToken   = trim($_POST['tkn']);
         $error      = false;
-        if (isset($_SESSION['inventoryItemsCors']) && $_SESSION['inventoryItemsCors'] == $getToken){
+        if (isset($_SESSION['inventory_control_token']) && $_SESSION['inventory_control_token'] == $getToken){
             $product_cat            = trim($_POST['product_cat']);
             $inventory_sub_cat      = trim($_POST['inventory_sub_cat']);
             $get_itm_brand          = trim($_POST['get_itm_brand']);
@@ -21,7 +21,7 @@ class SaveInventoryItems
             $sellable               = '';
             $enable_desc            = '';
             $added_by               = '1';
-            $prod_prefix            = trim($_POST['prod_prefix']);
+            $prod_prefix            = $inventory_code;
             $Internal_ref           = trim($_POST['Internal_ref']);
 
             
@@ -84,6 +84,7 @@ class SaveInventoryItems
 
                 $tbl        = 'inventory_master';
                 $folder     = "uploads";
+                $merchant_ID = $_SESSION['merchant_ID'];
                 $data       = array(
                     'pct'=>$product_cat,
                     'isc'=>$inventory_sub_cat,
@@ -98,7 +99,8 @@ class SaveInventoryItems
                     'adb'=>$added_by,
                     'pp'=>$prod_prefix,
                     'inr'=>$Internal_ref,
-                    'ig' => $imgContent
+                    'ig' => $imgContent,
+                    'md' =>$merchant_ID
 
                 );
                 if (InventoryModel::addInventoryItem($tbl, $data)){

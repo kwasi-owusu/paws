@@ -3,7 +3,7 @@
 session_start();
 class MoveInventoryToShop
 {
-    static public function moveToShop(){
+    public static function moveToShop(){
         $error = false;
         $getToken = trim($_POST['tkn']);
         if (isset($_SESSION['transferToken']) && $_SESSION['transferToken'] == $getToken){

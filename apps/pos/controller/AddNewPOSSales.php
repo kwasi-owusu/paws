@@ -6,7 +6,7 @@ date_default_timezone_set('Africa/Accra');
 require_once "print/vendor/autoload.php";
 
 use Mike42\Escpos\Printer;
-use Mike42\Escpos\PrintConnectors\DummyPrintConnector;
+use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\EscposImage;
 //use Mike42\Escpos\PrintConnectors\WindowsPrintConnector;
 use Mike42\Escpos\CapabilityProfile;
@@ -42,6 +42,7 @@ class AddNewPOSSales
                 $tdy = Date('d');
                 $mnt = Date('m');
                 $yr = Date('Y');
+                $merchant_ID    = $_SESSION['merchant_ID'];
 
                 $pmt_type = isset($_POST['pmt_type']) ? strip_tags(trim($_POST['pmt_type'])) : "Cash";
 
@@ -101,8 +102,7 @@ class AddNewPOSSales
 
                     //                    $grandTotal = (float)$covidAmount + $vatAmount + $taxableAmount;
                     $grandTotal = $totalAftertax;
-
-                    $merchant_ID    = $_SESSION['merchant_ID'];
+                    
 
                     $data = array(
                         'curr' => $getCurrency,
@@ -134,7 +134,7 @@ class AddNewPOSSales
                     if (POSTransactionsMdl::saveTaxableTransactions($tbl_a, $tbl_b, $tbl_c, $data)) {
 
                         //setup printer
-                        $connector = new DummyPrintConnector();
+                        $connector = new WindowsPrintConnector("Receipt Printer");
                         $profile = CapabilityProfile::load("TSP600");
                         $printer = new Printer($connector);
 
@@ -149,7 +149,7 @@ class AddNewPOSSales
                         $img = EscposImage::load("logo.png");
                         $printer->graphics($img);
 
-                        $printer->text("Atlantic Catering & Logistics" . "\n");
+                        $printer->text("Name of Restaurant Here" . "\n");
 
                         $printer->text("Receipt No." . $thisTransactionCode . "\n");
                         $printer->text("-------------------------------\n");
@@ -205,10 +205,10 @@ class AddNewPOSSales
                         $printer->cut(); //We cut the paper, if the printer has the option
 
 
-                        $data = $connector->getData();
-                        $base64data = base64_encode($data);
+                        // $data = $connector->getData();
+                        // $base64data = base64_encode($data);
 
-                        echo $base64data;
+                        // echo $base64data;
 
                         $printer->pulse();
                         $printer->close();
@@ -232,14 +232,18 @@ class AddNewPOSSales
                         'qt' => $quantity,
                         'sub' => $total,
                         'trnCode' => $thisTransactionCode,
-                        'ptp' => $pmt_type
+                        'ptp' => $pmt_type,
+                        'tdy' => $tdy,
+                        'mnt' => $mnt,
+                        'yr' => $yr,
+                        'md'=> $merchant_ID
                     );
 
                     if (POSTransactionsMdl::saveNonTaxableTransactions($tbl_a, $tbl_b, $tbl_c, $data)) {
 
 
                         //setup printer
-                        $connector = new DummyPrintConnector();
+                        $connector = new WindowsPrintConnector("Receipt Printer");
                         $profile = CapabilityProfile::load("TSP600");
                         $printer = new Printer($connector);
 
@@ -307,17 +311,17 @@ class AddNewPOSSales
                         $printer->cut(); //We cut the paper, if the printer has the option
 
 
-                        $data = $connector->getData();
-                        $base64data = base64_encode($data);
+                        // $data = $connector->getData();
+                        // $base64data = base64_encode($data);
 
-                        echo $base64data;
+                        // echo $base64data;
 
                         $printer->pulse();
                         $printer->close();
                     }
                 }
             } else {
-                echo "<span style='color: #ffffff;'>Action Not Permitted</span> ";
+                echo "Action Not Permitted";
             }
         } else {
             echo "Action Not Permitted";

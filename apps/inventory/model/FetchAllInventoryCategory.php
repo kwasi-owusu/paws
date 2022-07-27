@@ -18,4 +18,12 @@ class FetchAllInventoryCategory
 
         return $stmt->rowCount();
     }
+
+    public static function checkThisInventorySubCategoryName($tbl, $sub_cat){
+        $stmt   = Connection::connect()->prepare("SELECT * FROM $tbl WHERE sub_cat_name = :cn");
+        $stmt->bindParam("cn", $sub_cat, PDO::PARAM_STR);
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
 }

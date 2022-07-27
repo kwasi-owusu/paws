@@ -3,7 +3,7 @@
 
 class FetchAllInventoryMaster
 {
-    static public function allInventoryMaster($tbl){
+    public static function allInventoryMaster($tbl){
         require_once '../../template/statics/conn/connection.php';
         $stmt   = Connection::connect()->prepare("SELECT * FROM $tbl WHERE InventoryStatus = 1 ORDER BY inventory_name ASC");
         $stmt->execute();
@@ -11,7 +11,7 @@ class FetchAllInventoryMaster
         return $stmt->fetchAll();
     }
 
-    static public function allPendingInventoryMaster($tbl){
+    public static function allPendingInventoryMaster($tbl){
         require_once '../../template/statics/conn/connection.php';
         $stmt   = Connection::connect()->prepare("SELECT * FROM $tbl WHERE InventoryStatus = 0 ORDER BY inventory_name ASC");
         $stmt->execute();

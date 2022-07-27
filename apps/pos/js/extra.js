@@ -78,7 +78,7 @@ $("#point_of_sale_form").on("submit", function (e) {
         actionTextColor: "#fff",
         backgroundColor: "#2196f3",
       });
-      //setInterval('location.reload()', 3000);
+      setInterval('location.reload()', 3000);
     },
   });
   // }

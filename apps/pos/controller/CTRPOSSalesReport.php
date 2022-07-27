@@ -1,6 +1,6 @@
 <?php
 
-require_once('../../../model/pos/GetPOSReport.php');
+require_once('../../pos/model/GetPOSReport.php');
 class CTRPOSSalesReport
 {
     static public function allTimePOSReport(){
