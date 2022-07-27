@@ -1,13 +1,13 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class GetPOSReport
 {
     static public function allTimeReport(){
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         ORDER BY pos_trans.transaction_ID DESC
         ");
 
@@ -19,10 +19,10 @@ class GetPOSReport
     static public function thisMonthPOSSales(){
         $sm     = Date('m');
         $sy     = Date('Y');
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         WHERE pos_trans.sales_month = :sm
         AND pos_trans.sales_yr = :sy 
         ORDER BY pos_trans.transaction_ID DESC
@@ -38,10 +38,10 @@ class GetPOSReport
     static public function thisYearPOSSales(){
         $sm     = Date('m');
         $sy     = Date('Y');
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         WHERE pos_trans.sales_yr = :sy
         ORDER BY pos_trans.transaction_ID DESC
         ");
@@ -54,10 +54,10 @@ class GetPOSReport
 
     //individual Sales Person report
     static public function allTimeSalesPerson($salesPerson){
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         WHERE pos_trans.addedBy = :ad
         ORDER BY pos_trans.transaction_ID DESC
         ");
@@ -70,10 +70,10 @@ class GetPOSReport
     static public function thisMonthSalesPerson($salesPerson){
         $sm     = Date('m');
         $sy     = Date('Y');
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         WHERE pos_trans.sales_month = :sm
         AND pos_trans.sales_yr = :sy
         AND pos_trans.addedBy = :ad
@@ -90,10 +90,10 @@ class GetPOSReport
 
     static public function thisYearSalesPerson($salesPerson){
         $sy     = Date('Y');
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         WHERE pos_trans.sales_yr = :sy
         AND pos_trans.addedBy = :ad
         ORDER BY pos_trans.transaction_ID DESC
@@ -107,10 +107,10 @@ class GetPOSReport
     }
 
     static public function thisSpecificSalesDetails($saleID){
-        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users_tbl.*, pos_trans_items.* 
+        $stmt = Connection::connect()->prepare("SELECT pos_trans.*, pos_trans_financials.*, users.*, pos_trans_items.* 
         FROM pos_trans
         INNER JOIN pos_trans_financials ON pos_trans.transaction_ID = pos_trans_financials.fin_transaction_ID
-        INNER JOIN users_tbl ON pos_trans.addedBy = users_tbl.user_ID
+        INNER JOIN users ON pos_trans.addedBy = users.user_ID
         INNER JOIN pos_trans_items ON pos_trans.transaction_ID = pos_trans_items.itm_transaction_ID
         WHERE pos_trans.transaction_ID = :sd
         ORDER BY pos_trans.transaction_ID DESC

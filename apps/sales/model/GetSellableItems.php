@@ -6,11 +6,11 @@ class GetSellableItems
 {
     public static function allSellableItems($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e , $myBranch, $noDays, $userType, $me)
     {
-        $tbl_a      = 'inventory_master';
-        $tbl_b      = 'sales_stock';
-        $tbl_c      = 'inventory_cat';
-        $tbl_d      = 'sales_persons';
-        $tbl_e      = 'pos_store';
+        // $tbl_a      = 'inventory_master';
+        // $tbl_b      = 'sales_stock';
+        // $tbl_c      = 'inventory_cat';
+        // $tbl_d      = 'sales_persons';
+        // $tbl_e      = 'pos_store';
         
         if ($userType != 1) {
             $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*, $tbl_d.*, $tbl_e .*

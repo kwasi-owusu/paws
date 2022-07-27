@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class ReorderLimitReport
 {
-    static public function getReorderRuleRpt($tbl, $tbl_b, $tbl_c){
+    public static function getReorderRuleRpt($tbl, $tbl_b, $tbl_c){
 
         $stmt = Connection::connect()->prepare("SELECT $tbl.*, $tbl_b.*, $tbl_c.* 
         FROM $tbl 

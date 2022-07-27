@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../template/statics/conn/connection.php';
+require_once '../../../template/statics/conn/connection.php';
 class GetInventorySubCat
 {
     public static function callInventorySubCat($tbl_a, $tbl_b, $sub_cat_ID){

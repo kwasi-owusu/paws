@@ -11,5 +11,4 @@ class GetAllInventoryCategories
         return $getCat;
     }
 }
-$callClass  = new GetAllInventoryCategories();
-$CallMethod = $callClass->allCategories();
+GetAllInventoryCategories::allCategories();

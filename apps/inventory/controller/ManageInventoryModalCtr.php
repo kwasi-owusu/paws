@@ -4,7 +4,7 @@
 class ManageInventoryModalCtr
 {
     public static function getInventoryStorageDetails($storage_ID){
-        require_once '../model/ManageInventoryModalMdl.php';
+        require_once '../../model/ManageInventoryModalMdl.php';
         $getRst = ManageInventoryModalMdl::callInventoryDetails($storage_ID);
 
         return $getRst;

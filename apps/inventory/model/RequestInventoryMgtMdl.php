@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class RequestInventoryMgtMdl
 {
-    static public function scrapRequest($tbl, $data)
+    public static function scrapRequest($tbl, $data)
     {
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
@@ -57,7 +57,7 @@ class RequestInventoryMgtMdl
     }
 
 
-    static public function transferInvRequest($tbl, $data)
+    public static function transferInvRequest($tbl, $data)
     {
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();
@@ -113,7 +113,7 @@ class RequestInventoryMgtMdl
         }
     }
 
-    static public function countVarianceRequest($tbl, $data)
+    public static function countVarianceRequest($tbl, $data)
     {
         $newPDO = new Connection();
         $thisPDO = $newPDO->Connect();

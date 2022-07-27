@@ -3,7 +3,7 @@
 
 class GetSubCatController
 {
-    static public function getSubCategory(){
+    public static function getSubCategory(){
         $getCat = trim($_POST['sbc']);
         if ($getCat != 999){
             $tbl    = 'inventory_sub_cat';
@@ -28,5 +28,4 @@ class GetSubCatController
     }
 }
 
-$calClass   = new GetSubCatController();
-$callMethod = $calClass->getSubCategory();
+GetSubCatController::getSubCategory();

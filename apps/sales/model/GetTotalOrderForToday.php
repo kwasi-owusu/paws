@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class GetTotalOrderForToday
 {
-    static public function todayOrders($tbl)
+    public static function todayOrders($tbl)
     {
 
         $dy = Date('d');
@@ -19,7 +19,21 @@ class GetTotalOrderForToday
         return $stmt->rowCount();
     }
 
-    static public function totalSalesToday($tbl, $tbl_b)
+    public static function thisMonthOrders($tbl)
+    {
+
+        $dy = Date('d');
+        $mn = Date('m');
+        $yr = Date('Y');
+        $stmt = Connection::connect()->prepare("SELECT * FROM  $tbl WHERE MONTH(order_dt) = :mn");
+        $stmt->bindParam('mn', $mn, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $stmt->rowCount();
+    }
+
+    public static function totalSalesToday($tbl, $tbl_b)
     {
         $tdy = Date('Y-m-d');
         $stmt = Connection::connect()->prepare("SELECT $tbl.*, $tbl_b.sales_order_ID, $tbl_b.sub_total,$tbl_b. amountDueTop, $tbl_b.amountPaid, 
@@ -35,7 +49,7 @@ class GetTotalOrderForToday
         return $stmt;
     }
 
-    static public function fulfilledOrdersToday($tbl, $tbl_b)
+    public static function fulfilledOrdersToday($tbl, $tbl_b)
     {
         $tdy = Date('Y-m-d');
         $stmt = Connection::connect()->prepare("SELECT $tbl.*, $tbl_b.* FROM  $tbl 
@@ -48,7 +62,7 @@ class GetTotalOrderForToday
         return $stmt;
     }
 
-    static public function todayOrdersForDashboard($tbl_a, $tbl_b){
+    public static function todayOrdersForDashboard($tbl_a, $tbl_b){
         $ddy = Date('Y-m-d');
         $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*
         FROM  $tbl_a, $tbl_b 
@@ -57,6 +71,40 @@ class GetTotalOrderForToday
         AND approval_status = 1
         ");
         $stmt->bindParam('td', $ddy, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+    
+    public static function thisMonthOrdersForDashboard($tbl_a, $tbl_b){
+        $mn = Date('m');
+        $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*
+        FROM  $tbl_a, $tbl_b 
+        WHERE $tbl_a.customer_ID = $tbl_b.customa_ID
+        AND MONTH($tbl_a.order_dt) = :mn 
+        AND approval_status = 1
+        ");
+        $stmt->bindParam('mn', $mn, PDO::PARAM_STR);
+
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
+       
+
+    public static function topSellingItemsThisMonth($tbl_a, $tbl_b, $tbl_c, $tbl_d){
+        $mn = Date('m');
+        $stmt = Connection::connect()->prepare("SELECT $tbl_a.*, $tbl_b.*, $tbl_c.*, $tbl_d.*, 
+        SUM($tbl_c.grand_total) AS grandTotal
+        FROM  $tbl_a, $tbl_b, $tbl_c, $tbl_d
+        WHERE $tbl_a.inventory_code = $tbl_b.inventory_code
+        AND $tbl_a.itm_transaction_ID = $tbl_c.fin_transaction_ID
+        AND MONTH($tbl_d.system_date) = :mn 
+        ORDER BY grandTotal ASC
+        LIMIT 5
+        ");
+        $stmt->bindParam('mn', $mn, PDO::PARAM_STR);
 
         $stmt->execute();
 

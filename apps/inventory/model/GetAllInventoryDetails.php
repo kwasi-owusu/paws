@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class GetAllInventoryDetails
 {
-    static public function allInventoryDetails($inventory_code){
+    public static function allInventoryDetails($inventory_code){
         $stmt   = Connection::connect()->prepare("SELECT inventory_master.inventory_code, inventory_master.inventory_cat, 
         inventory_master.invenotory_sub_cat, inventory_cat.cat_ID, inventory_cat.cat_name, inventory_cat.cat_desc, inventory_sub_cat.sub_cat_ID, 
         inventory_sub_cat.cat_ID, inventory_sub_cat.sub_cat_name

@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class GetInventoryForMRP
 {
-    static public function getFG(){
+    public static function getFG(){
 
         $stmt   = Connection::connect()->prepare("SELECT inventory_master.*, inventory_cat.* 
         FROM inventory_master 
@@ -16,14 +16,14 @@ class GetInventoryForMRP
         return $stmt;
     }
 
-    static public function getOtherMaterialsG(){
+    public static function getOtherMaterialsG(){
         $stmt   = Connection::connect()->prepare("SELECT * FROM inventory_master WHERE inventory_cat <> 1 ORDER BY inventory_name ASC");
         $stmt->execute();
 
         return $stmt;
     }
 
-    static public function getFGItemsWithBOM($my_branch, $userType){
+    public static function getFGItemsWithBOM($my_branch, $userType){
         if ($userType != 1) {
             $stmt = Connection::connect()->prepare("SELECT DISTINCT(inventory_master.inventory_code), inventory_master.inventory_code, 
         inventory_master.inventory_ID, inventory_master.inventory_code, inventory_master.inventory_name, inventory_master.Internal_ref, 

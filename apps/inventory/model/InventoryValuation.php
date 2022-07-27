@@ -1,9 +1,9 @@
 <?php
 
-require_once '../../../model/connection.php';
+require_once '../../template/statics/conn/connection.php';
 class InventoryValuation
 {
-    static public function valueInventory(){
+    public static function valueInventory(){
         $stmt   = Connection::connect()->prepare("SELECT product_storage_tbl.storage_ID, product_storage_tbl.inventory_cat, 
             product_storage_tbl.product_name, product_storage_tbl.recieved_qty, product_storage_tbl.wh_stored, product_storage_tbl.unit_cost, 
             COUNT(product_storage_tbl.storage_ID) AS TotalInventory,  
@@ -20,7 +20,7 @@ class InventoryValuation
 
 
     //get wip value
-    static public function wipValuation(){
+    public static function wipValuation(){
         $stmt   = Connection::connect()->prepare("SELECT request_ID, COUNT(request_ID) AS cntValue, production_status, fg_unit_price, 
         fg_unit_price, SUM(expeted_yield * fg_unit_price) AS totalCost
         FROM rm_request
@@ -31,7 +31,7 @@ class InventoryValuation
         return $stmt;
     }
 
-    static public function thisInventoryItems($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e, $get_cat_ID){
+    public static function thisInventoryItems($tbl_a, $tbl_b, $tbl_c, $tbl_d, $tbl_e, $get_cat_ID){
         $stmt = Connection::connect()->prepare("SELECT $tbl_a.storage_ID, $tbl_a.product_code, $tbl_a.inventory_cat, $tbl_a.inventory_sub_cat, 
         $tbl_a.product_name, $tbl_a.batch_num, $tbl_a.recieved_qty, $tbl_a.wh_stored, $tbl_a.storage_address, $tbl_a.manu_dt, $tbl_a.expiry_dt, 
         DATEDIFF(product_storage_tbl.expiry_dt, NOW()) AS days_to_expire, $tbl_a.addedOn, $tbl_a.addedBy, $tbl_b.inventory_code, $tbl_b.inventory_cat, 

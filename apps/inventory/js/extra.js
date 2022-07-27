@@ -150,32 +150,33 @@ $("#inventory_name").on("keyup", function () {
   $("#Internal_ref").val(invName);
 });
 
+function inventoryHistory(itm) {
+    let id = $(itm).attr("data-id");
+    $("#historyHere").load(
+      "inventory/view/check.inventory_history.php?id=" + id,
+      function (data) {
+        $("#historyHere").html(data);
+      }
+    );
+  }
+
 function editInventoryMaster(itm) {
   let id = $(itm).attr("data-id");
-  $("#editHere").load(
-    "inventory/view/do.editInventory_items.php?id=" + id,
+  $("<div>").load(
+    "inventory/view/modals/edit.inventory_items.php?id=" + id,
     function (data) {
-      $("#editHere").html(data);
+      $("#inventoryMasterItemModalContentLG").html(data);
     }
   );
 }
 
-function inventoryHistory(itm) {
-  let id = $(itm).attr("data-id");
-  $("#historyHere").load(
-    "inventory/view/check.inventory_history.php?id=" + id,
-    function (data) {
-      $("#historyHere").html(data);
-    }
-  );
-}
 
 function editInventoryCategory(itm) {
   let id = $(itm).attr("data-id");
   $("<div>").load(
     "inventory/view/modals/edit.inventory_category.php?id=" + id,
     function (data) {
-      $("#loadModalHere").html(data);
+      $("#inventoryModalContentLG").html(data);
     }
   );
 }
@@ -186,10 +187,21 @@ function editInventorySubCat(itm) {
     "inventory/view/modals/edit.inventory_sub_category.php?id=" +
       id,
     function (data) {
-      $("#loadModalHere").html(data);
+      $("#inventoryModalContentLG").html(data);
     }
   );
 }
+
+function editInventoryBrands(itm) {
+    let id = $(itm).attr("data-id");
+    $("<div>").load(
+      "inventory/view/modals/edit.inventory_sub_category.php?id=" +
+        id,
+      function (data) {
+        $("#inventoryModalContentLG").html(data);
+      }
+    );
+  }
 
 function scrapInventoryRequest(itm) {
   let id = $(itm).attr("data-id");
@@ -218,6 +230,16 @@ function inventoryCountVariance(itm) {
     "inventory/view/modals/count_inventory_request.php?id=" + id,
     function (data) {
       $("#loadModalHere").html(data);
+    }
+  );
+}
+
+function stockShopQuick(itm) {
+  let id = $(itm).attr("data-id");
+  $("<div>").load(
+    "inventory/view/modals/stock_shop_quick.php?id=" + id,
+    function (data) {
+      $("#ModalContentLG").html(data);
     }
   );
 }

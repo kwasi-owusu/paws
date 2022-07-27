@@ -20,6 +20,10 @@ $inventoryMaster = GetAllInventoryMaster::loadInventoryMaster();
 //get all UOM
 require_once('../../settings/controller/GetAllUOMController.php');
 $uom = GetAllUOMController::allUOM();
+
+//get all brands
+require_once('../controller/GetInventoryBrands.php');
+$all_brands = GetInventoryBrands::loadAllBrands();
 ?>
 
 <div id="content" class="main-content">
@@ -58,7 +62,7 @@ $uom = GetAllUOMController::allUOM();
                                 <a class="nav-link mb-2 mx-auto" id="rounded-vertical-pills-messages-tab" data-toggle="pill" href="#rounded-vertical-pills-item" role="tab" aria-controls="rounded-vertical-pills-messages" aria-selected="false"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                                         <polyline points="22,6 12,13 2,6"></polyline>
-                                    </svg> Inventory Items
+                                    </svg> Inventory Master Items
                                 </a>
                             </div>
                         </div>
@@ -223,17 +227,26 @@ $uom = GetAllUOMController::allUOM();
                                                         <label class="bmd-label-floating">Inventory Brand</label>
                                                         <select class="form-control input-lg m-bot15" name="get_itm_brand">
                                                             <option value="999">Not Applicable</option>
-                                                            <option value="1">Guinness</option>
+                                                            <optgroup label="Select a Brand">
+                                                                <?php
+                                                                foreach($all_brands as $brd){
+                                                                ?>
+                                                                <option value="<?php echo $brd['name']; ?>"><?php echo $brd['name']; ?></option>
+                                                                <?php
+                                                                }
+                                                                ?>
+                                                            </optgroup>
                                                         </select>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <hr />
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="bmd-label-floating"> Inventory Code *</label>
                                                         <input type="text" class="form-control input-lg m-bot15" id="inventory_code" name="inventory_code" required ">
-                                                        <input type=" hidden" class="form-control" id="tkn" name="tkn" value="<?php echo $token; ?>" required readonly>
+                                                        <input type="hidden" class="form-control" id="tkn" name="tkn" value="<?php echo $token; ?>" required readonly>
                                                     </div>
                                                 </div>
 
@@ -255,6 +268,7 @@ $uom = GetAllUOMController::allUOM();
                                                     </div>
                                                 </div>
                                             </div>
+                                            <hr />
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -288,16 +302,9 @@ $uom = GetAllUOMController::allUOM();
 
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label> Inventory Prefix</label>
-                                                        <select class="form-control input-lg m-bot15" name="prod_prefix">
-                                                            <?php
-                                                            foreach ($uom as $u) {
-                                                            ?>
-                                                                <option value="<?php echo $u['uom']; ?>" selected><?php echo $u['uom']; ?></option>
-                                                            <?php
-                                                            }
-                                                            ?>
-                                                        </select>
+                                                        <label class="bmd-label-floating"> Inventory Item
+                                                            Image</label>
+                                                        <input type="file" class="form-control" name="item_img" id="item_img">
                                                     </div>
                                                 </div>
                                                 <!--                                                    <div class="col-md-6">-->
@@ -306,18 +313,11 @@ $uom = GetAllUOMController::allUOM();
                                                 <!--                                                    </div>-->
 
                                             </div>
+                                            <hr />
 
                                             <div class="row">
-
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="bmd-label-floating"> Inventory Item
-                                                            Image</label>
-                                                        <input type="file" class="form-control" name="item_img" id="item_img">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-4">
+                                                
+                                                <div class="col-md-6">
                                                     <label>Sellable
                                                         <span class="bs-popover rounded" data-container="body" data-trigger="hover" data-content="Sellable inventory are those that are sold on the POS." style="cursor: pointer;">
                                                             ?
@@ -334,7 +334,7 @@ $uom = GetAllUOMController::allUOM();
                                                 </div>
 
 
-                                                <div class="col-md-4">
+                                                <div class="col-md-6">
                                                     <label> Enable Description </label>
                                                     <div class="form-group">
                                                         <div class="checkbox">
@@ -348,6 +348,7 @@ $uom = GetAllUOMController::allUOM();
                                                 </div>
                                             </div>
 
+                                            <hr />
 
                                             <div class="row">
                                                 <div class="col-md-12">

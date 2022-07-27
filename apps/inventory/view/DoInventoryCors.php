@@ -49,9 +49,9 @@ class DoInventoryCors
     }
 
 
-    public static function inventoryItemsCors()
+    public static function inventoryItemsCors($page_name)
     {
-        $page_is        = "do.inventory.inventoryItemsCors.php";
+        $page_is        = $page_name;
         $thi_is_is      = "[Developed by Bahrima InfoSystems with LOVE]";
         $rock_hash      = $page_is . $thi_is_is;
 
